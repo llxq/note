@@ -1,0 +1,104 @@
+-> AJAX 
+	-> 基本内容：
+		-> 同步交互与异步交互
+			-> 同步交互：
+				-> 客户端向服务器端发送请求,直到服务器端进行响应这个过程,过程中用户是
+					不能做任何操作的
+			-> 异步交互：
+				-> 客户端向服务器端发送请求,直到服务器端进行响应这个过程中,用户可以做
+					任何其他事情
+					
+	-> 什么是AJAX
+		-> Asynchronous	JavaScript and	Xml 异步的JavaScript和Xml
+		-> AJAX是一种用来改善用户体验的技术,其实质是,使用XMLHttPRequest对象异步地
+		向服务器发请求
+		-> 服务器返回部分数据,而不是一个完整的页面,以页面无刷新的效果更改页面中的部
+			分内容
+		-> AJAX实现的是B/S架构下的异步交互
+		-> 实现异步交互的技术
+			-> <iframe src="服务器端路径"> 元素
+			
+	-> 同步与异步的区别
+		-> 同步交互
+			-> 执行速度相对比较慢
+			-> 响应的是完整的HTML
+		-> 异步交互
+			-> 执行速度相对比较快
+			-> 响应的是部分数据
+			
+	-> AJAX具有核心对象
+		-> XMLHTTPRequest对象
+		
+	-> 获取AJAX对象
+		-> function getXhr(){
+			var xhr=null;
+			if(window.XMLHttpRequest){
+				/*常规浏览器*/
+				xhr=new	XMLHttpRequest();
+			}else{
+				/*ie浏览器*/
+				xhr=new ActiveXObject('Microsoft.XMLHttp');
+			}
+			return xhr;
+		}
+		
+	-> AJAX的核心对象
+		-> 属性
+			-> readystate
+			-> status
+		-> 方法
+			-> open()：与服务器端建立连接
+			-> dend()：向服务器端发送请求
+		-> 事件
+			-> onreadystatechange事件
+				-> 监听服务器端的通信状态改变
+				
+	-> 实现Ajax异步交互的步骤
+	  -> GET方式请求
+		-> 实现Ajax主要依靠 XMLHTTPRequest 对象
+		  -> 创建 XMLHTTPRequest 对象
+		   -> 如果请求方式为 GET方式 的话
+			  -> send()方法 是不能向服务器端发送请求数据的
+				 -> 注意：
+					-> send()方法 是不能被省略的
+					-> send(null);
+					-> 参数和值 写在了url后面 以：?key=value 形式写入
+		  -> 与服务器端建立连接
+				  -> open(method,url,async)方法
+				  	-> method：设置当前的请求类型 (GET或POST)
+					-> url：设置当前请求的地址
+					-> async：Boolean值 默认为true 代表异步,false代表不异步
+					   -> ECMA 官方现不推荐写这个参数,版本更新之后,没有了该参数
+					   -> 官方认为 XMLHTTPRequest对象 就是为了实现异步交互的
+		  -> 客户端向服务器端发送请求
+				  -> send(请求参数)方法
+				    -> 请求参数的格式：key=value
+		  -> 客户端接收服务器端的响应
+				  -> 使用 onreadystatechange 事件  ：监听服务器
+				    -> 监听服务器端的通信状态
+					  -> 通过 readyState属性 得到服务器端的通信状态
+					    -> 备选项：
+							-> 0 ：尚未初始化
+							-> 1 ：正在接收
+							-> 2 ：接收完成
+							-> 3 ：正在响应
+							-> 4 ：响应完成
+					-> 必须的保证这次请求是成功的,通过状态码
+					  -> status ：状态码
+					    -> 200  ok
+					-> responseText属性
+					  -> 接收服务器端的数据(HTML格式)
+					  
+	 -> POST方式提交
+		-> 创建XMLHTTPRequest对象
+		-> 建立连接 open()方法
+		-> send()方法起作用了
+			-> 在send()方法被调用之前,使用setRequestHeader()方法
+				-> setRequestHeader()方法 固定参数
+					-> setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+					
+-> 另外的实现Ajax的步骤
+	-> 创建XMLHTTPRequest对象
+	-> 注册监听
+	-> 建立连接
+	-> 发送请求

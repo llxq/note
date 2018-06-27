@@ -1,0 +1,46 @@
+	<!-- IE = edge 代表的是使用最新 ie 版本渲染 -->
+    <!-- 设置浏览器的兼容版本 (这话的意思就是让 ie 使用最新的引擎渲染工作) -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<!-- 声明当前网页在移动端浏览器中展示的相关设置 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	-> 视口的作用:
+		-> 在移动浏览器中，当页面宽度超出设备，浏览器内部虚拟的一个页面容器，将页面容器缩放到设备这么大，然后展示
+	-> 目前大多数手机浏览器的视口(承载页面的容器) 宽度都是 980
+	-> 视口的宽度可以通过 meta 标签设置 
+		<meta name="viewport" content="width=1044">   //这个就是设置视口宽度为 1044
+	-> 去掉初始化缩放
+		<meat name="viewport" content="width=414, initial-scale=1.0">
+	-> 如果手动调整了缩放的值，会破坏设置的值，防止的方法
+	<meat name="viewport" content="width=414, initial-scale=1.0, user-scalable=no"
+	-> 获取设备的宽度为设置的宽度
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no>
+	
+-> 视口参数
+	-> width：视口的宽度
+	-> initial-scale：初始化宽度
+	-> user-scalable：是否允许用户自行缩放 (值：yes/no 或 1/0)
+	-> minimum-scale：最小缩放，一般设置了用户不允许缩放，就没必要设置最小和最大缩放
+	-> maximum-scale：最大缩放
+	
+	
+-> bootstrap 中的基础样式
+	-> visible-xx-xx：最后一个 xx 决定你的元素的 display 的值
+	-> hidden-xs：控制元素在屏幕大小为多少的时候隐藏
+	
+	-> 在一个较小屏幕下展示一个超宽的图片，想让图片居中显示
+		-> position：absolute
+
+
+-> 字体图标格式
+	-> eot：embedded-opentype
+	-> svg：svg
+	-> ttf：truetype
+	-> woff：woff
+	
+-> 字体样式
+	-> font-family："Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
+	
+
+-> 面包屑导航，响应式
+	-> https://v3.bootcss.com/components/#navbar-default

@@ -1,0 +1,56 @@
+-> Web Worker
+	-> 基本内容
+		-> 单线程与多线程
+			-> Worker可以模拟多线程效果
+		-> 定义：运行在后台的JavaScript
+		-> 注意：不能访问页面和使用DOM
+			-> 在Worker中只能使用JavaScript中的ECMA
+			-> ie8以下不支持
+	-> Worker提供的API
+		-> 检测当前浏览器是否支持Worker
+			-> if(typeof(Worker)!=="undefined"){
+				说明当前浏览器支持WebWorker
+			}else{
+				说明不支持
+			}
+		-> 创建WebWorker对象
+			-> new Worker(worker文件路径);
+				-> worker文件：js文件
+			-> 一个worker对象对应一个worker文件
+		-> Worker对象
+			-> onmessage事件
+				-> 为worker对象绑定onmessage事件
+					-> 该事件的处理函数
+						-> 通过event事件对象的data属性
+							-> 可以获取postMessage()方法传递的数据
+			-> postMessage()方法
+				 将计算结果,传递给HTML页面中的worker对象
+				-> 在worker文件,全局对象就是worker对象
+				-> 在worker文件中,使用worker对象的方法(直接使用)
+				-> 当执行postMessage()方法时,会触发onmessage事件
+			-> terminate()方法  
+				-> 终止worker的执行
+				
+-> Web存储API
+	-> 基本内容
+		-> HTML5存储系统
+		   -> localStorage(本地存储)	//替代Cookie
+		   -> sessionStorage(会话存储)	//替代Session(类似于内存)
+			  -> setItem(key,value)方法
+				 -> 作用：设置数据(新增数据)
+					-> 参数：
+						-> key：作为存储数据的标识(唯一,不可重复)
+						-> value：存储的数据内容
+			  -> getItem(key)方法
+				 -> 作用：获取数据
+				 -> 参数：
+					-> key：根据key获取对应的数据内容
+				 -> 返回值：key对应的value值
+			  -> key(index)方法
+				 -> 作用：根据索引值返回对应的key
+			  -> removeItem(key)方法
+				 -> 作用：删除指定key的数据
+			  -> clear()方法
+				 -> 作用：将存储系统的所有数据删除(清空)
+			  -> length属性
+				 -> 作用：返回当前存储系统的数据个数

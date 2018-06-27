@@ -1,0 +1,265 @@
+-> -> web1.0	以内容为主的网站(门户网站)
+-> web2.0	以人的关系为主的网站(社交网站)
+-> web3.0	基于移动互联网的社交网站(微信)
+
+-> jQuery选择器：
+	-> 基本选择器：
+	-> 层级选择器：
+	-> 过滤选择器：
+		-> 基本过滤选择器：
+		-> 子元素过滤选择器：
+		-> 内容过滤选择器：
+		-> 可见性过滤选择器：
+		-> 属性过滤选择器：
+		-> 表单对象属性过滤选择器：
+	-> 表单选择器
+-> nth-child(1)		//这个的索引是从1开始的
+-> only-child	  //只有一个子元素的时候使用  获取只有一个子元素的父元素的子元素	
+-> div:contains("文本")		//文本包含"文本"的div元素
+-> div:empty		//不包含任何文本内容或子元素的div元素
+-> div:parent	   //包含任何文本内容或子元素的div元素
+-> div:has(".mini")			//包含class为mini的div元素的父div元素
+-> div:visible		//改变可见的div元素
+-> div:hidden		//改变不可见的div元素
+-> div[属性名]		//包含当前属性名的div元素
+-> div[属性名=a]	//包含当前属性名的值为a的div元素
+-> div[属性名!=a]	//包含当前属性名的值不为a的div元素  也包含没有该属性的div
+-> div[属性名^=a]	//包含当前属性名的值以a开头的div元素 结束则使用$
+-> div[属性名*=a]	//包含当前属性名的值 包含a的div元素
+-> 多个属性过滤选择器并列使用：
+	-> div[title$=t1][id]	//包含属性title值是以t1结束的,包含id属性的div元素
+
+-> 多个选择器可以同时使用：
+	-> 效果是并集效果,中间使用逗号分隔
+	-> $("#id,.class");
+	
+-> jQuery对象变量名约定 加$
+	-> var $userNmae=$("#id");
+	
+-> DOM对象与jQuery对象：
+	-> DOM对象：通过DOM获取的元素,称为DOM对象
+	-> jQuery对象：通过jQuery包装DOM后产生的对象
+		-> jQuery对象的底层还是DOM对象
+	
+-> DOM对象与jQuery对象的转换
+	-> DOM对象转换为jQuery对象
+		-> var $userNmae1=$(DOM对象);
+	-> jQuery对象转为DOM对象
+		-> jQuery对象是数组对象
+			-> var userNmae=$userNmae1[0];
+		-> jQuery对象提供了get(index)方法
+			-> var userNmae=$userNmae1.get(0);
+	
+-> 注意！！  
+	-> DOM对象与JQuery对象之间不能相互调用
+
+-> jQuery中的DOM操作：
+		->  基本操作：
+			-> html()：读取或设置html代码
+			-> val()：获取或设置value属性
+			-> text()：获取或设置文本内容
+			-> attr()：获取或设置指定元素的的属性	//固定套路 attr("class",value)
+				-> removeattr(属性名)：删除指定属性名的属性
+					-> DOM删除之后显示的值为null jQuery为undefined
+		-> 样式操作：
+			-> addClass()	//追加样式
+			-> removeClass()	//删除样式
+			-> toggleClass()	//切换样式
+			-> hasClass()	//判断是否拥有该样式
+			
+-> 遍历节点：
+	-> parent()		//获取指定节点的父节点
+	-> children()	//获取指定节点的所有子节点
+		-> children("里面可以填写过滤器")
+			-> 填写了顾虑器可以 获取指定节点下的所有指定节点
+			-> 和find的区别 是沿着DOM树向下遍历单一层级 这里的children可以理解为儿子
+			-> 这个是 获取直接子元素
+		-> find() 用法与children()类似
+			-> find()方法是找寻后代所有符合的后代节点
+	-> next()		//获取指定节点的下一个兄弟节点
+	-> prev()		//获取指定节点的上一个兄弟节点
+	-> siblings()	//获取指定节点的所有兄弟节点
+	
+-> 创建属性节点：
+	-> 元素节点		$(HTML代码)
+	-> 文本节点		text()
+	-> 属性节点 	attr()
+	
+-> 删除节点：
+	-> remove()		//删除指定节点,包括当前节点也被删除
+	-> empty()		//删除指定节点下的所有节点  类似于是innerHTML=""
+			
+-> 插入：
+	-> 内部插入：  插入到当前元素的前/后面,可以插入到子元素中
+		-> append
+		-> prepend
+		-> appendTo
+		-> prependTo
+	-> 外部插入：  插入到当前元素的前/后面,直接插入在当前元素的父元素的前/后面
+		-> before
+		-> after
+		-> insertBefore
+		-> insertAfter
+-> 替换节点：
+	-> replaceWith：前面的元素是被替换的,后面的元素是替换的
+	-> replaceAll：前面的是替换的元素,后面的是被替换的  (就是颠倒了的replaceWith)
+-> 复制节点：
+	-> jquery的复制
+		-> clone(Boolean)
+			-> Boolean参数：表示是否复制事件(不填默认为false)
+	-> DOM中的复制
+		-> cloneNode(Boolean)
+			-> Boolean参数：表示是否复制后代节点(不填默认为false)
+
+-> jquery具有相对完善的事件处理机制
+-> jQuery如果找一个不存在的元素并且读取他的val()返回的是undefined			
+-> DOM则报错		//可以通过if else判断是否存在达到jquery一样的效果
+	
+-> 事件：
+	-> ready()==window.onload
+	-> 简写：$(function(){方法体})
+-> ready与onload的区别：
+	-> ready：
+		-> 具有简写方式
+		-> 在一个HTML页面中可以存在多个
+		-> 等待HTML页面中所有DOM结构加载完毕后就可以执行
+	-> onload：
+		-> 无简写方式
+		-> 在一个HTML页面中只能一个
+		-> 必须等待HTML页面中所有内容全部加载完毕后才能执行
+-> 事件绑定与解绑
+	-> bind(type,[data],fn)
+		-> type：设置绑定的事件名称,string类型
+			-> 绑定多个事件的时候,用空格隔开
+		-> data：可选项
+		-> fn：事件对应的处理函数
+	-> unbind(type)
+		-> 没值：解绑所有事件
+		-> 指定单事件：解绑指定事件
+		-> 指定多事件：解绑多个事件
+	-> 绑定与解绑允许指定那些事件？
+		-> 很多就是了
+	-> click()事件是bind('click')的简写形式
+-> 事件对象(event)
+	-> 事件对象被封装在事件对应的处理函数的参数中
+	-> 常用用法：
+		-> pageX(相对于界面)/clientX/offsetX(相对于父元素)/x
+		-> target：当前绑定事件的源对象(元素)
+		-> returnValue	返回,Boolean类型
+			-> return false	  阻止页面的默认行为
+		-> which/keyCode/charCode	键盘对应值
+		-> cancelBubble：是否取消事件冒泡
+		
+-> 事件冒泡：
+	-> 捕获：
+	-> 触发:
+	-> 冒泡：
+-> 模拟事件：
+	-> trigger(type,[data])
+	-> 例子
+		-> $("button").click(function(){
+			console.log(a+":"+b);		这里输出的就是a的值和b的值
+			}).trigger("click",["a的值,b的值"]);
+-> hover(over,out)
+
+-> 动画效果：
+	-> 显示与隐藏
+		-> show()
+			-> show(speed,callback)  //时长,回调函数(动画执行完之后执行)
+		-> hide()
+		-> 都有三个预定义值：
+			-> slow|normal|fast
+	-> 滑动效果：
+		-> slideUp()  //向上滑动 
+			-> slideUP(speed,callback)
+		-> slideDown()//向下滑动
+		-> slideToggle()隐藏就显示,显示就隐藏
+	-> 淡入淡出：
+		-> fadeln()、fadeOut()、fadeToggle()同上、fadeTo()到达透明度为多少
+	-> 自定义效果：
+		-> animate()
+		-> animate({可以填写多个css一起执行})	//并发执行
+			-> 还可以这样写：
+				-> animate().animate({},{queue:false})...	//将queue的值设为false
+		-> animate().animate()...		//排队执行
+		-> animate(params,option)
+			-> params：设置执行动画的样式
+			-> option	选项
+				-> 写法：{name=value}
+				-> 选项
+					-> duration		设置动画执行的时长
+					-> easing		要使用的擦除效果的名称
+					-> complete		动画执行完毕之后的函数
+					-> queue		设定为false将使此动画不进入动画队列
+	-> 切换动画
+		-> toggle()		show()+hide()
+		-> slideToggle()	 slideUp()+slideDown()
+		-> fadeTo(speed,opacity(透明度),callback)   fadeTo()+fadeOut()  //不切换
+		
+-> 类(似)数组操作：		//jquery对象是数组对象
+	-> length：获取当前jquery对象中包含多少个dom对象
+	-> get(index)	//根据索引返回dom对象
+	-> eq(index)	//将下标等于index的DOM对象取出来
+	-> index(obj)	//根据DOM对象返回对应索引
+	-> 遍历：
+		-> $().each(callback)		//对象方法
+			-> callback		//回调函数：function(index,domEle)
+				-> index：当前遍历数组或对象的索引值
+				-> domEle：遍历数组或对象得到的每个元素(DOM对象)
+		-> $.each(obj,callback)	 //全局函数
+			-> obj：需要遍历的数组或对象
+			-> callback：function(index,domEle)
+	-> 概念：
+		-> 隐式迭代：jquery的遍历
+			-> 在遍历的过程中,只关注入口和出口
+				-> 数组就是入口  (遍历对象)
+				-> 数组中的每个元素就是出口
+		-> 显示迭代：例如：for循环
+			-> 在遍历的过程中,从开始到结束控制遍历的所有过程
+	-> $(this).index()：获取当前对象的index
+		
+->this的用法：
+    -> 在具有上下文环境中使用this
+         -> this指代上下文环境  //谁调用this就是指代谁
+    -> 在js中创建构造器时使用this
+    	 -> this指代new之后的对象
+    -> 在jquery中的隐式迭代中使用this
+    	 -> this指代DOM对象
+    
+-> 插件：
+    -> 目录说明：
+	 -> lang：皮肤国际化(i18n)文件
+	      -> 本地化(i10n)
+	 -> skin：皮肤
+	 -> WdatePicker.js：配置文件,在调用的地方仅需要使用该文件,可多个共存,,以xx_WdatePicker.js方式命名
+	 -> calendar.js 日期库主文件,无需引入 
+    -> 使用：
+    	 -> 将My97Datepicker文件夹整体拷贝到工程目录中
+    -> 使用步骤：
+         -> 将My97Datepicker文件夹整体拷贝到工程目录中
+	 -> 引入jquery文件
+	 -> 引入jquery插件文件
+	 -> 定义元素
+    -> dateFmt：设置日期显示的格式
+         -> 默认格式：yy-M-dd hh:mm:ss	(标准格式)
+    -> realDateFmt：设置日期对应计算机的格式
+    	 -> 默认格式：yy-M-dd hh:mm:ss	(标准格式)
+	 -> 建议使用默认格式
+    -> minDate：设置最小年份(1970 1 1)
+    -> maxDate：设置最大年份
+    -> isShowWeek：设置是否显示周
+    -> isShowClear：是否显示清空按钮
+    -> isShowOK：是否显示确定按钮
+    -> isShowToday：是否显示今天按钮
+	
+-> jQuery UI   集成页面特效
+
+-> 开发插件 - 原理:
+	-> 对象方法插件：$().each()
+		-> $.fn.extend()
+	-> 全局函数插件：$.each()
+		-> $.extend()
+	-> 选择器插件	目前几乎不用
+		-> 这一类插件是扩展jquery选择器的用法
+		-> jquery官方推出了专门用于扩展选择器的js库
+		-> 举例：xPath	  专门用于解析XML文件

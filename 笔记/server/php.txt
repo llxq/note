@@ -1,0 +1,69 @@
+-> php
+   -> 特殊类型：
+   	-> resource：资源
+	   -> 作用：用于保存外部资源的一个引用
+	   -> 使用场景：
+	   	-> 在文件上传中,保存上传的文件
+	-> null
+   -> 链接符使用 . 
+   -> 一般使用 "" 即可
+   -> PHP预定义变量
+   	-> $_GET：保存着客户端GET请求提交的所有数据
+	-> $_POST：保存着客户端POST提交的所有数据
+	-> $_COOKIE：保存着客户端提交的所有Cookie数据
+	-> $_REQUEST：包含了 $_GET、$POST、$_COOKIE中的数据
+	-> $_FILES：保存着通过上传的文件数据
+	
+-> php连接数据库
+	-> 准备工作 (必须得保证有)
+		-> 在XAMPP软件的安装目录/php/ext 目录中 找到 php_mysqli.dll文件
+		-> 在XAMPP软件的安装目录/php目录中  找到php_ini文件  并打开
+			-> 再 搜索 php_mysql  必须有：extension=php_mysqli.dll
+				-> 作用：在php中配置有关mysql数据库
+	-> PHP有关mysql数据库的扩展(预定义函数)
+		-> mysql：原生mysql API
+		-> mysqli：mysql增强版本扩展
+	-> 完成PHP连接mysql数据库的步骤
+		-> 过程化风格：
+			-> 创建与MySQL数据库的连接
+				-> mysqli_connect(host,username,password,dbname,port)
+					-> host：mysql数据库所在服务器的ip地址
+					-> username：登录mysql数据库的用户名
+					-> password：密码
+					-> dbname：指定登录的数据库的名称
+					-> port：mysql数据库的端口号
+				-> 该方法的返回值：数据库连接对象 
+			-> 发送 SQL 语句到mysql数据库
+				-> mysqli_query(link,query)
+					-> link：表示mysql数据库的连接对象
+					-> query：表示要发送的SQL语句
+					-> 如何执行的是 select 语句：会返回一个 mysqli_result 对象
+				-> 如果上述操作是 查询语句
+					-> 通过 mysqli_query()方法  返回mysqli_result 结果集对象
+					-> 解析 mysqli_result结果集对象
+			-> 关闭连接mysql数据库
+				-> mysqli_close($con);
+		-> 面向对象风格：
+			-> 创建mysqli对象
+				-> $mysqli=new mysqli(host,username,password,dbname,port);
+					-> 相当于与 mysql数据库建立连接
+			-> 定义sql语句
+			-> 调用mysqli对象的query()方法
+				-> $mysqli->query($sql);
+					-> 该方法返回执行结果
+			-> 如果执行 select 语句
+				-> 返回 mysqli_result 对象
+			-> 调用 $mysqli对象 的close()方法	
+	-> 默认情况下的编码格式为 IS08859-1
+		-> 如何解决中文乱码问题
+			-> mysqli_query("SET NAMES UTF8");
+			-> 把这句话放入到执行的sql之前
+			
+	-> 结果集对象：只有在执行select语句
+	
+	-> 接收客户端请求的用户名和密码
+		-> 使用$_POST还是$_GET方式接收客户端请求的数据,取决于客户端HTML页面中的表单
+			的 method 属性值
+		-> 表单设置为 POST 提交
+			-> $username = $_POST['表单元素的name值'];
+			-> $pwd = $_POST['表单元素的name值'];

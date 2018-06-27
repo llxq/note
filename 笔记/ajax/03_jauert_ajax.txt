@@ -1,0 +1,185 @@
+-> Jquery中的Ajax
+	-> 封装的第一层：用法类似于原生Ajax的用法
+		-> $.ajax()
+	-> 封装的第二层：基于第一层的方法做了再次封装
+		-> $().load()：最简单、局限性最大
+		-> $.get()：请求类型为 GET
+		-> $.post()：请求类型为 POST
+	-> 封装的第三层：特殊用法
+		-> $.getScript()：动态读取脚本(JavaScript代码)
+		-> $.getJSON()：接收JSON格式数据
+		
+-> load() 方法
+	-> $().load(url,data,callback);
+		-> url：必要,设置当前Ajax请求的地址
+		-> data：可选性,设置当前Ajax请求的数据
+			-> 格式必须是 key/value
+		-> callback：可选性,当前Ajax请求成功后的回调函数
+			-> 该回调函数的第一个参数为服务器端响应回的数据
+			-> 该方法有 3个 参数
+	-> 注意：
+		-> 服务器端响应的数据自动写入到<div>元素中
+		-> 谁调用 数据显示给谁
+	-> load() 方法的请求类型
+		-> 没有请求数据时,请求类型为 GET
+		-> 发送请求数据时,请求类型为 POST
+		-> load()方法 的请求类型由是否发送请求数据来决定
+		-> load()方法接收服务器端的响应数据
+			-> 默认接收是以字符串类型(HTML格式)来接收
+			-> 无法使用XML和JSON类型
+	
+-> $.get()方法	
+	-> $.get(url,data,callback,type);
+		-> url：设置当前Ajax请求的地址
+		-> data：设置当前Ajax请求的数据
+			-> 格式要求为 key/value 构建object
+		-> callback：当前Ajax请求成功后的回调函数
+			-> 该回调函数的第一个参数为服务器端响应回的数据
+			-> 该方法有 3个 参数
+		-> type：设置服务器端的响应的数据格式 (值为字符串类型)
+			-> 默认值为：HTML格式
+			-> xml：XML格式
+			-> json：JSON格式
+			-> 支持的格式：xml、html、script、json、text、_default
+	-> 注意：
+		-> 无论是发送请求数据,请求类型都是GET
+		-> $.get()方法可以使用HTML格式、JSON格式以及XML格式
+-> $.post()方法：使用方式与get一致,只是请求类型为post
+
+-> $.ajax(option)方法
+	-> option选项
+		-> url：请求地址
+		-> type：请求类型  默认为 get
+		-> async：是否异步  默认为 true
+		-> content：post方式发送数据的头信息
+			-> 默认值为 application/x-www-form-urlencoded
+		-> data：请求数据  格式必须为 key:value
+		-> success：请求成功后的回调函数
+			-> function(data,textStatus)
+				-> data：服务器端响应的数据内容
+				-> textStatus：表示Ajax的请求状态
+					-> success：请求成功
+		-> error：请求失败后的回调函数
+			-> function(XMLHttpRequest,textStatus,errorThrow){}
+				-> XMLHttpRequest：ajax核心对象
+				-> textStatus：表示Ajax的请求状态
+					-> error、timeout、notmodifide等
+				-> errorThrow：错误异常信息
+		-> dataType：设置响应的数据格式
+		
+-> $.getScript(url,callback);
+	-> url：读取的脚本地址
+	-> callback：读取成功后的回调函数
+
+-> 表单的Ajax异步请求	
+	-> 表单的序列化
+		-> 表单元素必须要有 name属性,并且服务器端获取 $_POST[name属性的值]
+			-> serialize()		返回 JSON字符串
+			-> serializeArray()		返回JSON对象(对象数组)
+			
+-> JQuery.form插件
+	-> 作用：实现表单的异步提交
+	-> JQuery Form有两个核心方法 ajaxForm()和ajaxSubmit()
+		-> ajaxForm()方法
+			-> 不能提交表单。在document的ready函数中,使用AjaxForm来为ajax提交做准备
+		-> AjaxSubmit()方法
+			-> 马上由ajax来提交表单。可以在任何情况下进行表单的提交
+	-> ajaxForm()和ajaxSubmit都能接收0个或1个参数,当为单个参数时,该参数既可以是一个
+	回调函数,也可以是一个option对象
+		-> target：服务器返回内容所存放的元素ID
+		-> beforeSubmit：提交回调函数,如果返回false,则不提交
+		-> success：提交后的回调函数
+		-> url：默认是form的action,如果声明 则覆盖
+		-> type：默认是form的method,如果声明 则覆盖
+		-> dataType：设置响应的数据格式
+		-> clearForm：布尔值,成功提交后,是否清除所有表单元素值
+		-> resetForm：布尔值,成功提交后,是否重置所有表单元素值
+		-> timeout：限制请求时间,大于该时间后则跳出请求
+		
+-> getJSON()方法
+	-> getJSON(url,data,callback)方法
+		-> url：请求地址
+		-> data：请求数据
+		-> callback：请求成功后的回调函数
+	-> 该方法返回的数据一定是json
+	
+-> 实现跨域
+	-> 使用 getJSON()方法实现跨域
+		-> 利用 $.getJSON() 进行跨域请求
+				-> url：请求地址
+				-> callback：回调函数
+			-> 如何实现跨域请求
+				-> 使用 JSONP 形式的回调函数来加载其他网域的JSON数据
+					-> JSONP：json with padding	(json的一种使用格式)
+						-> 可用于解决主流浏览器的跨域数据访问的问题
+						-> 利用 <script> 元素的这个开放策略,网页可以得到从其他源动态产生的JSON资料,而这个模式就是 JSONP
+				-> 实现方式
+					-> $.getJSON()方法的url后增加请求数据
+						-> url?callback=?
+		-> 服务器端 
+			-> 如果callback是一个函数的话,假设$callback就是函数的名称
+			-> 向该函数传递一个 json格式的参数
+		
+-> 跨域请求：$.getJSON()方法
+	-> 跨域
+		-> 完全跨域：IP不同
+			-> http://www.baidu.com
+			-> http://www.qq.com
+		-> 跨子域：IP相同,端口号不同
+			-> http://127.0.0.1:8080
+			-> http://127.0.0.1:8000
+	-> 域名
+		-> 顶级域名
+			-> http://www.baidu.com
+		-> 二级域名
+			-> http://wenku.baidu.com
+			-> http://www.baidu.com/kongjian
+	-> 万维网协议
+		-> 默认是不允许跨域请求的
+	-> 域名
+		-> 是由一串用点分隔的名字组成的Internet上某一台计算机或计算机组的名字,用于在
+			数据传输时标识计算机的电子方位
+		-> 域名的目的是便于记忆和沟通的一组服务器的地址
+		
+-> 使用 $.ajax()实现跨域
+	-> 将 dataType 的值设置为 jsonp 即可
+		-> jsonp：在一个JSONP请求中重写回调函数的名字,这个值将用于代替 "callback=?"
+	-> jsonpCallback：为jsonp请求指定一个回调函数,这个值将用于替代JQuery自动生成的随
+		机函数名
+		
+-> cookie
+	-> 基本内容
+		-> 浏览器的缓存
+			-> 存储在浏览器内存中
+			-> 存储在电脑本地文件中
+	-> cookie
+		-> 缓存文件：将一些用户的数据存储在cookie
+		-> 问题
+			-> 用户数据是以明文(未加密)来存储的
+			-> cookie谁都可以读取
+		-> 读取 Cookie：将用户名和密码从 Cookie读取
+		-> 写入 Cookie：将用户名和密码写入到 Cookie
+	-> key 相同则会被覆盖以前的
+		
+	->/* 设置cookie
+		-> 构建增加Cookie文件的相关信息
+		-> 将用户名信息存储
+		-> Cookie文件的有效时间
+		*/
+		//文件有效时间
+		var time=new Date().getTime()+1000*3600*24*7;
+		var d=new Date(time);
+
+		//将用户名信息和有效时间存储在Cookie中
+		//dom
+		document.cookie="user="+user+";expires="+d;
+	//响应页面获取cookie
+		var cookies=document.cookie;
+		// "user=zhaolusi; pwd=520"
+		// "; " 分割
+		var cs=cookies.split("; ");
+		for(var i=0;i<cs.length;i++){
+			if(cs[i].split("=")[0]=="user"){
+				$("#user").text(cs[i].split("=")[1]);
+			}
+		}

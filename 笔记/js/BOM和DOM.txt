@@ -1,0 +1,392 @@
+-> DHTML概述：
+	-> Dynamic HTML,动态HTML,不是一种技术、标准或规范,只是一种将目前已有的网页技术、
+		语言标准整合运用,制作出能在下载后任然能实时变换页面元素效果的网页设计概念
+	-> 功能：
+		-> 动态改变页面元素
+		-> 与用户进行交互等
+		-> DHTML对象模型包括BOM和DOM
+	-> DHTMl=html+css+javascript
+	
+-> HTML：超文本标记语言,专门编写网页内容的语言
+-> XHTML：严格的HTML语言
+-> DHTML：动态网页技术的统称
+-> XML：可扩展标记语言,可自定义标签,专门用来存储/传输自描述的结构化数据
+		逐渐被json替代了
+		
+-> history：管理浏览器页面上的前进和后退按键的
+-> navigator：管理浏览器的设置按钮的
+-> location：管理地址栏的
+-> screen：指的用户的显示器
+
+-> BOM和DOM：模型即API
+	-> BOM：Browser Object Model,浏览器对象模型,用来访问和操纵浏览器窗口
+			使JavaScript有能力与浏览器"对话"
+		-> 通过使用BOM,可移动窗口、更改状态栏文本、执行其他不与页面内容发生直接联系
+			的操作
+		-> 没有相关标准,但被广泛支持
+	-> DOM：Document Object Model,文档对象模型,用来操作文档
+		-> 定义了访问和操作HTML文档的标准方法
+		-> 可以对网页中任意对象,做任何修改！！！
+		-> 通过对DOM树的操作,实现对HTML文档内容的操作
+		-> W3C组织定义相关的操作标准
+
+-> DOM：		
+	-> DOM是W3C(万维网联盟)的标准,是中立与平台和语言的接口,它允许程序和脚本动态地访
+		问和更新文档的内容、结构和样式	
+	-> W3CDOM标准被分为3个不同部分：
+		-> 核心 DOM-针对任何结构化文档的标准模型
+		-> XML DOM-针对XML文档的标准模型
+		-> HTML DOM-针对HTML文档的标准模型
+	-> HTML DOM不能完成所有的功能,实际开发中都是核心DOM与HTMLDOM配合使用
+		
+-> 核心DOM：
+	-> 操作所有结构化文档(XML HTMl)的通用API
+-> HTML DOM：
+	-> 当页面被加载时,浏览器会创建页面的文档对象模型
+	-> 通过DOM,可以访问所有的HTML元素,连同它们所包含的文本和属性
+		-> 可以对其中的内容进行修改和删除,同时也可以创建新的元素
+	-> 文档中的所有节点组成了一个文档树(或节点树)
+		-> document 对象是一棵文档树的根
+	-> 网页中一切都是对象(元素、属性、文字)
+	-> 同一网页中的所有对象,在内存中父子相连,形成一颗DOM树
+	
+-> DOM树：
+	-> 文档中的每个元素,属性,文字,注释 都被看作时一个节点对象--Node
+	-> 当网页被加载进内存时,浏览器会为网页创建一个document对象。所有的节点对象都是
+		document对象的子节点
+	-> document：封装了对网页中所有子节点的增加、删除、查找
+	
+-> 节点树中的关系：6种：
+	-> 父子关系：parentNode childNodes	firstChildNode lastChildNode
+	-> 兄弟元素：previousSibling  nextSibling
+	
+-> Node类型：(所有节点对象的父对象)   所有空格和tab键都是节点
+	-> 提供了所有节点对象共有的基本属性和方法,定义了3个公共类型：
+		-> nodeType：标明节点类型的数值常量   //返回一个数字常量 代表一个节点类型
+			-> 如果是元素节点,返回1
+			-> 如果是文本节点,返回3
+		-> nodeName：节点的名称
+			-> nodeName返回的都是全大写标签名
+			-> 何时使用：专门用于判断获得的标签名
+			-> 如果是元素节点,返回标签名
+			-> 如果是文本节点,返回#text
+			-> 所有空格都会返回#text
+		-> nodeValue：节点的内容
+			-> 文本节点：返回的是文本的内容
+			-> 元素节点：返回null
+			
+	-> childNodes：获得当前节点对象下的所有子节点
+					这是一个类数组对象    
+					动态集合：自己不保存任何实际数据,每使用一次都重新查找一遍
+					
+-> 原型链：document -> HTMLDocument -> Document -> node -> object
+			body -> HTMLBodyElement -> HTMLElement -> Element -> node -> object
+			
+-> 何时使用递归：
+    -> 遍历不确定层级深度的树形结构时
+    -> 不确定层级深度的多级管理结构
+
+-> 元素树：忽略一切非元素节点的干扰  ie8不兼容  除了children
+    -> 父对象：parentElementNode
+    -> 子对象：children		//不会拿到空格和换行
+    -> 第一个子对象：firstElementChild	   //不会拿到空格和换行
+    -> 最后子对象：lastElementChild	//不会拿到空格和换行
+    -> 前一个兄弟元素：previousElementSibling	//不会拿到空格和换行
+    -> 后一个兄弟元素：nextElementSibling	//不会拿到空格和换行
+
+-> DOM leve12 遍历API：
+    -> 深度优先遍历：NodeIterator    //节点迭代器
+    	-> 创建遍历API对象：
+	　　-> var a=document.createNodeIterator(   //四个参数
+		开始的节点对象(父节点对象),
+		显示所有还是元素节点有两个值：
+			NodeFilter.SHOW_ELEMENT：只遍历元素节点
+			NodeFilter.SHOW_ALL：全部遍历,
+		null,
+		false
+	    );
+		-> 用while循环反复调用a的nextNode()方法
+		-> 只要nextNode()一次,就向下移动一次
+		-> iterator.previousNode(),后退一次
+	-> 自由遍历：TreeWalker
+		-> 使用几乎相同,是NodeIterator对象的升级版
+			-> 跳到父级对象：parentNode();
+			-> 跳到第一个子对象：firstChild();
+			-> 跳到最后一个子对象：lastChild();
+			-> 跳到平级下一个兄弟对象：nextSibling();
+			-> 跳到平级前一个兄弟对象：previouosSibling();
+		-> 因此,不仅局限于深度遍历,可以水平或任意方向跳转遍历
+	
+-> document.getElementByTagName("标签名");		//这个的返回值是动态集合！！！
+-> Selector API：jQuery核心   //两个API都是没找到则返回null
+	-> var elem=parent.querySelector("任意选择器");  //里面可以放css选择器
+	-> var elem=parent.querySelectorAll("任意选择器");  //里面可以放css选择器
+-> 找平级：先parentNode向上,再querySelector向下
+
+-> 获取或者修改元素内容：
+	-> innerHTML：获得/设置元素开始标签和结束标签之间的HTML原文
+		-> 何时使用：只要获得HTML原文内容时
+		-> 固定套路：
+			-> 删除父元素下所有子元素：	
+				-> parent.innerHTML=""
+			-> 批量替换父元素下所有子元素：
+				-> parent.innerHTML："所有子元素标签组成的HTML"
+	-> innerText/textContent：获得开始标签和结束标签之间的纯文本内容,不包含标签,并且
+		会自动跳过遇到的标签,直接拿取里面的文本
+		-> 何时使用：只要希望去掉标签,仅获得文本时
+
+-> 所有的option的对象都有一个selected属性 可以被转换为true和false
+
+-> 元素属性：
+	-> 读取属性：
+		-> var value=element.getAttribute("属性名")  //获得任意属性的值
+	-> 修改属性：
+		-> element.setAttribute(name,value);   //IE8不支持
+			替代办法只能：element.attributes["属性名"]=value;
+	-> 移除属性：
+		-> element.removeAttribute("属性名");
+	-> 判断属性是否存在：
+		-> element.hasAtttribute("属性名"); 	//返回true或者false
+		
+-> Property  vs   Attribute
+	属性		   HTML特性
+	-> Property：对象在内存中存储的属性     用.访问
+	-> Attribute：元素对象在开始标签中定义的HTML属性和自定义属性
+	-> 交集：访问HTML标准属性时,二者完全一致
+		-> 比如：<a href="http://www.baidu.com"
+		-> a.href->属性		-> HTML DOM
+		-> a.getAttribute('href')->特性		核心 DOM
+	-> 如果访问自定义属性时,二者不通用
+		-> <ul data-age="29">Eric</li>
+			-> 读取自定义属性只能使用getAttribute
+	-> 设置自定义属性：
+		-> li.setAttribute("自定义属性名",值);
+		
+-> 创建和删除节点：
+	-> 创建节点：
+		-> 创建元素节点
+			-> 创建空元素对象：
+				-> var newElement=document.createElement("元素名")
+			-> 设置必要属性：
+				-> newElement.href="值";
+			-> 将元素对象挂载到指定父元素下：
+				-> 追加：parent.appendChild(newElement);
+		-> 只有向已经在页面中的父元素追加新元素,才导致渲染
+	
+-> 文档片段：
+	-> var fragment=document.createDocumentFragment();
+	
+-> 常用的三个HTML DOM对象：
+	-> Table：
+		-> 属性：tHead、tFoot、tBodies
+			-> rows：获得表格中所有行对象		rows[i]：获得表中下标为i的行对象
+		-> 方法：
+			-> var newRow=insertRow(rowIndex);	  //rowIndex写-1,表示在末尾追加
+			-> deleteRow(rowIndex);
+		-> tableRow对象：//hr
+			-> 一组tableRow对象集合其实就是table.row集合
+			-> 属性：
+				-> cells：当前行中所有td对象
+				-> cells[i]：获得当前下标为i的td
+				-> rowIndex：当前行的下标,专用于删除行
+			-> 方法：
+				-> var newRow=insertCell(rowIndex);
+				-> deleteCell(index);
+	-> Select：
+		-> 属性：
+			-> options：获得当前select下所有option
+			-> option[i]：获得当前select下i位置的option
+			-> selectedIndex：获得当前选中的option的下标
+		-> 方法：
+			-> add(新option对象)
+			-> removeChild(index);
+		-> option对象：
+			-> 创建对象：var newObj=new Option(innerHTML,value);
+				-> 创建option对象同时,设置对象的innerHTML和value属性
+			-> 属性：
+				-> selectedIndex：获取当前option的下标位置,专用于删除行
+				-> selected：当做bool使用
+	-> Form：
+		-> 如何找到一个from对象
+			-> document.forms[i]
+			-> document.表单名称(属性名)
+		-> 属性：
+			-> var element=from.elements[i]：	//也可以使用name属性
+				-> 包含表单中所有元素的数组  
+				-> 如果使用下标的话,只有有name属性的元素才行
+		-> 事件：
+			-> onsubmit：在正式提交表单之前触发
+				-> 取消事件：
+					-> 获得event对象：
+						-> var e=window.event||argument[0];
+							e.preventDefault();  //DOM
+							e.returnValue=false;	//IE8
+		-> 让元素获得/失去焦点：
+			-> element.onfocus();
+			-> element.onblur();
+		-> 获得当前网页中正在获得焦点的元素：
+			-> document.activeElement
+	
+-> 表单提交：
+    -> 直接点击submit按钮提交
+    -> 如果当前form中任意元素获得焦点,可按回车自动提交
+ ->只要自动提交,都会先触发onsubmit 
+
+-> BOM：专门操作浏览器窗口的对象
+    -> window对象：2个角色
+	-> 充当全局对象
+	-> 包含BOM的常用对象
+    -> pageYOfset：文档左上角到文档显示区左上角的距离
+
+    -> 打开新链接：4种效果
+    	-> 在当前窗口打开新链接,可后退
+	     -> js:open("url","_self")
+	-> 在当前窗口打开新链接,禁止后退
+	     -> location.replace("新的url");	//使用新链接,替换旧链接,并且打开新链接
+	-> 在新窗口打开新链接,可以同时打开多个
+	     -> js:open("url");		//不写第二个参数,默认为_blank
+	-> 在新窗口打开新链接,只能打开一个
+	     -> html：
+	     -> js:
+	-> a标签中的target属性：就是获得目标窗口的名称
+	     -> _self：自动获得当前窗口名称
+	     -> _blank：创建一个新窗口,随机生成一个不重复的名字
+	     -> 窗口名：内存中同一个窗口名只能打开一个,后打开的,会替换前一个
+	     -> target属性的值可以自定义,但是内存中只能存在一个,所以再次点击会覆盖上一个
+    -> var ck=window.open("URL","_self/_blank")   //当前窗口对象
+	-> open("url","name","config");
+		-> config:"top=xx,left=xx,height=xx,width=xx,resizable=yes"
+		-> resizable=yes：允许设置窗口大小
+		->config是设置打开的窗口的大小和位置
+	-> 窗口大小和定位：
+		-> 获得桌面完整分辨率宽高：screen.height/width
+		-> 去掉任务栏之后剩余分辨率的宽和高screen.availHeight/availWidth
+		-> 调整窗口大小：window.resizeTo(width,height);
+						 window.resizeBy(变化的width,变化的height)
+	-> 位置：
+		-> 获得窗口位置坐标：(只读)
+			-> 左上角x坐标：window.screenLeft||window.screenX;
+			-> 左上角y坐标：window.screenTop||window.screenY;
+		-> 将窗口移动到指定位置：window.moveTo(x,y);
+		-> 事件发生时,鼠标相对于整个屏幕的坐标：
+			-> event.screenX|screenY
+			
+-> 定时器：让浏览器按指定时间间隔反复执行同一任务
+	-> 周期性定时器:让浏览器按指定时间间隔反复执行同一任务,如果不手动停止,则一直执行
+	-> 一次性定时器：让浏览器等待一段时间间隔,执行一次任务自动停止
+		-> 在一次性定时器的结尾,每次都重新启动一个一次性定时器
+		-> 尽量使用一次性定时器,代替周期性定时器
+	-> 如何使用：周期性和一次性用法完全相同的
+		-> 周期性：
+			-> 在方法中根据条件判断是否有必要继续启动下一个定时器
+			-> timer=setInterval(函数,间隔毫秒数);
+			-> 必须用一个全局变量,临时存储定时器的编号
+				-> clearInterval(timer)
+		-> 一次性：
+			-> -> timer=setTimeout(函数,等待毫秒数);
+			-> 必须用一个全局变量,临时存储定时器的编号
+				-> clearTimeout(timer)	//停止正在等待的定时器
+				
+-> 获得内联样式的样式属性：
+	-> DOM：var style=getComputedStyle(elem);
+	-> IE8：var style=elem.currentStyle;
+	-> 总结：
+		-> 只要读取样式,使用getComputedStyle
+		-> 只要设置样式,用elem.style.属性=
+		
+-> 关闭当前窗口：close();
+
+-> 常用BOM对象：
+    -> navigator：保存浏览器配置信息的对象
+    	-> coolieEnable：判断当前浏览器是否启用cookie
+		-> plugins：保存所有插件对象的集合
+		-> userAgent：保存了浏览器名称,版本号的字符串
+	-> history：window对象中保存当前窗体访问过的URL的历史记录栈
+		-> history.go(-1);		//后退一次
+			-> -1就是后退一次,-2  -3......
+		-> history.go(1);		//前进一次
+			-> 1是前进一次,2 3 .......
+		-> history.go(0);	//就是重新加载当前页面,可以理解为刷新
+	-> location：获取和改变当前浏览的网址
+		-> location.search：设置或返回从问号(?)开始的URL(查询部分)
+		-> location.href：设置或获取当前文档的URL,可后退
+		-> location.reload();	//重新加载当前文档,只有被修改之后才会重新加载	
+			-> 相当于是刷新页面,和go(0)的区别是 go(0)每次都是去服务器拿页面
+		-> location.replace("URL");	//用新的文档替换当前文档,不可后退
+		-> location.assign("新URL") //可后退
+	-> screen：对象包含有关客户端显示屏的信息
+		-> availHeight/availWidth：返回显示屏的可用宽高,window7和inner一样
+		-> height/width：完整屏幕宽高
+		
+-> 事件：浏览器自动触发的或用户手动触发的对象状态的改变
+	-> 	事件处理函数：当事件触发时,自动执行的函数
+		-> 比如onclick,onmouseover等
+		-> 事件处理函数的本质是对象的一个特殊属性,每个事件均对应一个事件处理函数
+		-> 每个对象都可以触发一个特殊属性
+		-> 在程序执行时,将相应的函数或语句绑定给对象的某个事件处理函数,那么一旦该对
+			像的指定事件触发,浏览器便自动执行该对象的事件处理函数上绑定的操作
+	-> 事件处理：
+		-> 正真的事件的函数名是去掉on的,因为有on的是事件处理函数,是个属性
+		-> 事件定义：
+			-> DOM标准：
+				-> elem.addEventListener("事件名",
+										 "函数对象",
+										 "是否在捕获阶段触发")	
+								//事件名不加on
+					-> elem.on事件名()		//this代表的是当前元素
+					-> 如果最后一个参数填true则代表在捕获阶段触发事件,默认为false,在
+						冒泡阶段触发,true的话就不会冒泡执行处理函数
+				-> 一个元素的一个事件处理函数,可以add多个不同函数对象
+			-> IE8：
+				-> elem.attachEvent("on事件名","函数对象")
+		-> 事件周期：
+			-> 从浏览器捕获到事件触发后,一直到最后一个事件触发完经历的过程
+				-> DOM标准：3个阶段
+					-> (由外向内)捕获：从最外层HTML元素开始,向内逐层记录每层元素绑定
+										的事件处理函数,到目标元素为止
+					-> 目标触发：
+						-> 自动执行目标元素上绑定的事件处理函数
+					-> (由内向外)事件冒泡：(同一种事件)
+						-> 从目标元素的父元素开始,逐层向上执行每层的事件处理函数,到
+							最外层的HTML结束
+		-> ie8的事件周期：只有2个阶段,没有捕获
+		-> 获得event对象：
+			-> html：onclick="fun(event)"	//必须自己写
+				-> 实际调用时,event会自动获得当前事件对象
+				-> fun(e){}		//e就是事件对象,没有浏览器兼容问题
+			-> js：elem.onxxx=fun;
+				-> fun(){
+					//如果是BOM标准,默认以第一个参数传入
+					//IE8：在window全局有一个event属性
+						当事件发生时,也会自动创建event对象,但会保存在window.event中
+				}
+		-> event对象：当事件发生时,自动创建,封装了事件信息
+			-> 封装的信息：
+				-> srcElement/target：事件源对象(前IE后DOM标准)
+				-> eventPhase：事件所处的传播阶段
+				-> clienX/offsetX/pageX/screenX/X：事件发生的X的坐标,Y的话同理
+				-> which/keyCode/charCode：键盘事件中按下的键
+				-> button：鼠标那个键被按下了
+				-> cancelBubble：是否取消事件冒泡
+				-> returnValue：是否阻止事件默认行为
+			-> 取消/利用冒泡：
+				-> 取消冒泡：
+					-> 当某一事件触发后,如果不想继续向上层冒泡,可在当前事件处理函数
+						结尾取消冒泡
+					-> DOM标准：e.stopPropagation()
+					-> IE8：e.cancelBubble=true
+					-> 一般用在当前事件处理函数执行结尾
+				-> 优化：如果多个子元素中定义了相同的事件处理函数,其实,只需要在共同
+						 的父元素上定义一次即可
+			-> 取消事件
+			-> 页面滚动
+				-> window.scrollTo(xpos,ypos);
+					-> xpos：必需。要在窗口文档显示区左上角显示的文档的 x 坐标。
+					-> ypos：必需。要在窗口文档显示区左上角显示的文档的 y 坐标。
+			-> 事件坐标：
+				-> event对象记录事件发生时的鼠标位置：
+					-> 相对于浏览器显示区坐标位置：clientX|x	clienY|y
+					-> 相对于网页左上角坐标位置：pageX page	  //IE8不支持
+					-> 页面没有滚动的时候,以上两组值相等
+					-> 相对于屏幕坐标位置：screenX	screenY
+					-> 相对于目标元素左上角的坐标位置：offsetX	offsetY

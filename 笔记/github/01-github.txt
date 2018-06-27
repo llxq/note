@@ -1,0 +1,15 @@
+-> gitHub 和 GitLab
+    
+-> 在自己电脑上创建公钥和秘钥
+    -> ssh-keygen -T rsa -C '邮箱名'
+    -> 一直回车，之后再用户文件夹中找到  .ssh文件夹，在.ssh文件夹中找到 id_rsa.pub，里面存放的就是秘钥(公钥)，在github中添加秘钥的时候将其复制即可
+
+
+-> 将本机代码发送到github上
+   -> 首先如果在github中创建库的时候如果添加了 README.md文件，我们 push之前需要将该文件 push到我们本地文件夹中
+      -> git pull --rebase ssh地址:目录 分支名字
+        -> git pull --rebase git@github.com:llxq/lxq.git master
+
+    -> 在然后将自己的文件 push到github上
+        -> git pull ssh地址:目录 分支名
+            -> git pull git@github.com:llxq/lxq.git master

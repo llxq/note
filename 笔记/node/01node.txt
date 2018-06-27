@@ -1,0 +1,200 @@
+-> node.js
+	-> nodejs.org   (官网)
+	-> node.js不是框架、语言、库等
+	-> node.js是一个JavaScript运行时环境
+	-> 简单点来讲就是 Node.js 可以解析和执行 JavaScript 代码   (类似于浏览器)
+	-> 以前只有浏览器可以解析执行 JavaScript 代码
+	-> 也就是说现在的 JavaScript 完全可以脱离浏览器来运行,一切都归功于 Node.js
+	-> Node.js中的 JavaScript 
+		-> 没有 BOM、DOM
+		-> 只有 EcmaScript
+	-> Node.js的特性
+		-> 事件驱动
+		-> 非阻塞IO模型(异步)
+		-> 轻量高效
+	-> npm 是世界上最大的开源生态系统
+		-> 绝大多数JavaScript的包都存放在npm上,为了让开发人员更方便的下载和使用
+	
+	-> Node.js能干嘛
+		-> Web服务器后台
+		-> 命令行工具
+		
+	-> 安装好 nodejs 之后 
+		-> 在 cmd 输入 node --version  查看是否安装成功 成功会返回版本号
+		-> 或者输入 node -v
+		
+	
+	-> hello world
+		-> 创建js脚本
+		-> 打开cmd,定位到脚本所属位置      鼠标选中空白处 按住shift+鼠标右键快速打开
+		-> 输入 node js文件名      	即可执行
+		-> 注意：文件名不用使用 node.js来命名
+		
+		
+	-> 读取文件
+		-> 浏览器中的 JavaScript 是没有文件操作的能力的
+		-> 但是 Node 中的 JavaScript 具有文件操作的能力
+		-> fs 是 filesystem 的简写,就是文件系统的意思
+		-> 在 node 中如果想要进行文件操作,就必须引入 fs 这个文件核心模块
+		-> 在 fs 这个核心模块中,就提供了所有的文件操作相关的 API
+		-> 例如：fs.readFile 就是读取文件的
+			-> 读取文件
+			  -> 第一个参数：需要读取的文件路径
+			  -> 第二个参数：回调函数
+				  -> 两个参数：
+					  -> error：
+						  -> 如果读取成功 error 就是 null
+						  -> 如果读取失败 error 就是错误对象
+					  -> data：
+						  -> 如果读取失败 data 就是 null
+						  -> 如果读取成功 data 就是读取到的数据
+			-> 我们可以通过 tostring方法 将其转换为我们认识的字符
+		-> 浏览器是不认识 node代码的
+		
+		
+-> 核心模块
+	-> Node 为 JavaScript 提供了很多服务器级别的API,这些API绝大多数被包装到了一个具名的核心模块中
+	-> 例如：
+		-> 文件操作的 fs核心模块,http服务构建的http模块,path路径操作模块,os操作系统信息模块等。。
+
+-> ip地址是用来定位计算机的
+-> 端口号用来定位具体的应用程序
+-> 所有需要联网通信的应用程序都会占用一个端口号
+-> 端口号的范围从 0-65536 之间
+
+-> Node 中的模块系统
+	-> 如果一个模块想要直接导出某个成员，而非挂载的方式
+	-> 这个时候必须使用下面这个方式
+		-> module.exports = 需要导出的成员
+		-> 在另一个模块中直接使用   require('路径') 返回的就是导出的成员
+		-> 如果多个成员使用  module 后面的会覆盖前面的
+-> 原理解析
+	-> 在 Node 中，每个模块内部都有一个自己的 module 对象
+	-> 如果需要对外导出对象，只需要把导出的对象挂载到 exports 上即可
+	-> 如果是导出单个对象，只需要将导出的对象 给 exports 
+		-> 也就是说给 Node 中默认的那个 exports 重新赋值
+	-> 该 module 对象中，有一个成员叫 exports 默认是一个空对象
+		-> var module = {
+			exports：{
+				......
+			}
+		}
+	-> Node 为了简化操作，专门提供了一个变量 exports = module.exports
+		-> 也就是说在模块中 还有这么一句话 
+			-> exports = module.expotrs
+	-> 默认在代码的最后有一句
+		-> return module.exports
+		-> 谁 require 当前模块 谁就得到这个 return 回去的对象
+		
+-> require 方法加载规则
+	-> 优先从缓存加载
+	-> 在加载一个模块的时候，会先从缓存中看看是不是之前加载过，如果没有加载才会执行里面的结果，如果加载过了，会直接在缓存中拿到该模块的结果
+	-> 判断模块标识(模块的参数)
+		-> 路径形式的模块 要么以 ./xx  ../xx   / xx 开头，样才不会被认为是核心对象
+			-> 	/  ：在这表示的是当前文件模块所属磁盘根路径   C:  (几乎不用)
+			->  后缀名可以省略
+		
+-> 核心模块的本质也是文件
+-> 核心模块文件已经被编译到了二进制文件中，我们只需要按照名字来加载即可
+
+-> 第三方模块
+	-> 所有第三方模块都是通过 npm 来下载
+	-> 使用的时候可以通过 require('包名') 的方式来加载才可以使用
+	-> 不可能有任何一个第三方包和核心模块的名字是一样的
+	-> Node 加载第三方包加载规则
+		-> 先找到当前文件夹所处目录中的 mode_module 目录
+		-> 找到 node_modules 中的 art-template (第三方包的名字)
+		-> 在找去 art-template 中的 package.json文件s
+		-> 再找去 package.json 中的 main 属性
+		-> main属性中记录了当前包的入口模块
+		-> 然后加载使用这个第三方包
+		-> 实际上最终加载的还是文件
+	
+-> 如果 package.js 文件不存在或者 main 指定的入口模块也是没有的
+	-> 则 node 会自动找该目录下的 index.js
+	-> 也就是说 index.js 会作为一个默认备选项
+	-> 如果上面任何一个条件都不成立，则会进入到上一级目录中 node_modules 目录查找
+	-> 如果上一级还没有，则继续往上上一级查找
+	-> 知道当前磁盘根目录还找不到，最后报错
+	-> 我们一个项目只有一个 node_modules ，不会出现多个 node_modules，放在了项目根目录，这样项目所有子目录中的代码都可以加载到第三方包
+	
+-> 模块查找机制
+	-> 优先从缓存加载
+	-> 核心模块
+	-> 路径形式的模块
+	-> 第三方模块
+		-> node_modules/are-template/package.json/index.js
+		-> 如果查找不到 则按照这个规则依次往上寻找，直到磁盘根目录
+		-> 一个项目有且只有一个 node_modules目录，而且是存放在项目的根目录
+		
+		
+-> npm
+	-> node package manager
+
+-> package.json
+	-> 我们建议每一个项目都需要有一个 package.json 文件	  (类似于说明书)
+	-> 可以看到该项目的依赖项
+	-> 这个文件可以通过  npm init  的方式来自动初始化出来
+	-> dependencies选项：可以帮我们保持第三方包的依赖项
+
+-> 建议执行 npm-install 包名  的时候，都加上 --save 这个选项，目的是用来保存依赖项信息
+-> 如果在我们不小心删除了当前加载的依赖包，这个时候我们可以执行 npm-install 命令 当前npm会找到我们的 dependencies选项 npm会把所有的依赖的包下载回来
+
+
+-> npm
+	-> http://npmjs.cn
+	-> npm 的第二层含义就是一个命令行工具，只要你安装了 node 就已经安装了 npm
+	-> 可以在命令行中输入：npm --version
+	-> 升级npm
+		-> npm install --global npm
+	-> npm 常用命令
+		-> npm init
+			-> npm init-y	可以跳过向导，快速生成
+		-> npm install
+			-> 一次性把 dependencies 选项中的依赖项全部安装
+			-> 简写：npm i
+		-> npm install 包名
+			-> 只下载指定包名包
+			-> 简写：npm i 包名
+		-> npm install --save 包名
+			-> 下载指定包名，并且保存依赖项(package.json文件的 dependencies 选项)
+			-> 简写：npm i -S 包名
+		-> npm uninstall 包名
+			-> 只删除，如果有依赖项会依然保存
+			-> 包名：npm un 包名
+		-> npm uninstall --save 包名
+			-> 删除的同时也会把依赖信息也去除
+			-> 简写：npm un -S 包名
+		-> npm help
+			-> 查看npm使用帮助
+		-> npm 命名 -help
+			-> 查看指定命名的帮助
+			-> 例如我忘记了 uninstall 命令的简写了 可以使用 npm uninstall -help 查看
+	-> 解决 npm 被墙挡问题
+		-> npm 存储包文件的服务器在国外，有时候会被墙，速度会很慢
+		-> http://npm.taobao.org/	淘宝开发团队把 npm 在国内做了一个备份
+		-> 安装淘宝的 cnpm
+			-> npm install --global cnpm
+				-> --global   表示安装到全局，并非是目录，不能省略，否则不生效
+			-> 接下来安装包的时候把之前的 npm 替换成 cnpm
+				-> cnpm install are-template  默认为使用淘宝的服务器来下载
+					-> 在任意目录都行
+				-> npm install are-template   还是走国外的服务器，速度有点慢
+		-> 如果不想安装 cnpm，又想使用淘宝的服务器下载
+			-> npm install are-template	--registry=https://registry.npm.taobao.org
+			-> 这样写很麻烦，我们可以把这个选项加到配置文件中
+				-> npm config set registry https://registry.npm.taobao.org
+				-> 只要经过了上面命令的配置，则以后所有的 npm install 都会默认通过淘宝的服务器下载
+				-> 如何查看 npm 配置信息
+					-> npm config list
+					
+		
+-> Express
+	-> 原生的 http 在某些方面表现不足以让应对我们的开发需求，所以就需要使用框架来加快我们的开发
+	-> 官网：http://expressjs.com
+				
+
+-> cmd简单操作
+	-> 创建文件夹：mkdir 文件夹名
+	-> 删除文件夹：rmdir 文件夹名
+	-> 删除文件

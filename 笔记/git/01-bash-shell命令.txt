@@ -1,0 +1,107 @@
+-> bash 命令格式
+    -> 命令 [-option] [参数]，如：tar ZXVF demo.tar.gz
+    -> 查看帮助：命令 --help
+
+
+-> bash 常见命令
+    -> pwd (Print Working Directory)：查看当前目录
+
+    -> cd (Change Directory)：切换目录
+
+    -> ls (List)：查看当前目录下的内容，如：ls -a
+        -> ls -a ：查看当前目录下的所有文件
+        -> ls -l ：查看当前目录下的所有文件，并且以列表的形式展开
+        -> ls -a -l ，可以简写为：ls -al
+        -> ls css/ -al：查看css文件夹下的所有文件
+
+    -> mkdir (Make Directory)：创建目录，如：mkdir blog
+        -> 一次性创建多个目录，使用空格隔开即可，如：mkdir css js image
+
+    -> touch：创建文件，如：touch index.html
+        -> 不用进目录创建文件：touch css/main.css
+        
+    -> cat：查看文件全部内容，如：cat index.html
+    
+    -> more 或者 less：查看文件，如：more /ect/password 或者 
+    less ect/password
+        -> more：在 window操作系统 下不可用
+        -> 退出 less ，直接按下 Q键 即可退出，或者 ctr+Z 也可以
+        
+    -> rm (remove)：删除文件，如：rm index.html
+        -> 正常情况下是不能删除文件夹的 
+        
+    -> rmdir (Remove Directory)：删除文件夹 
+        -> 不能删除有内容的文件夹，只能删除空文件夹
+        
+    -> rm -r (Remove Recursion(递归))：递归删除
+        -> 递归删除下面的所有文件
+
+    -> rm -rf 
+        -> 强制删除，忽略不存在的文件，从不给出提示
+        -> 可以删除有内容的文件夹
+        -> 删除该文件夹，包括该文件夹下的所有内容
+        -> 强制删除，忽略不存在的文件，从不给出提示
+        
+    -> rm -i：交互模式删除，删除文件前给出提示
+        -> 只在 linux操作系统 下有效
+        
+    -> -v ：显示运行时的详细信息
+
+    -> rm -rf、rm -r -v
+
+    -> mv (move)：移动文件夹或重命名，如：mv index.html ./css/js/
+        -> mv new/index.html ./：将new下面的index.html移动到当前目录
+        -> 移动文件，并且修改名字
+            -> mv new/index.html js/js.html 
+                -> 将 new下面的index.html移动到 js下，并且重命名为 js.html
+    
+    -> cp (copy)：复制文件：用法与mv类似，复制操作也是可以重命名的
+
+    -> head：查看文件前几行，如：head -5 index.html
+
+    -> tail：查看文件后几行 -n，如：tail -5 index.html
+
+    -> history：查看历史操作
+
+    -> > 与 >>
+        -> >：重定向，如：echo hello > index.html
+            -> 将 echo输出的结果，重定向到 index.html中
+            -> 这个是覆盖了前面的内容，
+        -> >>：用法与 > 一样，
+            -> 这个不会覆盖，这个是追加
+        -> 这两个命令可以配合 less 来使用
+            -> less js/main.js >> css/main.css
+            -> cat不行，cat只是输出
+        -> 如果要重定向的文件不存在则会自动创建一个
+
+    -> echo：输出，如：echo hello
+    
+    -> wget：下载文件，如：wget 下载地址
+
+    -> tar：用来解压文件的
+        -> 有的压缩格式文件是不能解压的，如：zip ..
+        -> 解压zip文件使用命令：unzip
+
+    -> curl：网络请求，如：curl https://www.baidu.com
+
+    -> whoami：查看当前用户
+
+    -> | ：管道符
+        -> 可以将多个命令连接使用
+        -> 使用了管道符则表示，将上一次的执行结果作为下一次的输入参数 
+            -> ls | grep s：表示将 ls查询到的结果作为 grep的查询参数
+                -> 就是在 ls的查询结果中，寻找 包含s的内容
+        -> 上一次的命令的执行结果，会自动当成下一次的执行参数传入进去
+
+    -> grep：正则匹配
+        -> grep 正则表达式 文件路径
+        -> 不能匹配文件夹，只能匹配文件中的内容
+        -> 如：grep ^dw css/main.css
+            -> 查找 css/main.css 文件下，以 dw开头 的内容
+
+    -> vi 文件名：编辑文件
+        -> i ：编辑，按下 i 键的时候就可以编辑其中的内容了
+        -> 如果想要退出 vi 编辑器，先按下 Esc键，然后输入 :q! 即可强制退出
+
+    -> sup：超级拷贝，可以将本机的文件拷贝到远程的计算机上
+        -> sup 文件 用户名@ip:拷贝到的路径

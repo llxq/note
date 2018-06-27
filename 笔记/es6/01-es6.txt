@@ -1,0 +1,483 @@
+-> es6 基本语法
+	-> 在块级作用域中，在let、const之前的区域成为暂时性死区
+		-> function fn() {
+			//这就是暂时性死区
+			// 在这声明变量会报错
+			let a = 10
+		}
+	-> let 
+		-> let没有预解析这个概念
+		-> let只能先定义再使用
+		-> let不能重复定义
+		-> for循环中，() 是一个块级作用域，下面的 {} 又是一个块级作用域
+		-> let声明的变量只在块作用域有效
+		-> 如果你的代码使用了 es6，es6 是开启了严格模式的
+			-> 如果想要在 es5 中使用 es6 的严格模式。在最上面声明："use strict"
+		-> let 定义的变量，不能重复定义
+	
+	-> const
+		-> const 声明的是常量
+		-> const 也是块级作用域的
+		-> const 定义了就必须赋值，并且不能修改 (只读)
+		-> 如果 const 声明的是一个对象，可以在对象中添加属性
+			-> 因为对象是引用类型，变量名指向对象的引用，里面的值就算修改了，这个指针是不变的
+
+	-> 解构赋值
+		-> 左右两边，结构格式要求保持一致
+		-> 从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）
+		-> 数组结构赋值
+			-> [a, b] = [1, 2];
+			-> 可以给数组结构赋值添加默认赋值
+				-> [a, b, c = 3] = [1, 2];
+			-> 如果数组结构赋值没有配对成功，并且没有添加默认值，则默认值为 undefined
+				-> 如果右边的值是 null 则默认值是无效的
+			-> 可变数组参数
+				-> [a, b, ...c] = [1, 2, 3, 4, 5, 6];
+				-> 输出结果为 1 2 [ 3, 4, 5, 6 ]
+			-> [a,,,b] = f();  可以使用 , 来接收指定位置的值，可以忽略某几个值
+		-> 对象结构赋值
+			-> {a, b} = {a: 1, b: 2};
+			-> 对象结构赋值 左侧一定是 一个对象，他是按照 key：value 这个方式去匹配的 
+			-> let {属性名：变量名，属性名：变量名} = 对象
+				-> 这样会把右边这个对象中指定的属性赋值给定义的变量
+				-> 就是给对象中的属性起别名
+
+	-> 正则表达式
+		-> 修饰符 y
+			-> y 修饰符的作用与 g 修饰符类似，也是全局匹配，后一次匹配都从上一次匹配成功的下一个位置开始
+			-> 不同之处在于，g 修饰符只要剩余位置中存在匹配就可，而 y 修饰符确保匹配必须从剩余的第一个位置开始，这也就是“粘连”的含义。
+			-> y 和 g 一样，都是全局匹配
+				-> 区别：
+					-> g：从上一次匹配的位置开始继续匹配，不强调第一个就匹配上，中间也可以
+					-> y：匹配成功之后的位置必须下一个就匹配成功
+				-> 又称为：黏连 修饰符
+			-> regex.sticky：判断当前正则是否开启了 y 模式
+		-> 修饰符 u
+			-> 含义为 'Unicode模式'，用来处理大于 \uFFFF 的 Unicode字符，也就是说他会正确处理4个字符的 16进制 数据
+			-> 就是会匹配正确的 16进制 数据
+			-> 如果不加上 u 的话，则不会识别 16机制 数据
+		-> 如果一个字符超过两个字节，.修饰符是不能识别的
+			-> 这个时候我们就需要加上 u 修饰符
+
+	-> `\nFFFF`  这个可以识别 两个字节数据，但是不能识别超过两个字节的数据
+	-> `\n{20BB7}`  这个方式可以识别大于两个字节的数据
+
+	-> 字符串模板：``
+		-> 可以随便换行
+		-> 字符串的拼接：${变量名字}
+
+	-> 字符串
+		-> 判断指定字符串是否包含指定字符
+			-> str.includes('指定字符')
+		-> 判断指定字符串是否是以指定字符开始的
+			-> str.startsWith('指定字符')
+		-> 判断指定字符串是否是以指定字符结尾的
+			-> str.endsWith('指定字符')
+		-> 将指定字符串复制指定份数
+			-> str.repeat(复制的次数)
+		-> 字符串的拼接，使用反引号
+			-> `i am ${需要拼接的字符串}`
+		-> 规定指定字符串的长度，如果不够长则使用第二个参数的值来补全(这个是向前补)
+			-> str.padStart(规定的长度, '不够长时补全的字符');
+		-> 规定指定字符串的长度，如果不够长则使用第二个参数的值来补全(这个是向后补)
+			-> str.padEnd(规定的长度, '不够长时补全的字符')
+	
+	-> 函数
+		-> 参数可以设置默认参数
+		-> ({x = 1, y = 2} = {})
+		-> 函数的参数默认是定义了的，不能再里面使用 let 或者 const 定义
+		-> 使用了箭头函数的时候，this 的指向就是你定义时所在的对象，不再是运行时所在的对象了
+		-> 箭头函数里面没有 arguments
+		-> 箭头函数不能当构造函数，也就是说不能 new
+
+	-> 数组
+		-> arr.forEach(function(val, index, arr){
+				// val：当前值
+				// index：索引
+				// arr：当前数组对象
+		})
+		-> 遍历方法：
+			-> arr.forEach()
+			-> arr.map()
+			-> arr.filter()
+			-> arr.some()
+			-> arr.every()
+				......
+			-> 上面这些方法都可以接受两个参数
+				-> arr.forEach(循环回调函数，this指向谁)
+				-> arr.map()
+					-> 正常情况下，需要配合 return，返回的是一个新的数组
+					-> 若是没有 return，就相当于是 forEach
+					-> 可以重新整理我们的数据结构
+				-> arr.filter()
+					-> 过滤，过滤一些不合格数据，如果回调函数返回 true，就留下来
+				-> arr.some()
+					-> 类似查找，数组里面某一个元素符合条件，返回 true
+				-> arr.every()
+					-> 数组里面所有元素都返回条件，才返回 true
+			-> arr.reduce(前一个元素，当前元素，索引，当前数组)
+			-> for...of
+				-> for(let val of arr) // 这个获取的 val 是当前值
+				-> for(let val of arr.keys())  //这个获取的是 val 的当前索引
+				-> for(let val of arr.entries()) // 这个获取的 val 返回的是一个数组，数组第一项是 索引，第二项是 值
+			-> Array.from
+				-> 作用：把类数组对象(arguments，DOM对象)转换为数组
+				-> 类数组：具有 length 就是
+			-> Array.of(一组值，值，值)
+				-> 将一组值转换为数组
+			-> arr.find((val，index，arr) => {
+				return 条件
+				})   // 返回符合指定条件的第一个数据，如果没有找到返回 undefined
+			-> arr.findIndex(() => {})	// 找到的是符合指定条件的第一个数据的索引，没有 -1
+			-> arr.fill('默认值'，开始位置，结束位置)  // 给指定数组给定默认值
+			-> arr.includes() // 有就返回true，没有就返回false
+
+		-> 对象
+			-> let json = {
+					showA：function () {}
+					// 等价于：
+					showA() {}
+
+				}
+			-> Object.is('值1'，'值2')	// 比较两个值是否相等
+			-> Object.assign(目标对象，源头对象1，源头对象2....)		// 用来合并对象的
+				-> 如果有相同的值，后面的覆盖前面的
+				-> 可以用来 复制对象。
+			-> 复制对象：let json2 = {...json1}   // 这样复制的对象不会有引用关系
+
+	-> promise
+		-> promise：承诺，许诺
+			-> 就是解决异步回调的
+		-> promise.catch(err => {
+			// promise 发生错误的时候触发
+		})
+		-> promise.then(res=>{}).catch(err={})
+		-> promise.all([p1, p2,......]).then(res => {这个可以返回数组中所有的 resolve中的值})
+			-> 必须确保，所有的promise对象，都是resolve状态
+		-> promise.race([p1, p2, p3....])
+			-> 只要有一个 resolve 状态，则就会返回resolve对象
+
+	-> 模块化
+		-> 如果需要玩 模块化，需要服务器环境
+			-> 如何定义模块化
+				-> export 需要导出的东西
+			-> 如何使用模块
+				-> <script src="module">
+						// 引入 js 文件
+						import '需要的js文件路径'
+					 </script>
+		-> import模块 只会导入一次，无论你导入几次
+		-> import '需要的js文件路径'：如果这么用，只是相当于是 引入了一个文件而已
+		-> import {值} form 'js文件路径';
+			-> import {a，b，c} from './modes/1.js';
+         console.log(a，b，c);
+		-> 模块导出的时候可以起别名  使用 as，模块导入的时候也可以起别名 as
+					export {
+						a as aaa,
+						b as bbb,
+						c as ccc
+					}
+		-> 导出的时候可以全部导出
+			-> export * as 别名 from 'js文件路径'
+				-> 访问的时候使用：别名访问.变量名
+		-> 只有在模块中加了 default 的，在导入的时候才不需要加 花括号
+			-> export default 值
+				-> import 别名 from 'js文件路径'
+		-> 如果 想要同时使用 加了default的和没有加 default 的
+			-> export default 值
+				 export const a = 12...
+					-> import default的别名，{值1，值2...}
+		-> 模块中可以导入模块
+		-> import 在执行的时候是有提升效果的，也就是最先开始执行
+		-> 导出的内容在模块中被修改了，导入的时候也会自动修改
+		-> import() 类型与 node里面的 require()，可以动态引入，默认import语法不能写入到 if或者 for之类里面的，他的返回值是 promise对象
+		-> 动态加载模块
+			-> import('路径').then(res => { res就是返回的模块对象 })
+
+		-> reset运算符
+		-> ... ：可以将数组展开
+		-> 
+						let arr = ['apple', 'banana', 'orange'];
+						// 输出结果为 apple banana orange
+            console.log(...arr);
+		-> 在函数参数中使用
+			function show(...a) {
+            console.log(a);
+        }
+        // 输出结果是一个数组
+        show(1, 2, 3, 4);
+
+	-> 箭头函数
+		-> () => return的结果
+		-> () => {语句}
+
+	-> 类
+		-> 定义一个类 
+			-> class 类名 {}
+		-> 定义一个构造函数   使用 constructor 关键字
+			-> class 类名 {
+				constructor() {
+				}
+			}
+		-> let 变量名 = class {}
+		-> 类并没有 提升(预解析) 功能
+		-> let a = 'server'
+			 let b = 'bbb'
+			 class Preson{
+				  constructor(){}
+					[a]() {}
+					[a+b]() {}
+			 }
+			 // 调用
+			 let p1 = new Preson();
+			 p1.server();
+			 p1.serverbbb();
+		-> Class里面的取值函数 get，存值函数 set(val)
+		-> 静态方法：就是类身上的方法
+			-> es6 实现了静态方法
+				-> static 方法名(){}
+		-> 继承
+			-> 旧继承
+				-> 父类.call(this,参数..)  // 将父类的this改为当前对象
+				-> 子类.prototype = new 父类()	// 将父类实例放置在子类的原型链上
+				-> 拷贝继承：将父类的prototype上的所有东西给子类，对象可以通过 对象['属性字符串'] 来访问
+				-> 在子类中new一个父类对象，并且给当前实例对象的原型链上添加属性等，并且将对象返回出去
+				-> 组合继承：
+					-> 在子类里面 使用call函数将 this 指向子类
+						-> 然后在外面给子类的原型链上添加父类实例对象
+			-> es6继承
+				-> class 子对象 extends 父对象 {
+							// 如果子类写了构造函数，必须继承父类的构造函数
+							constructor(arg，参数2) {		// arg：从父类继承来的 
+								// 继承父类构造函数方法
+								super(里面填写子类继承的父类的属性);
+							}
+					 }
+				-> 如果子类对象中的方法名和父类对象中的方法名是一样的，会覆盖父类的方法，并且子类调用该方法的时候，只会执行子类中该的方法，不会执行父类中的该方法，如果想要执行父类的该方法，应该使用：
+					-> super.方法名()		// 这个就是执行了父类中的方法
+
+	-> 新增类型
+			-> symobl
+				-> 定义
+					-> let syml = Symbol('aaa')
+				-> 注意
+					-> Symbol 不能 new
+					-> Symbol() 返回的是一个唯一值
+				-> 一般用来当做一个 key，定义一些唯一或者私有的东西
+					-> [syml]: '这个是值，前面的是 key'
+						-> 访问：json对象[syml]
+				-> 用 typeof 检测出来的数据类型：symbol
+				-> symbol 是一个单独的数据类型，类型就叫 symbol，属于基本类型
+				-> 如果 symbol 作为一个key，用for in 循环遍历的时候，这个 symbol是访问不到的
+
+	-> generator函数 (生成器)
+		-> 用来解决异步，深度嵌套
+		-> 语法
+			-> function * show() {
+					yield
+				}
+		-> 使用了 yield 就相当于是使用了 return
+		-> 该方法返回一个generator对象
+		-> 调用该对象的 next方法 即可执行第一条语句，返回的是一个对象
+			-> 对象的第一个参数 value：代表的是当前的执行语句的返回值
+			-> 第二个参数 done：则代表的是是否执行完毕 generator方法中的全部方法
+			-> 当 done 的值为 true的时候，再次调用 next方法则返回的value为undefined
+		-> 想要再次执行下面的方法则在下面继续调用 next方法 即可
+		-> 上述方法是手动调用每一个方法，这个时候，可以使用 for of遍历调用
+			-> for of自动遍历 generator，但是 return 的方法是不会遍历的
+				-> for(let val of gen){console.log(val)} // 会自动执行
+		-> 使用结构赋值，可以直接执行里面的代码，就相当于是直接执行了 yield 中的内容，如果结构 return 的值，返回的是 undefined
+		-> 直接将该方法 ...扩展出来，效果与结构一致，直接将该方法中的所有 yield解构了
+
+	-> async 和 await
+		-> 语法：
+			-> async function fn() {	// 表示该方法中有异步操作
+					let res = await 异步操作....	// 表示后边的结果需要等待
+					await 异步操作....
+					.....
+				}
+		-> 特点
+			-> await 只能放在 async 函数中
+			-> 相比 generator 语义化更强了
+			-> await 后面可以是一个 Promise 对象，也可以是数字，字符，布尔
+			-> async函数返回的是一个Promise对象
+			-> 只要 await 语句后面 Promise 状态变成了 reject，那么整个 async 函数都会中断
+			-> 如何解决 async 函数中抛出错误，影响后续代码
+				-> 使用 try catch
+				-> Promise 本身的 catch 也是可以的
+					-> Promise.reject().catch(err => {})
+
+	-> set 数据结构 （set里面一般存放 数组，如果在new对象的时候，直接在括号中写对象的话，是会报错的，如果是 add进入的则不会）
+		-> set 数据结构
+			-> 类似数组，但是里面不能有重复值，有的话不会显示
+		-> 添加一项数据
+			-> setArr.add('添加的数据')
+			-> add 可以链式编程，因为 add方法 返回的是 setArr本身
+				-> new Set().add('a').add('b').....
+		-> 删除一项数据
+			-> setArr.delete('需要删除的数据')
+		-> 判断当前数据结构中是否有某项数据
+			-> setArr.has('需要查询的数据')  // 返回 true 或者 false
+		-> 当前set中的数据个数
+			-> setArr.size
+		-> 清除当前set中所有的数据
+			-> setArr.clear()
+		-> 循环
+			-> 可以使用 for...of
+			-> 键和值都是一样的
+			-> 或者 forEach
+		-> 数组去重
+			-> [...new setArr(arr)]
+		-> set数据结构变成数组
+			-> [...new Set(arr)]
+
+	-> WeakSet() (WeakSet一般存放的是 对象，也不可以直接在new的时候加入对象，只能add)
+		-> new WeakSet()
+		-> api与set类似
+		-> 没有 size
+		-> 不建议使用
+		-> WekSet 没有 size和clear
+			-> 有：add()，has()，delete()
+	-> Map
+		-> Map类似于是键值对(key, value)
+		-> 类似于 json
+			-> json的键只能是 字符串
+			-> map的键可以使任意数据类型
+		-> 使用方式
+			-> let map = new Map()
+				 // 添加数据 (设置值)
+				 map.set(key, value);
+				 // 获取值
+				 map.get(key)
+				 // 删除一项数据
+				 map.delete(key)
+				 // 判断是否存在某一项数据
+				 map.has(key)
+				 // 清空所有数据
+				 map.clrar(key)
+			
+	-> WeakMap：
+		-> key只能是对象
+
+	-> 数字变化
+		-> 定义一个二进制数据 (Binary)
+			-> let a = 0b....	// 以 0b 开头，则代表二进制数据
+		-> 定义一个八进制数据 (Octal)
+			-> let a = 0o...	// 以 0o 开头，则代表八进制数据
+		-> 新增方法
+			-> 判断一个数字是否是 NaN
+				-> Number.isNaN(需要判定的数据)
+			-> 判断一个字符是否是 数字
+				-> Number.isFinite(需要判定的数据)
+			-> 判断一个数字是否是 整数
+				-> Number.isInteger(需要判定的数据)
+			-> 判断一个数字是否是 安全整数
+				-> Number.isSafeInteger(需要判断的数据)
+					-> 安全整数范围：-2^53-1 到 2^53-1
+			-> 获取最大安全整数
+				-> Number.MAX_SAFE_INTEGER
+			-> 获取最小安全整数
+				-> Number.MIN_SAFE_INTEGER
+
+	-> Math新增东西
+		-> 截断：也就是说不管当前数为整数还是小数，都截取为整数
+			-> Math.trunc(截断的数字)
+		-> 判断一个数是正数还是负数还是0或者-0
+			-> Math.sign(判断的数据)
+				-> 正数 返回：1
+				-> 负数 返回：-1
+				-> 0 返回：0
+				-> -0 返回：-0
+				-> 非数字 返回：NaN
+		-> 计算一个数字的 立方根
+			-> Math.cbrt(计算的数据)
+
+	-> ES2018(es9)
+		-> 命名捕获
+			-> 语法：(?<名字>)
+				-> let reg = /(?<year>\d{4}-?<month>\d{2}-?<day>\d{2})/
+				-> 数据都存储在 groups上，返回的是一个 Object
+					-> let {year, month, day} = str.match(reg).groups
+		-> 反向引用
+			-> let reg = /(?<year>100-\k<year>)/;  // 就是出现两次括号中的内容
+		-> 字符串的 replace
+			-> str.replace(reg, '$<名称>....')
+			-> replace 方法的第二个参数可以是一个回调函数，回调函数中有三个参数
+				-> 第一个参数是：表示匹配到的字符串
+				-> 第二个参数是：表示匹配到的字符串的最小索引位置(RegExp.index)
+				-> 第三个参数是：表示被匹配到的字符串
+		-> dotAll 模式 S
+		  -> 在以往的js中，正则中的 . 是不可以匹配 /n 的，这个时候加上 s 既可以解决
+		-> /m代表多行模式multiline，如果目标字符串中不含有换行符\n，即只有一行，那么/m修饰符没有任何意义。
+		-> 标签函数
+			-> function fn(arr){}
+			   fn `aaa`  // 这个就相当于是给这个arr添加了一个参数，为第一项，arr是个数组
+
+	-> Proxy (代理)
+		-> 扩展(增强)对象的一些功能
+		-> Proxy作用：比如 vue 中的拦截
+			-> 预警、上报、扩展功能、统计、增强对象等
+		-> Proxy是设计模式的一种：设计模式
+		-> 语法：
+			-> new Proxy(target, handler)
+				 let obj = new Proxy(被代理的对象，对代理的对象做什么操作)
+				 -> 被代理的对象可以是 json 也可以是 方法
+			-> handler： (参数中的返回值都是字符串)
+				 {
+				 		// set (target, property)
+						get(代理的对象，访问的属性),	  // 获取的时候干某事
+
+						// get (target, prop, value)
+						set(代理的对象，添加的属性名称，添加的属性的值),		// 设置的时候干某事
+
+						// deleteProperty (target, prop)
+						deleteProperty(代理的对象，删除的属性)	  // 删除的时候干某事
+						
+						// has (target, prop)
+						has(代理的对象，判断的属性)		// 判断有没有这个东西的时候干某事
+							-> 这个在使用：属性 in 对象    的时候才会被触发 
+
+						// apply(target, context, args)
+						apply(代理的对象，this的指向，参数数组)		// 调用函数的时候处理
+							-> apply方法需要使用反射来调用该方法
+							   -> Reflect.apply(...arguments)
+				 
+				 }
+		-> Reflect (反射)
+			-> 类似与 fn.apply()方法
+			-> Reflect.apply(调用的函数，this的指向，参数数组)
+		
+
+	-> es7语法：2**5    // 2的5次方
+
+	-> 冻结一个对象，不让他改动
+		-> Object.freeze(对象)
+		
+	-> \uFFFF   这个代表定义了一个16进制数据
+
+	-> 数组参数的 可变参数 使用 ...表示 ，必须放在最后
+
+	-> Array.form(数组对象)   该方法可以复制一份数组
+		-> 并且该方法可以将一个字符串变为数组，返回一个数组对象
+			-> Array.form(字符串对象)
+
+
+	-> bind()方法：fn.bind(this的指向)
+		-> 这个bind方法就是改变当前this的指向
+
+
+-> 严格模式：
+	-> 变量未声明报引用错误，变量必须先声明后再使用
+	-> 函数的参数不能有同名的属性，否则报错
+	-> 不能使用 with
+	-> 不能对只读属性赋值
+	-> 禁止 this 指向全局对象
+	-> 增加了关键字  protected、static、interface
+	-> 在 es6 模块中，顶层的 this 指向 undefined
+
+
+-> 在github中获取一个json对象数据
+	-> api.github.com/user/istrive
+
+-> 当一个对象没有length属性的时候，是不可以迭代的，如果想要迭代的话
+	-> Object.keys(obj)   或者 Object.values(obj)  或者	Object.entires(obj`+)

@@ -1,0 +1,123 @@
+-> 在使用模块的时候 路径都需要加上  ./
+-> 文件路径可以不用加  ./
+
+-> 修改完代码让服务器自动重启
+	-> 我们这里可以使用一个第三方命令行工具，modemon  来帮我们解决频繁修改代码重启服务器的问题
+		-> nodemon 是一个基于 Nodejs 开发的一个第三方命令行工具，使用的时候需要安装
+			-> npm install --global nodemon
+				-> 在任意目录执行    --global 代表在全局安装
+		-> 查看是否安装成功
+			-> nodemon --version
+	-> 只要使用 nodemon 文件名   来启动的服务，则它会监视你的文件变化，当文件变化的时候，他会自动帮我们重启服务器
+	
+-> 使用 Express 的 use 方法的时候
+	-> 当以 /public/ 开头的时候，去 ./public/ 目录中找到对应的资源
+	-> 当省略第一个参数的时候，则可以通过	省略 /public 的方式来直接访问里面的文件
+	
+	
+-> 在 Express 中配置使用 art-template 模板引擎
+	-> 安装
+		-> npm install --save art-template
+		-> npm install --save express-art-template
+	-> 配置
+		-> app.engine('art', require('express-art-template'))
+			-> 配置使用 art-template 模板引擎
+			-> 第一个参数表示，当渲染以 .art 结尾的文件的时候，使用 art-template 模板引擎
+			-> 可以修改第一个参数，改为当前要渲染的文件的后缀名的文件
+			-> express-art-template  是专门用来在 express 中把 art-template 整合到 express 中的
+			-> 虽然外面不需要记载 art-template 但是也必须安装
+			-> 原因就在于 express-art-template 依赖了 art-template
+	-> 使用
+		-> app.get('/', function (req, res){
+			-> express 默认会去项目中的 views 目录找 index.html
+			res.render('index.html', {
+				-> 这个就是使用 art-template 模板引擎
+				title:'helld world'
+			})
+		})
+			-> express 为 response 响应对象提供了一个方法：render
+			-> render 方法默认是不可以使用的，但是如果配置了模板引擎就可以使用了
+			-> res.render('html模板名', {模板数据});
+			-> 第一个参数不能写 路径，默认会在项目中的 view 目录中查询该模板文件
+			-> 也就是说 express 有一个规定：开发人员把所有的视图文件都放到 views 目录中
+	-> 如果希望修改默认的 views 视图渲染存储目录，可以：
+		-> app.set('views', 目录路径)
+		
+-> 在 express 获取表单 post 请求体数据
+	-> 在 express 中没有内置获取表单 post 请求体的API，这里我们需要使用一个第三方包
+		-> 安装
+			-> npm install --save body-parser
+		-> 配置
+			-> 先引包
+				-> var bodyParser = require('body-parser')
+			-> 配置 body-parser   只要加入这个配置，则在req这个请求对象上会多出来个属性：body
+			-> 也就是说可以直接通过 req.body 来获取表单 post 提交的数据
+				-> app.use(bodyParser.urlencoded({extended: false}));
+				-> app.use(bodyParser.json()); 
+				
+-> 路由设计
+	-> Express 提供了一个方式专们用来包装路由的
+		-> var express = require('express')
+		-> var router = express.Router();
+		-> 把路由都挂载到 router 路由容器中
+			-> router.get / pot 等
+		-> 再把 router 导出
+			-> module.exprots = router
+		-> 把路由容器挂载到 app 服务器上
+		
+->  如果想要获取 异步API 中的值，只能使用   回调函数
+
+-> 凡是需要得到一个函数内部异步操作的结果   都需要使用回调函数
+
+-> 使用 express 如何处理 请求未定义路径  也就是返回 404 页面
+	-> app.use(function (req, res) {
+		所有为处理的请求路径 都会执行到这里
+	})
+	
+		
+	
+-> MongoDB
+	-> 启动方式
+		-> 在 cmd 中的输入：mongod
+		-> MongoDB 默认使用执行 MongoDB 命令所处盘符根目录下的  /data/db  作为自己的
+			数据存储目录
+		-> 所以在第一次执行该命令之前先自己手动新建一个 /data/db
+		-> 如果想要修改默认的数据存储目录，可以：
+			-> mongod --dbpath=数据存储目录路径
+	-> 停止
+		-> 在开启的 控制台中输入 ctrl+c 即可停止
+		-> 获取直接关闭控制台
+	-> 连接数据库
+		-> 在控制台中输入：mongo
+		-> 该命令默认连接本机的 MongoDB 服务
+	-> 退出
+		-> 直接输入 exit 
+	-> 基本命令
+		-> show dbs			
+			-> 查看当前数据库列表
+		-> use 数据库名称		 
+			-> 切换到指定的数据库 如果没有就会新建 
+		-> db
+			-> 查看当前操作的数据库
+		-> 插入数据
+			-> db.students.insertOne({"name":"jack"})
+		-> show	collection	
+			-> 显示当前数据库中的集合 (也就是 表 )
+		-> db.表名.find()
+			-> 显示当前表中的数据
+		-> 删除所有数据
+			db.表名.remove({})
+			
+-> 使用官方的 MongoDB包 来操作
+	-> 官方网址：https://github.com/mongodb/node-mongodb-native
+
+-> 使用第三方 mongoose 来操作 MongoDB 数据库
+	-> 第三包：mongoose 基于 MongoDB 官方的 mongodb包 再一次进行了封装
+	-> 官方网址：http://mongoosejs.com/
+	
+-> node 操作 mysql数据库
+	-> 安装：
+		-> npm install --save mysql
+		
+-> MD5 加密
+	-> 使用第三方包

@@ -1,0 +1,155 @@
+-> SVG
+	-> 基本内容：
+		-> SVG并不属于HTML5专有内容
+			-> HTML5提供有关SVG原生的内容
+		-> 在HTML5出现之前,就有SVG内容
+		-> SVG,简单来说就是矢量图
+		-> SVG文件的扩展名为".svg"
+		-> SVG使用的是XML语法
+	-> 概念：
+		-> SVG是一种使用XML技术描述二维图形的语言
+		-> SVG的特点：
+			-> SVG绘制图形可以被搜索引擎抓取
+			-> SVG绘制的图形可以在图片质量不下降的情况下,被放大,不失真
+	-> 用途	：
+		-> 网页中一些小的图标
+		-> 网页中的动态特效(动画效果)
+	-> 绘制图形：
+		-> 矩形元素：使用<rect>标签
+			-> x和y：绘制矩形的左上角坐标值
+			-> width和height：绘制矩形的宽度和高度
+				-> 必须使用属性方式,不能使用css样式和style属性
+			-> 默认颜色为黑色
+			-> 下面这三个可以使用style属性设置,使用的不是css属性,而是svg的属性
+				-> fill：设置填充颜色
+				-> stroke：设置描边颜色
+				-> stroke-width：设置线条的宽度
+		-> 绘制圆形：使用<circle>
+			-> cx和cy：表示圆形的坐标值
+				-> 获取cx的值  circle对象.cx.animVal.value	(只读)
+			-> r：圆形的半径
+		-> 绘制椭圆元素：<ellipse>
+			-> <ellipse cx="" cy="" rx="" ry="" />
+			-> rx：水平半径
+			-> ry：垂直半径
+		-> 直线元素：
+			-> <line x1="" y1="" x2="" y2="" stroke="" stroke-width="" />
+		-> 折线元素：
+			-> <polyline points="" fill="white" />
+			-> 默认将折线中的区域(起点到终点),默认提供黑色
+			-> 将填充颜色设置为white即可
+		-> 多边形元素：
+			-> <polygon>		//创建含有不少于三个边的多边形
+		-> SVG和Canvas在HTML页面中定义
+			-> 在一个HTML页面中可以定义多个<canvas>和<svg>元素的
+		-> 特效元素：
+			-> 渐变：所有的渐变元素都要定义在<defs>元素中
+				-> 线型渐变
+					-> <linearGradient></linearGradient>
+					-> 设置线型渐变 
+					-> 用法：将渐变定义在<defs>元素中
+					-> 特点：具有基准线
+						-> 起点坐标值：x1和y1
+						-> 终点坐标值：x2和y2
+					-> 使用<stop>元素：设置渐变的颜色
+						-> offset：设置渐变颜色的位置
+						-> stop=color：设置渐变颜色
+						-> stop-opacity：设置渐变的透明度
+					-> 注意：
+						-> x1和y1,x2和y2的值都是百分值
+						-> offset：也是百分值
+						-> 要定义id属性,用于将绘制的渐变添加到绘制的图形中
+			-> 扇形(射线)渐变：
+				-> <radialGradient></radialGradient>
+			-> 滤镜：高斯模糊
+				-> <filter>元素
+				-> <feGaussianBlur>元素：高斯模糊
+					-> in="SourceGraphic"
+					-> stdD
+				-> 注意：定义在<defs>元素中
+				-> 如何设置高斯模糊滤镜
+				-> 定义<defs></defs>元素	滤镜定义在该元素中
+				-> 定义<filter></filter>元素	表示SVG的滤镜
+					-> 定义高斯模糊元素<feGaussianBlur>
+					-> 属性：
+						-> in="SourceGraphic"	固定写法
+						-> stdDeviation	 设置模糊程度
+				-> 为filter元素定义id属性,用来添加在绘制的图形中
+				-> 如何将上面的高斯模式与下面的元素进行关联
+				-> fiter="url(#id)"
+			
+	-> SVG在使用过程中
+		-> SVG提供的所有属性,都能绑定DOM事件
+		-> SVG提供的元素的特殊属性,并不能像HTML元素的属性一样去操作	(只读)
+			
+	-> 利用svg绘制的图形是与HTML页面有关的
+			
+-> SVG与Canvas的区别：
+	-> SVG：
+		-> 不依赖分辨率
+		-> 支持事件绑定
+		-> 大型渲染区域的应用程序(例如百度地图)
+		-> 不能用来实现网页游戏
+	-> Canvas：
+		-> 依赖分辨率
+		-> 绘制的图形不支持事件绑定
+		-> 最适合网页游戏
+		-> 可以保存为".jpg"格式的图片
+		
+-> TWO.js
+	-> 基本内容：
+		-> three.js：专门用于绘制三维
+		-> two.js：专门用于绘制二维
+			-> 允许使用不同的上下文,而使用相同的API进行绘制
+			-> 支持的上下文(支持格式)
+				-> svg：默认
+				-> canvas
+				-> webGL
+			-> 具有SVG解释器
+	-> 如何使用two.js：
+		-> 在HTML页面中引入two.js文件
+		-> 在HTML页面中定义容器(<div>)
+		-> 在JavaScript代码中：
+			-> 获取HTML页面中的容器
+			-> 创建Two对象,将该对象添加到容器中
+				-> new Two(params).appendTo(Element);
+					-> params参数：设置当前对象的信息
+						-> type：设置当前对象的格式
+							-> 格式：Two.Types.svg
+								-> svg：默认值
+								-> canvas：指定为canvas元素绘制
+								-> webgl：
+						-> width和height：绘制矩形的宽度和高度
+						-> fullscreen：是否全屏  true：表示全屏(高宽则不起作用了)
+				-> 绘制图形方法：
+					-> makeline()：绘制线条
+					-> makeRectangle(x,y,width,height)：绘制矩形
+						-> x和y：表示绘制矩形的坐标值(中心点)
+					-> makeEllipse()：绘制椭圆
+					-> makeCricle()：绘制圆形
+				-> 动画方法：
+					-> update()
+					-> play()：添加动画(循环)
+					-> pause()：删除动画
+				-> 设置图形样式：
+					-> 图形变量.fill：设置填充颜色
+					-> 图形变量.stroke：设置边框颜色
+					-> 图像变量.linewidth：设置边框大小
+			-> 使用two.js提供的API方法进行绘制
+				-> 利用two.js提供的方法,设置图形
+				-> 利用update()方法进行绘制
+			-> tow.noStroke();	//去掉边框
+		-> 分组操作：
+			-> Two.Group、
+				-> 两种方法：
+					-> 利用Tow对象的makeGroup(Objects)方法进行分组
+						-> objects：设置分为一组的图形
+							-> 格式：允许传递多(不定)个参数
+						-> 该方法返回group对象
+						-> 通过group对象,统一针对这一组设置样式
+		-> 动画效果：
+			-> bind(event,callback)方法：事件绑定
+				-> event：绑定的事件名称
+					-> update：对应update()方法的作用
+					-> 所有的DOM的事件都可以绑定
+				-> callback：绑定事件

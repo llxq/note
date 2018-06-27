@@ -1,0 +1,106 @@
+-> 接收服务器端的响应数据
+	-> 使用 XMLHTTPRequest 核心对象的responseText属性
+		-> 该属性只能接收文本(HTML)格式
+		-> 问题：
+			-> 解析过程比较复杂(拆串)
+			-> 无论是拆串还是拼串都极其容易出错
+			
+-> XML格式
+	-> 基本内容
+		-> XML文件的扩展名为 ".xml"
+		-> XML的定义方式与HTML非常相似
+			-> HTML的元素预定义好的
+			-> XML允许自定义元素
+		-> XML的版本
+			-> 1.0版本：目前主要的版本
+			-> 1.1版本：几乎没有人使用
+			-> 注意
+				-> 版本不会再更新了
+		-> XML的作用
+			-> 作为存储数据的格式：存储数据
+		-> 语法
+			-> 声明
+				-> <?xml version="设置当前XML文件的版本" encoding="设置xml编码"?>
+				-> <?xml version="1.0" encoding="UTF-8"?
+				-> 必须声明在0行0列中
+			-> 定义元素
+				-> 根元素
+					-> 必须是个起始标签
+					-> 只能定义一个
+				-> 定义元素
+					-> 元素名可以自定义
+					-> 分类
+						-> 起始标签或单标签都可以
+					-> 元素名可以重复
+				-> 定义属性
+				-> 可以定义注释 <!-- -->
+		-> 如何定义XML都可以,符合XML语法即可
+			-> 只是如何定义决定着你后面使用js解析的难易程度
+		-> DOM解析XML
+			-> 创建XML解析器
+			-> 固定套路
+				-> function createXML(xmlFile){
+					var xmlDoc=null;
+					if(window.DOMParser){
+						xmlDoc=new DOMParser().parseFromString(xmlFile,"application/xml");
+					}else{
+						xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+						xmlDoc.async=false;
+						xmlDoc=parser.loadXML(xmlFile);
+					}
+					return xmlDoc;
+				}
+		-> 操作xml文件的方式和dom一样   一般使用getElementsByName()方法获取元素
+			-> 使用 getAttribute()方法获取属性
+	-> Ajax中的XML格式
+		-> 如何构建一个符合xml格式的请求数据
+			-> 将value值构建成符合XML格式的数据
+				-> 数据类型：字符串
+				-> 格式符合 xml语法要求
+			-> 服务器端接收到的数据类型：string类型
+		-> 响应的数据格式：xml
+			-> 服务器端如何构建符合xml格式的数据
+				-> 设置服务器端的请求头 Content-Type为text/xml
+				-> 构建一个符合xml格式的字符串(string)
+					-> 手动构建字符串内容
+						-> DOMDocument对象的方法
+							-> loadXML("符合XML格式的字符串");
+							-> saveXML()进行响应;
+			-> 客户端接收符合xml格式的数据
+				-> 使用XMLHTTPRequest对象的 responseXML属性接收
+				-> 接收回来的数据是xml dom对象(不需要使用xml解析器解析)
+-> JSON格式
+	-> JSON格式：JavaScript Object Notation  (js原生支持)
+		-> JSON数据格式源于JavaScript
+	-> 是一种轻量级的数据交换格式
+	-> 特点
+		-> 易于人阅读和编写
+		-> 易于计算机解析和生成
+	-> JSON的结构
+		-> Array：数组
+		-> Object：对象
+		-> 支持的数据类型
+			-> String字符串
+			-> Number数值
+			-> Boolean值
+			-> Abject
+			-> null
+			-> Array
+	-> Ajax中的JSON
+		-> 请求格式为json
+			-> 客户端向服务器端发送请求为json格式的数据
+				-> 构建符合json格式的字符串
+				-> 保证定义字符串时,使用 单引号 里面使用 双引号
+			-> 服务器端接收json格式的数据
+				-> 使用 json_decode(字符串) 进行解析称为 php变量
+				-> 如果 json_decode(字符串,true)  则转换为 array数组
+		-> 响应格式为json
+			-> 服务器端向服务器端发送json格式的数据
+				-> 使用XMLHTTPRequest对象的 responseText属性接收
+				-> 使用 eval()函数 进行转换
+					-> 使用eval()函数的时候 使用"()" 将其包裹,eval()函数将强制转换为
+						json格式
+					-> 不使用 "()"将其包裹,eval()函数将其识别为一个空的代码块
+			-> 客户端接收json格式的数据
+				-> 先将数据使用json_decode(字符,true) 转换为array数组对象
+				-> 使用 json_encode() 将php变量(array)转换成符合json格式的字符串

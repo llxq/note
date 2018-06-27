@@ -1,0 +1,128 @@
+-> Less
+	-> 是一款比较流行的预处理 css，支持变量、混合、函数、嵌套、循环等特点
+	
+-> 什么是预处理 css
+	-> css语言的超集合，比css更丰满
+	
+-> // ：这样注释的在编译为 css 的时候不会被编译
+-> /**/ ：这样的注释是会被编译的	
+
+-> 定义变量
+	-> @变量名:值
+	-> 使用的时候，应该  @变量名
+	
+-> 嵌套
+	-> div {
+		width：100px;
+		
+		// 这个就是代表当前 div 下的a标签
+		.a {
+		
+			// & 代表的就是当前元素
+			&:hover {
+			}
+		}
+		
+		// 这个就是代表 当前 div 下的直接子元素 i
+		> i {
+		}
+	}
+	
+	
+-> 定义一个类
+		// 如果使用的时候不传参数，则默认是 定义的时候括号里面的值，传了参数则是传入的值
+	-> .类名 (@变量名：值) {
+		// 里面编代码段
+	}
+	-> 使用
+		-> #header {
+			.类名;   或者 .类名(传入的值)
+		}
+	-> 如：
+		// 定义
+		-> .round(@radius: 5px) {
+			-moz-border-radius: @radius;
+			-webkit-border-radius: @radius;
+			border-radius: @radius;
+		}
+		// 使用
+		-> #header {
+			.round;  // 这里就是使用默认值 5px，括号可以不写
+		}
+		-> #footer {
+			.round(10px);  // 这里就是使用 10px 代替默认的 5px
+		}
+		
+-> 导入其他 less 文件
+	-> 一般被引用的文件都是用 _开头命名
+	
+	-> @import url(路径);
+	
+	-> 主文件中定义的 变量 在部分文件(被引入的文件)中也能使用
+
+-> 内置函数
+	-> lighten(颜色，百分值)
+		-> 把一个颜色变亮 百分之几
+	-> darken(颜色，百分值)
+		-> 把一个颜色变暗 百分之几
+	-> iscolor(变量名)
+		-> 判断当前值是否是一个颜色
+	-> isnumber(变量名)
+		-> 判断当前值是否是一个数字
+		
+-> 插值
+	-> ~"值"
+		-> 这个~就相当于是转义
+		-> 就是允许使用任意字符串作为属性或变量值
+		-> 转义之后的值就出了前面少了个 ~ 外   与原值没有任何变化
+	-> 例如：
+		-> @minwidth：~"(max-width：100px)";
+		-> .element {
+			// 相当于是当 元素的最大宽度达到 100px 的时候执行下面的css
+			@media @minwidth {
+				//里面填写css
+			}
+		}
+		
+-> less的变量作用域 
+	-> 依次向上查找
+	-> 也可以放置在执行这段css之后
+	
+	
+-> 在线使用 less 里面的文件
+	 <!-- 一定要使用http方式访问，才能生效 -->
+    <link rel="stylesheet/less" type="text/css" href="less文件地址" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.0.2/less.min.js"></script>
+	
+	-> 只在开发的时候使用，因为解析耗时
+	
+-> 将 less 文件转换为 css 文件
+	-> 使用 npm 安装全局
+		-> npm i -g less
+		-> 使用
+			-> lessc less文件 >> 转换为的css文件	
+				-> 如果css文件不存在则会自动创建
+				
+				
+-> rem
+	-> em：1em等于当前容器的font-size大小
+	-> rem：
+		-> 取html的font-size的大小
+		-> 1em 等于HTML的font-size
+		
+-> 继承：Extend
+	-> .parentClass{  
+			color:red;  
+		}  
+		.subClassOne{  
+			&:extend(.parentClass);  
+		}  
+		.subClassTwo:extend(.parentClass){  
+			  
+		}  
+	-> 编译结果
+		.parentClass,  
+		.subClassOne,  
+		.subClassTwo {  
+		  color: red;  
+		}  

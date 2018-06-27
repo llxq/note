@@ -1,0 +1,95 @@
+-> server
+	-> 什么是服务器
+		-> Server：服务器,是网络环境中的高性能计算机
+	-> 服务器的分类
+		-> 硬件服务器：pc机
+			-> 电脑硬件：pc机、小型机、刀片机、中型机、大型机、超级计算机
+		-> 软件服务器：中间件
+			-> 为了运行Web应用的一种软件
+	-> 软件架构
+		-> B/S：浏览器(browser)/服务器端(server)
+			-> 互联网：企业级
+				-> 互联网：网易、腾讯、百度等
+				-> 企业级：银行系统、医院系统等
+			-> 好处：
+				-> 软件升级：服务器端的升级
+		-> C/S：客户端(client)/服务器端(server)
+			-> 先出现：例如 QQ、Email等
+			
+	-> 软件服务器：
+		-> 无论是超级计算机、小型服务器、还是pc机,为了向客户端提供服务,必须安装能够
+			监听特定端口,并接收客户端请求的应用程序--服务器应用程序
+		-> 根据能够提供的服务不同,服务器应用程序包括：
+			-> DNS服务器：把域名解析为计算机的ip地址
+			-> Web服务器：提供Web页面服务
+			-> 数据库服务器：提供数据的永久存储和高效查询
+			-> FTP服务器：文件上传和下载服务
+			-> SMTP/POP3服务器：邮件收发服务
+			-> SSH服务器：远程登录服务
+			-> Samba服务器：文件和打印共享服务
+		-> Web(应用)服务器：用于运行Web应用
+		-> 数据库服务器：用于运行数据库产品
+		-> 访问Web应用
+			-> 网络协议-IP地址-端口号
+			
+	-> 使用XAMPP软件
+		-> 出现错误：
+			-> 端口被占用
+				-> 解决办法：C:\xampp\apache\conf   再修改里面的端口号即可
+		-> 访问：localhost:端口号
+				 http://127.0.0.1:端口号
+		-> 设置虚拟地址
+			-> 首先找到：C:\Windows\System32\drivers\etc
+				-> 打开hosts文件
+				-> 在最后面没有#的地方加上
+					-> 127.0.0.1	自定义虚拟地址
+		-> 端口号被占用
+			-> 在cmd中的输入 netstat -ano 即可查看本机端口号
+			-> 找到占用的端口号对应的PID的值
+			-> 在任务管理器中的"进程",找到对应的进程,结束即可
+		-> 修改显示的页面
+			-> C:\xampp\htdocs  把要显示的页面放入即可
+			
+	-> mysql默认使用的端口号是：3306   不建议修改该端口
+	
+	-> 在cmd中打开mysql
+		-> 打开：cd C:\xampp\mysql\bin\
+			-> 输入：mysql -uroot
+		-> 关闭mysql：exit;
+		
+	-> SQL语言分为四类：
+		-> DDL：数据定义语言(数据库+表)
+		-> DCL：数据控制语句(权限)
+		-> DQL：数据查询语句
+		-> DML：数据操作语言
+		
+-> mysql：
+	-> 默认创建的格式并不是 utf-8
+	-> 创建数据库,指定编码格式：
+		-> CREATE DATABASE 数据库名 DAFAULT	CHARACTER SET UTF8 COLLATE	utf8_general_ci;
+	-> SHOW DATABASES;	//查看所有数据库
+	-> ALTER DATABASE 旧数据库名称 CHARACTER SET UTF8;
+	-> 创建主键列,并且设置为自增列：
+		-> 列名 int not null auto_increment
+		
+	   CREATE TABLE (
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> name NVARCHAR(32) NOT NULL.
+    -> age INT DEFAULT(0),
+		
+	-> 数据类型
+		-> 数值(Number)数据类型
+			-> INT：整数
+			-> FLOAT/DOUBLE：浮点型(小数)
+			-> DECIMAL：精确值(金额等)
+		-> 日期(Date)数据类型
+			-> DATE：日期(默认格式：yyy-MM-dd)
+			-> DATETIME：日期时间(yyyy-MM-dd hh:mm:ss)
+			-> TIMESTAMP：时间戳(标识：唯一)
+		-> 字符串
+			-> CHAR：长度固定的字符串
+				-> 写入的字符长度不足定义的长度以空格填充
+			-> VARCHAR：长度可变的字符串
+				-> 写入多少实际占用多少
+		-> 查看表结构
+			-> DESC 表名

@@ -1,0 +1,123 @@
+-> Geolocation(地理定位)
+	-> 基本内容：
+		-> 地理定位：地球的经度和纬度的相交点
+		-> 实现地理定位的方式
+			-> GPS：美国的,依靠卫星定位
+			-> 北斗定位：纯国产,惯性定位技术
+			-> 基站定位：
+			-> 基于互联网定位：ip地址(pc和移动端都可以)
+			-> 目前很多浏览器都具有定位功能
+	-> HTML5中地理定位：
+		-> 地理定位功能并不是属于HTML5专有内容
+			-> HTML5的地理定位技术,由Google公司提供的
+			-> Google Map产品
+		-> 国内不能使用Google公司所有服务和产品
+			-> 替代品：百度地图,高德地图
+		-> 百度地图：
+			-> 百度地图地址：http://developer.baidu.com/map/
+			-> 秘钥：HbUVYMUg6PwbOnXkztdgSQlQ
+			
+	-> 如何使用百度地图：
+		 -> 引入百度地图的js
+			-> 链接：http://api.map.baidum.com/api?v=2.0&ak=秘钥     //ASCAROeMG8tUTtahNuuvo4Qx6VmAuLp8
+		-> 在html页面中定义用于显示百度地图的容器(元素)   //div
+		-> 创建百度地图的对象 (Map)
+		    -> 构造器：BMap.Map(容器id)
+			-> 通过centerAndZoom() 进行地图的初始化,该方法是必要的
+		-> 初始化百度地图
+		  方法：centerAndZoom(center,zoom)
+		  	  -> center参数：设置当前中心点
+			  	 -> 类型为Point,zoom参数必须设置
+				 -> 类型为String,例如"北京",zoom参数可以省略
+			  -> zoom参数：设置地图显示级别
+			     -> pc端：3-19
+				 -> 移动端：3-18
+	-> 百度地图的相关控件
+		-> 为百度地图添加地图控件	
+			-> 核心类：Map类
+				-> 构造器：BMap.Map(容器id)
+				-> 方法：
+					-> centerAndZoom()：初始化方法
+					-> addControl()：添加控件
+					-> addOverlay()：添加标注
+			-> Contol类
+				-> ScaleControl类：表示比例尺控件
+				   -> 构造器：ScaleControl()：创建比例尺对象
+				   -> 方法：
+					  -> setUnit()：设置比例尺的单位
+					  -> getUnit()：获取比例尺单位
+				   -> 添加位置默认为左下角
+					  -> 构造器的参数ScaleControlOptions类型
+						-> anchor：设置控件的停靠位置	该类型为枚举类型
+						   -> BMAP_ANCHOR_TOP_LEFT：控件将定位到地图的左上角
+						   -> BMAP_ANCHOR_TOP_RIGHT：控件将定位到地图的右上角
+						   -> BMAP_ANCHOR_BOTTOM_LEFT：控件将定位到地图的左下角  (默认值)
+						   -> BMAP_ANCHOR_BOTTOM_RIGHT：控件将定位到地图的右下角
+				-> 将创建的控件添加到百度地图中
+				   -> 通过Map对象的addControl()方法
+			-> point类：表示一个地理坐标点
+					-> 构造器：point(lng,lat)
+						-> lng：经度  (Number类型)
+						-> lat：维度  (Number类型)
+					-> 如何获取位置的经度和维度值
+						-> 
+			-> Control类：控件类
+				  -> NavigationControl类：表示地图的平移缩放控件
+					-> 构造器：NavigationControl()：创建移动缩放控件
+			-> Map对象移除控件使用：removeControl()
+			-> Overlay类：地图遮盖物
+				   -> Markey类：表示地图上一个图像标注
+					  -> 构造器：Markey(point);
+						 -> point：标注的点的经纬度
+				-> Map对象添加遮盖物：
+					-> addOverlay(markey);
+					
+-> 拖放(拖拽)API
+	-> 实现拖拽效果
+		-> 要拖拽的文件是什么：一般称为源元素
+		-> 要拖拽到哪里去：目标元素
+	-> 目前实现拖拽效果
+		-> 使用原生DOM就能实现：最麻烦
+		-> 使用jquery插件实现拖拽效果
+		-> HTML5中提供的拖拽功能
+	-> HTML5中的拖拽
+		-> 源元素事件
+			-> dragstart：当鼠标开始拖拽时被触发
+			-> drag：当鼠标拖放过程中,类似于onmousemove事件
+			-> dragend：当鼠标结束拖放时被触发
+		-> 目标元素事件
+			-> dragover：当鼠标拖动到目标元素时被触发
+				-> 为该事件增加：e.preventDefault()方法阻止默认事件
+			-> dragenter：当鼠标第一次拖放进入到目标元素内被触发
+			-> drop：当鼠标实现拖放效果时被触发
+				-> 默认情况下,该事件没有被触发
+					-> 原因：HTML页面默认情况下,不允许被拖放
+						-> 称之为默认行为
+					-> 解决：阻止页面的默认行为
+						-> 事件对象e.preventDefault()方法  //阻止默认行为
+			-> dragleave：当鼠标拖放离开了目标元素被触发
+		-> dataTransfer对象
+		   -> 作用：类似于window中的剪切板
+		   -> 功能：
+			  -> 可以将源元素的信息(数据),存储在这里
+			  -> 将存储在该对象的源元素信息,提供给目标元素
+		   -> 方法：
+			  -> setData()：设置(源元素)数据
+				-> 在源元素事件中使用	
+			  -> getData()：获取设置的数据
+				-> 在目标元素事件中使用
+			  -> clearData()：清除设置数据
+				-> 所有的数据内容都存储在浏览器内存中
+				-> 使用完毕应该释放
+		-> setDragImage()方法
+			-> 作用：修改鼠标拖放过程中跟随的图片
+		-> 实现拖放效果：
+			-> 源元素
+				-> dragstart事件
+					-> 利用dataTransfer对象,存储源元素数据
+			-> 目标元素
+				-> dragover事件
+					-> event.parentDefault()  阻止默认事件
+				-> drop事件
+					-> 利用dragTransfer对象,获取源元素数据
+					-> 完成拖拽效果

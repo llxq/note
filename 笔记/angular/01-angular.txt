@@ -1,0 +1,19 @@
+-> Angular 简介 (简称：ng)
+    -> Angular是一款非常优秀的前端高级js框架
+    -> 有了这一类框架就可以轻松构建 SPA应用程序
+        -> SPA：单一页面应用程序
+            -> 只有一个页面 (整个应用的一个载体)
+            -> 内容全部是由 Ajax方法 呈现出来的
+    -> 通过指令扩展了 HTML，通过表达式绑定数据到 HTML上 
+
+-> hashchange事件
+    -> 当使用浏览器访问锚点的时候，锚点的值改变的时候触发该事件
+
+-> Location中的属性
+    -> hash：锚点的值 (#后面的值)
+    -> search：？后面的值 (包括 ?)
+    -> hostname：就是网址 (www.baidu.com)
+    -> host：网址，但是包括端口号 (www.baidu.com:8080) 
+    -> port：端口号
+    -> pathname：请求的页面路径
+    -> protocol：协议
