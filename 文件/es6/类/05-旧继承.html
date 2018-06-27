@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        function Preson(name) {
+            this.name = name;
+        }
+        Preson.prototype.show = function () {
+            return `名字是：${this.name}`;
+        }
+
+        // 子类
+        function Student(name, skill) {
+            // 继承
+            Preson.call(this, this.name); // 继承属性
+            this.skill = skill;
+        }
+        Student.prototype = new Preson();
+
+        let stul = new Student('zs', 'haha');
+        console.log(stul.name);
+        console.log(stul.show());
+
+        function extendCopy(parent) {
+            var child = {};
+            for (var i in parent) {
+                child.prototype.i = parent.i;
+            }
+            child.uber = parent;
+            return child;
+        }
+    </script>
+</body>
+
+</html>

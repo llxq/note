@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        // async function fn() {
+        //     throw new Error('出错了');
+        //     //  return 'welcome'
+        // }
+        // console.log(fn());
+        // fn().then(res => {
+        //     console.log(res);
+        // }).catch(err => {
+        //     console.log(err);
+        // })
+
+        async function fun() {
+            await Promise.reject('出现错误了');
+            let a = await Promise.resolve('成功了');
+            console.log(a);
+            
+        }
+        fun().then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.log(err);
+        });
+    </script>
+</body>
+
+</html>

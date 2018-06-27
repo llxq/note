@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <script></script>
+  <style type="text/css">
+	body {
+		counter-reset:count;
+	}
+	h1 {
+		counter-increment:count 1;
+	}
+	h1:before {
+		content:"第"counter(count)"章";
+		padding-right:20px;
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<h1>Web 基础知识</h1>
+	<h1>HTML 快速入门</h1>
+	<h1>网页中的文本</h1>
+ </body>
+</html>

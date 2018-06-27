@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script>
+  	//window.open();	打开新链接
+	function fun1(){ //当前窗口打开,可以后退
+		open("http://www.baidu.com","_self");
+	}
+	function fun2(){ //当前窗口打开,不可以后退
+		//使用新链接,替换旧链接,同时打开新链接
+		location.replace("http://www.baidu.com");
+	}
+	function fun3(){ //当前窗口打开,可以后退,打开新页面
+		open("http://www.baidu.com");	//第二个参数不填写默认就是_blank
+	}
+	function fun4(){ //当前窗口打开,可以后退,打开新页面
+		open("http://www.baidu.com","baidu");	//第二个参数可填写自定义的,就是代表window.name
+										//只打开一个界面
+	}
+  </script>
+ </head>
+ <body>
+	<a href="http://www.baidu.com" target="_self">在当前窗口打开,可后退</a><br />
+	<a href="javascript:fun2()" target="_self" >在当前窗口打开,不可后退</a><br />
+	<a href="http://www.baidu.com" target="baidu" >用html实现在新窗口打开,只开一个界面</a><br />
+	<a href="javascript:fun3()">在新窗口打开,可打开多个界面</a><br />
+	<a href="javascript:fun4()">在新窗口打开,只开一个界面</a><br />
+ </body>
+</html>

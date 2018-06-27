@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+    <script src="../bootstrap/jquery/jquery.js"></script>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+</head>
+
+<body>
+    <!-- Button trigger modal -->
+    <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#login">
+        Launch demo modal
+    </button> -->
+
+    <a href="#" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#login" >登录</a>
+
+    <!-- Modal -->
+    <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">登录</h4>
+                </div>
+                <div class="modal-body">
+                    这个就是主体？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">保存修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button id="btn1">1</button>
+    <button id="btn2">2</button>
+    <div class="one">第一个</div>
+    <div class="two">第二个</div>
+    <script>
+        $("#btn1").click(function () { 
+            $(".one").css("color", "yellow");
+         })
+         // 触发 另一个 btn 的事件
+         $("#btn2").click(function () { 
+            $(".two").css("color", "red");
+            $("#btn1").click();
+         })
+    </script>
+</body>
+
+</html>

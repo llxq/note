@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+    </head>
+    <body>
+        <script>
+            let obj = {
+                name: 'hello'
+            }
+            
+            let newObj = new Proxy(obj, {
+                // target：代理的对象
+                // property：被访问的属性，返回的是一个字符串
+                get(target, property){   
+                    // console.log(target, property);
+                    console.log(`你访问了${property}属性`);
+                    return target[property];
+                }
+            });
+            console.log(newObj.name);
+        </script>
+    </body>
+</html>

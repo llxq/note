@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script>
+  	//去掉当前字符前的空字符
+	function ltrim(str){
+		var reg=/^s+/;
+		return str.replace(reg,"");
+	}
+	//去掉当前字符后的空字符
+	function rtrim(str){
+		var reg=/s+$/;
+		return str.replace(reg,"");
+	}
+	//同时去掉当前字符的前后空格
+	//在新浏览器中string的空字符串
+	function trim(str){
+		var reg=/^\s+|\s+$/;
+		return reg.replace(reg,"");
+	}
+  </script>
+  <style type="text/css">
+	
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	
+ </body>
+</html>

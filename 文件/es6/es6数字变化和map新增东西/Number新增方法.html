@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+	<script>
+		let a = 123;
+		// 判断是否是 NaN
+		console.log(Number.isNaN(a));
+
+		// 判断是否是 数字
+		let str = 'awe';
+		console.log(Number.isFinite(a));
+		console.log(Number.isFinite(str));
+		
+		// 判断一个数字是否是 整数
+		let b = 12.5;
+		let c = 12;
+		console.log(Number.isInteger(b));
+		console.log(Number.isInteger(c));
+
+		// 判断一个数字是否是 安全整数
+		let d = 2**53;
+		let e = 2**53 - 1;
+		let f = -(2**53 - 1);
+		console.log(Number.isSafeInteger(d));
+		console.log(Number.isSafeInteger(e));
+		console.log(Number.isSafeInteger(f));
+	</script>
+ </body>
+</html>

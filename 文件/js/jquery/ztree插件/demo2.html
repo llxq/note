@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script src="../jquery-1.8.3.js"></script>
+  <!-- 引入ztree插件的js文件 -->
+  <script src="js/jquery.ztree.all-3.5.js"></script>
+  <link href="css/zTreeStyle/zTreeStyle.css" rel="stylesheet"></link>
+  <title>Document</title>
+ </head>
+ <body>
+	<ul class="ztree" id="ztreeDemo"></ul>
+	<script>
+		/*
+			-> setting：配置当前的树菜单
+				->选项
+					-> data：设置树菜单节点数据相关信息
+						-> simpleData：设置简单数据模式相关信息
+							-> enable：设置是否使用简单数据模式,默认值为false
+						-> idKey：设置当前菜单的标识名称  默认为"id"
+						-> pIdKey：设置当前菜单的父菜单的标识名称,默认值为 "pId"
+			-> znodes  简单数据模式
+				-> 数组格式	  用于存储多个菜单
+				-> 选项：
+					-> name：设置当前菜单的名称
+					-> id：设置当前菜单的标识
+					-> PId：设置当前菜单的父菜单的标识
+		*/
+		var setting={
+			data:{
+				simpleData:{
+					enable:true
+				}
+			}
+		};
+		var znodes=[
+			{id:1,pId:0,name:"一级菜单1"},
+			{id:11,pId:1,name:"二级菜单1"},
+
+			{id:2,pId:0,name:"一级菜单2"},
+
+			{id:3,pId:0,name:"一级菜单3",isParent:true}
+		];
+		$.fn.zTree.init($("#ztreeDemo"),setting,znodes);
+	</script>
+ </body>
+</html>

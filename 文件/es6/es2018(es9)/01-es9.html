@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+    </head>
+    <body>
+        <script>
+            let str = '2018-03-20';
+            // let reg = /(\d{4})-(\d{2})-(\d{2})/;
+            // reg.exec(str);
+            // console.log(RegExp.$1);
+            // console.log(RegExp.$2);
+            // console.log(RegExp.$3);
+
+            // es9 语法
+            let reg = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+            // console.log(str.match(reg).groups.year);
+            // console.log(typeof str.match(reg).groups);  // 这是个对象
+            let {year, month, day} = str.match(reg).groups;
+            console.log(year, month, day);
+            // console.log(reg.exec(str).groups.year);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <style type="text/css">
+	#ping{
+		width:838px;
+		margin-top:10px;
+	}
+	#ping_kuang{
+		width:838px;
+		min-height:50px;
+		padding:10px 15px 5px;
+		border:1px solid #d0e4c2;
+		margin-bottom:10px;
+	}
+	#ping_page a {
+		/*行内元素宽与高不生效*/
+		/*width:20px;
+		height:20px;*/
+		border:1px solid #ccc;
+		padding:3px 10px;
+		margin:2px;
+		border-radius:5px;
+	}
+	#ping_page .current{
+		border:none;
+		/*因为border去掉了 a标签的大小会少1像素的大小 所以给padding加上一个像素*/
+		padding:4px 11px;
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<div id="ping">
+		<div id="ping_kuang"></div>
+		<div id="ping_page">
+			<a class="current">1</a>
+			<a href="#">2</a>
+			<a href="#">3</a>
+			<a href="#">4</a>
+			<a href="#">5</a>
+			<a href="#">6</a>
+		</div>
+	</div>	
+ </body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <script></script>
+  <style type="text/css">
+	#div_img,#d1 {
+		width:200px;
+		height:200px;
+		border:1px solid red;
+		float:left;
+		margin-right:400px;
+		margin-bottom:50px;
+	}
+	#div_result,#d2 {
+		width:200px;
+		height:100px;
+		border:1px solid black;
+		float:left;
+		margin-right:400px;
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<!-- 该div元素用于显示源元素 -->
+	<div id="div_img">
+		<img id="img" src="image/1.jpg" width="200px"/>
+	</div>
+	<!-- 目标元素 -->
+	<div id="d1"></div>
+	<!-- 该div元素用于显示测试结果 -->
+	<div id="div_result"></div>
+	<div id="d2"></div>
+	<script>
+		//获取元素
+		var d1=document.getElementById("d1");
+		var d2=document.getElementById("d2");
+		//为目标元素绑定事件
+		d1.addEventListener("dragenter",function(){
+			d2.innerHTML="目标是第一次进入";
+		});
+		d1.addEventListener("dragover",function(e){
+			e.preventDefault();
+			d2.innerHTML="目标进入";
+		});
+		d1.addEventListener("drop",function(){
+			d2.innerHTML="目标已经被拖动到目标元素";
+		});
+		d1.addEventListener("dragleave",function(){
+			d2.innerHTML="目标拖放结束";
+		});
+	</script>
+ </body>
+</html>

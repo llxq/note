@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script>
+	
+  </script>
+  <style type="text/css">
+	div {
+		margin:0;
+		width:300px;
+		height:200px;
+		background-color:#ccc;
+		color:red;
+		text-align:center;
+		line-height:200px;
+		display:none;
+	}
+	.vali_Info {
+		display:none;
+	}
+	span {
+		color:red;
+	}
+	.txt_focus {
+		border:1px solid black;
+	}
+	.vali_success,.vali_fail{
+		display:block;
+	}
+	/*验证通过的样式*/
+	.vali_success {
+		
+	}
+	/*验证失败的样式*/
+	.vali_fail {
+		
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<form>
+		<h2>增加管理员</h2>
+		<table>
+			<tr>
+				<td>姓名：</td>
+				<td>
+					<input type="text" name="userName" />
+					<span>*</span>
+				</td>
+				<td>
+					<div class="vali_Info">10个字符以内的字母,数字和下划线的组合</div>
+				</td>
+			</tr>
+			<tr>
+				<td>姓名：</td>
+				<td>
+					<input type="password" name="pwd" />
+					<span>*</span>
+				</td>
+				<td>
+					<div class="vali_Info">6位数字</div>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td colspan="2">
+					<input type="submit" value="保存" />
+					<input type="reset" value="重填" />
+				</td>
+			</tr>
+		</table>
+	</form>	
+	<div>
+		<h2>验证失败！重新输入！</h2>
+	</div>
+	<div>
+		<h2>欢迎登录！</h2>
+	</div>
+ </body>
+</html>

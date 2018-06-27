@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <script>
+            class Preson{
+                constructor(name, age) {     // 构造函数，new的时候就会调用
+                    this.name = name;
+                    this.age = age;
+                }
+                show() {
+                    console.log(`我叫：${this.name},今年：${this.age}岁`);
+                }
+            }
+            console.log(typeof Preson);
+            let p1 = new Preson('张三', 18);
+            p1.show();
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>

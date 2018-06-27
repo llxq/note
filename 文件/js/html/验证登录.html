@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script>
+	/*var code="4eAT";
+	while((prompt("请输入验证码"+code)).toLowerCase()!=code.toLowerCase()){
+		alert("输入错误");
+	}
+	document.write("<h1 style='color:red'>验证通过</h1>");*/
+	
+	function encode(input){
+		for(var i=0,arr=[];i<input.length;i++){
+			var unicode=input.charCodeAt(i);
+			arr.push((unicode+100000+"").slice(1));
+		}
+		document.write("<h1 style='color:green'>"+arr.join("")+"</h1>");
+		return arr.join("");
+	}
+	function dencode(code){
+		//第一种方法：
+		/*var arr=[];
+		while(code.length>0){
+			arr.push(String.fromCharCode(code.substr(0,5)));
+			code=code.substr(5,code.length);
+		}*/
+		//第二种方法：
+		for(var i=0,arr=[];i<code.length;i+=5){
+			arr.push(String.fromCharCode(code.substr(i,5)));
+		}
+		document.write("<h1 style='color:red'>"+arr.join("")+"</h1>");
+		return arr.join("");
+	}
+	//2510526361
+	var input=encode(prompt("请输入一句话"));
+  </script>
+  <style type="text/css">
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<input type="button" value="解码" onclick="dencode(prompt('请输入一句话'));" />
+ </body>
+</html>

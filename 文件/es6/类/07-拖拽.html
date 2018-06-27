@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+
+        .right {
+            right: 0;
+        }
+
+        .left {
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="dv1" class="box right"></div>
+    <div id="dv2" class="box left"></div>
+    <script>
+        class Drag {
+            constructor(id) {
+                this.dv = document.querySelector(id);
+                this.ofx = this.dv.offsetLeft;
+                this.divX = 0;
+                this.divY = 0;
+                this.init();
+            }
+            // 实现拖放逻辑
+            init() {
+                this.dv.onmousedown = function (e) {
+                    this.divX = e.clientX - this.ofx;
+                    this.divY = e.clientY - this.dv.offsetTop;
+                    this.dv.onmousemove = this.fuMove.bind(this);
+                    this.dv.onmouseup = this.fnUp.bind(this);
+                    return false;
+                }.bind(this)
+            }
+            fuMove(e) {
+                this.dv.style.left = e.clientX - this.divX + 'px';
+                this.dv.style.top = e.clientY - this.divY + 'px';
+            }
+            fnUp(e) {
+                this.dv.onmousemove = null;
+                this.dv.onmouseup = null;
+            }
+        }
+
+        // 子类：限制范围
+        class limitDrag extends Drag {
+            fuMove(e) {
+                super.fuMove(e);
+
+                // 限制范围
+                if (this.dv.offsetLeft <= 0) {
+                    this.dv.style.left = 0;
+                }
+            }
+        }
+        new Drag('#dv1');
+        new limitDrag('#dv2');
+        //    let d = new Drag('#dv1');
+        //    console.log(d.dv);
+    </script>
+</body>
+
+</html>

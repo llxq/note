@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+		list-style:none;
+	}	
+	#navs {
+		width:1200px;
+		height:50px;
+		background:#E4393C;
+		margin:0 auto;
+		margin-top:40px;
+	}
+	#main {
+		width:276px;
+		height:500px;
+		border:2px solid red;
+		border-top:none;
+	}
+	.cate_line {
+		width:270px;
+		height:40px;
+		font-size:18px;
+		padding-top:4px;
+		padding-left:5px;
+		z-index:10;
+		position:relative;
+		
+	}
+	.sub_cate {
+		width:266px;
+		height:40px;
+		line-height:40px;
+		cursor:pointer;
+	}
+	.sub_cate li{
+		float:left;
+		padding-left:15px;
+		color:#ddd;
+
+	}
+	#cate{
+		width:280px;
+		height:50px;
+		background-color:#cd2a2c;
+		font-size:18px;
+		font-weight:bold;
+	}
+	#cate a {
+		text-decoration:none;
+		color:#fff;
+		padding-left:25px;
+		display:inline-block;
+		line-height:55px;
+		height:50px;
+		float:left;
+	}
+	#cate i {
+		float:right;
+		height:50px;
+		width:30px;
+		background:yellow;
+	}
+	#cate a:hover {
+		text-decoration:underline;
+	}
+	.sub_cate:hover{
+		border-top:1px solid #ccc;
+		border-bottom:1px solid #ccc;
+		background:#fff;
+	}
+	.sub_cate a{
+		color:#aaa;
+		text-decoration:none;
+	}
+	.sub-line {
+		width:600px;
+		height:510px;
+		border:1px solid #ddd;
+		position:absolute;
+		left:355px;
+		margin-top:5px;
+		box-shadow:0 2px 1px 1px #ccc; 
+		background-color:white;
+		z-index:1;
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<div id="navs">
+		<div id="navs_left">
+			<div id="cate">
+				<a href="#">全部商品分类</a>
+				<i></i>
+			</div>
+			<div id="main">
+				<div class="sub-line"></div>
+				<ul class="cate_line">
+					<li>
+						<ul class="sub_cate">
+							<li><a href="#">图书</a></li>
+							<li>、</li>
+							<li><a href="#">音响</a></li>
+							<li>、</li>
+							<li><a href="#">数字商品</a></li>
+						</ul>
+					</li>
+					<li>
+						<ul class="sub_cate">
+						<li><a href="#">家用电器</a></li>
+						</ul>
+					</li>
+				<ul>
+			</div>
+		</div>
+	</div>
+ </body>
+</html>

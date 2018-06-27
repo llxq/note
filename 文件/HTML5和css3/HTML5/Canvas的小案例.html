@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script>
+	
+  </script>
+  <style type="text/css">
+	
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<canvas id="canvas" width="1024px" height="576px" style="background:url(image/1.jpg)"></canvas>
+	<script>
+		var canvas=document.getElementById("canvas");
+		canvas.style.marginTop="15px";
+		canvas.style.marginLeft="130px";
+		var context=canvas.getContext("2d"); 
+		var r=0;
+		var g=0;
+		var b=0;
+		var x=30;
+		var y=546;
+		function draw(){
+			context.beginPath();
+			context.clearRect(0,0,canvas.width,canvas.height);
+			context.beginPath();
+			context.fillStyle="rgb("+r+","+g+","+b+")";
+			context.globalAlpha=0.5;
+			for(var i=0;i<10;i++){
+				context.arc(x,y,30,0,Math.PI*2);
+				x+=parseInt(Math.random()*41+80);
+				if(x>=canvas.width){
+					x=30;
+				}
+			}
+			y-=0.5;
+			context.fill();
+		}
+		setInterval(draw,100);
+	</script>
+ </body>
+</html>
