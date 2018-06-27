@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script>
+	
+  </script>
+  <style type="text/css">
+	
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<canvas id="canvas" width="500px" height="500px"></canvas>
+	<script>
+		var canvas=document.getElementById("canvas");
+		var context=canvas.getContext("2d");
+		
+		//绘制文字的基准线
+		context.beginPath();
+		context.moveTo(100,0);
+		context.lineTo(100,250);
+		context.stroke();
+
+		context.font="bold 50px 微软雅黑";
+		//设置对齐方式：
+		context.textAlign="right";
+		//绘制实心文字
+		context.fillText("傻逼",100,100);
+
+		context.textAlign="center";
+		context.fillText("傻逼",100,150);
+
+		context.textAlign="left";
+		context.fillText("傻逼",100,200);
+
+		//绘制文字基准线
+		context.beginPath();
+		context.moveTo(100,400);
+		context.lineTo(500,400);
+		context.stroke();
+
+		//绘制空心文字
+		context.textBaseline="middle";
+		context.strokeText("傻逼",120,400);
+	</script>
+ </body>
+</html>

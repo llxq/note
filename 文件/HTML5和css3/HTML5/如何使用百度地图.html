@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <!-- 
+	 -> 引入百度地图的js库
+		-> 链接：http://api.map.baidu.com/api?v=2.0&ak="秘钥"
+		http://api.map.baidu.com/api?v=2.0&ak=HbUVYMUg6PwbOnXkztdgSQlQ
+		-> 必须先申请秘钥
+  -->
+  <script src="http://api.map.baidu.com/api?v=2.0&ak=HbUVYMUg6PwbOnXkztdgSQlQ"></script>
+  <style type="text/css">
+	#allmap {
+		width:400px;
+		height:400px;
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<!-- 在html页面中定义用于显示百度地图的容器(元素)   ：div元素 -->
+	<div id="allmap"></div>
+	<script>
+		/*
+			-> 创建百度地图对象(Map)
+				-> 构造器：BMap.Map(容器id)
+				-> 必须通过centerAndZoom()进行地图的初始化
+					-> 该方法是必要方法
+		*/
+		var map=new BMap.Map(allmap);
+		/*
+			-> 初始化百度地图
+				-> Map地图对象的方法
+				-> 方法：centerAndZoom()
+		*/
+	</script>
+ </body>
+</html>

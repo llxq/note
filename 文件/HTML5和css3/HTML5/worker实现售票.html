@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <script></script>
+  <style type="text/css">
+	div {
+		width:100px;
+		height:100px;
+		border:1px solid red;
+		float:left;
+		margin-right:10px;
+	}
+	.hasToicket {
+		width:100px;
+		height:100px;
+		border:1px solid red;
+		float:left;
+		margin-right:10px;
+		background:green;
+	}
+	.noToicket {
+		width:100px;
+		height:100px;
+		border:1px solid red;
+		float:left;
+		margin-right:10px;
+		background:red;
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body align="center">
+	<h1>售票系统</h1>
+	<div id="win1">售票窗口1</div>
+	<div id="win2">售票窗口2</div>
+	<div id="win3">售票窗口3</div>
+	<div id="win4">售票窗口4</div>
+	<div id="win5">售票窗口5</div><br/>
+	<input type="button" value="抢票" id="btn" />
+	<input type="button" value="抢票" id="btn2" />
+	<script>
+		var workers=[];
+		var div1=document.getElementById("btn2").onclick=function(){
+			
+		}
+		var divs=document.body.getElementsByTagName("div");
+		document.getElementById("btn").onclick=function(){
+			for(var i=0;i<5;i++){
+				var worker=new Worker("js/GetTicket.js");
+				worker.onmessage=getmessage;
+				if(workers.length>=5){
+					workers=[];
+				}
+				workers.push(worker);
+			}
+		};
+		function getmessage(e){
+			//e.target属性  绑定该事件的对象
+			var w=e.target;
+			var i=workers.indexOf(w);
+			if(e.data==0){
+				//没有抢到
+				divs[i].className="noToicket";
+			}else{
+				//没有
+				divs[i].className="hasToicket";
+			}
+		}
+	</script>
+ </body>
+</html>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script>
+	
+  </script>
+  <style type="text/css">
+	
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<canvas id="canvas" width="500px" height="500px"></canvas>
+	<script>
+		var canvas=document.getElementById("canvas");
+		var context=canvas.getContext("2d");
+		context.beginPath();
+		context.shadowColor="red";
+		context.shadowOffsetX=3;
+		context.shadowOffsetY=3;
+		context.shadowBlur=10;
+		context.font="bold 50px 微软雅黑";
+		context.fillText("傻逼",100,100);
+		
+	</script>
+ </body>
+</html>

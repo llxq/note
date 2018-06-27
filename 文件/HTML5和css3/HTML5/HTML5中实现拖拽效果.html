@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <script></script>
+  <style type="text/css">
+	#div_img,#d1 {
+		width:200px;
+		height:200px;
+		border:1px solid red;
+		float:left;
+		margin-right:400px;
+		margin-bottom:50px;
+	}
+	#div_result,#d2 {
+		width:200px;
+		height:100px;
+		border:1px solid black;
+		float:left;
+		margin-right:400px;
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<!-- 该div元素用于显示源元素 -->
+	<div id="div_img">
+		<img id="img" src="image/1.jpg" width="200px"/>
+	</div>
+	<!-- 目标元素 -->
+	<div id="d1"></div>
+	<!-- 该div元素用于显示测试结果 -->
+	<div id="div_result"></div>
+	<div id="d2"></div>
+	<script>
+		/*
+			-> 使用HTML5中的拖放API实现拖放功能
+				-> 源事件对象：dragstart事件
+				-> 目标事件对象：drop事件和dragover事件
+				-> dataTransfer对象
+		*/
+		//获取源元素
+		var image=document.getElementById("img");
+		//获取目标元素
+		var d1=document.getElementById("d1");
+		//为源元素绑定事件
+		image.addEventListener("dragstart",function(e){
+			//将源元素的数据存储在dataTransfer中
+			var src=image.src;
+			/*
+				-> 调用dataTransfer(type,data)方法的setData方法
+					-> type：特置标识(id)
+						-> 类型：一般为字符串
+					-> data：设置的数据内容
+			*/
+			e.dataTransfer.setData("hello",src);
+		});
+		d1.addEventListener("dragover",function(e){e.preventDefault();});
+		d1.addEventListener("drop",function(e){
+			/*
+				-> 获取dataTransfer中设置的值
+					-> getData(type)
+						-> 之前调用setData()方法时,传递的值是什么,这里的值就是什么
+			*/
+			var datasrc=e.dataTransfer.getData("hello");
+			//将源元素(图片)添加到目标元素中
+			d1.innerHTML="<img src='"+datasrc+"' width='200px' />";
+			//清除dataTransfer中的数据
+			e.dataTransfer.clearData("hello");
+			//删除源元素
+			image.parentNode.innerHTML="";
+		});
+	</script>
+ </body>
+</html>

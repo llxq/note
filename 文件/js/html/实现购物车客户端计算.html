@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script>
+	function cacl(btn){
+		//修改数量
+		var td=btn.parentNode; //td
+		//拿到当前tb下的span元素
+		var span=td.querySelector("span");
+		var n=parseInt(span.innerHTML);
+		btn.value=="+"?n++:n--;
+		//为0的时候就不能减去了
+		n<0&&(n=0);
+		if(n<10){
+			span.innerHTML="0"+n;
+		}else{
+			span.innerHTML=n;
+		}
+
+		//拿到单价 parice
+		var tr=td.parentNode;  //tr
+		var tdprice=tr.querySelector("td:nth-child(2)");
+		tr.querySelector("td:last-child").innerHTML="&yen;"+parseInt(n)*parseInt(tdprice.innerHTML.slice(1));
+
+		//拿到总价：subs
+		//获得所有的td
+		var subs=document.querySelectorAll("#tb tbody tr td:last-child");
+		for(var i=0,total=0;i<subs.length;i++){
+			total+=parseInt(subs[i].innerHTML.slice(1));
+		}
+		document.querySelector("#tb tfoot tr td:last-child").innerHTML="&yen;"+total;
+		if(parseInt(document.querySelector("#tb tfoot tr td:last-child").innerHTML.slice(1))==0){
+			alert("穷逼,买不起还要看");
+		}
+	}
+  </script>
+  <style type="text/css">
+	#tb{
+		width:600px;
+		text-align:center;
+		border-collapse:collapse;
+		margin:20px auto;
+	}
+	#tb tr{		
+		height:40px;
+	}
+	#tb td {
+		width:120px;
+	}
+	input {
+		width:23px;
+		height:30px;
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<table border="1" cellspacing="0" cellpadding="1" id="tb">
+		<thead>
+			<tr>
+				<th>商品名称</th>
+				<th>单价</th>
+				<th>数量</th>
+				<th>小计</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>iPhone6</td>
+				<td>￥4488</td>
+				<td>
+					<input type="button" value="-" onclick="cacl(this)" />
+					<span>01</span>
+					<input type="button" value="+" onclick="cacl(this)" />
+				</td>
+				<td>￥4488</td>
+			</tr>
+			<tr>
+				<td>iPhone6 plus</td>
+				<td>￥5288</td>
+				<td>
+					<input type="button" value="-" onclick="cacl(this)" />
+					<span>01</span>
+					<input type="button" value="+" onclick="cacl(this)" />
+				</td>
+				<td>￥5288</td>
+			</tr>
+			<tr>
+				<td>iPad Air 2</td>
+				<td>￥4288</td>
+				<td>
+					<input type="button" value="-" onclick="cacl(this)" />
+					<span>01</span>
+					<input type="button" value="+" onclick="cacl(this)" />
+				</td>
+				<td>￥4288</td>
+			</tr>
+		<tfoot>
+			<tr>
+				<td colspan="3">总价</td>
+				<td>￥14064</td>
+			</tr>
+		</tfoot>	
+		</tbody>
+	</table>
+ </body>
+</html>

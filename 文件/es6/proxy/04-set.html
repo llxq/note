@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+    </head>
+    <body>
+        <script>
+            let obj = new Proxy({}, {
+                set(target, prop, value) {
+                    // target：代理的对象
+                    // prop：添加的属性的名称
+                    // value：添加的属性的值
+                    console.log(target, prop, value);
+                }
+            });
+            obj.name = '520'; 
+        </script>
+    </body>
+</html>

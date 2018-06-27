@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+	<script>
+		//let arr = [1, 2, 3, 5];
+		let weakset = new WeakSet()
+		weakset.add({
+			a: 1,
+			b: 2
+		});
+		weakset.add({
+			a: 2,
+			b: 1
+		});
+		// weakset没有clear方法
+		// weakset.clear();
+		console.log(weakset);
+	</script>
+ </body>
+</html>

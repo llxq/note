@@ -1,0 +1,686 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <link rel="stylesheet" type="text/css" href="css/product.css" />
+  <title>京东首页</title>
+   <script>
+	onload=function(){
+		document.getElementById("s_text").onfocus=function(){
+			document.getElementById("search_pop").style.display="block";
+		};
+		document.getElementById("s_text").onblur=function(){
+			document.getElementById("search_pop").style.display="none";
+		};
+		document.getElementById("service").onmouseover=function(){
+			document.getElementById("service_pop").style.display="block";
+			document.getElementById("service_pop").style.position="absolute";
+		};
+		document.getElementById("service").onmouseout=function(){
+			document.getElementById("service_pop").style.display="none";
+		};
+		document.getElementById("size_frame").onmouseover=function(){
+			document.getElementById("size_pop").style.display="block";
+			document.getElementById("size_frame").style.borderBottom="2px solid transparent";
+		};
+		document.getElementById("size_frame").onmouseout=function(){
+			document.getElementById("size_pop").style.display="none";
+			document.getElementById("size_frame").style.borderBottom="1px solid #cecbce";
+		};
+		document.getElementById("show_pop").onmouseover=function(){
+			document.getElementById("main").style.display="block";
+		};
+		document.getElementById("show_pop").onmouseout=function(){
+			document.getElementById("main").style.display="none";
+		};
+	};
+  </script>
+ </head>
+ <body>
+ 	<!--最上层的连接-->
+	<div id="header_link">
+		<!--定宽容器-->
+		<div class="warp">
+			<div id="shoucang">
+				<img src="images/start.jpg" /><a href="#">收藏京东</a>
+			</div>
+			<div class="hl_right">
+				<div id="user">
+					<ul>
+						<li class="hello">您好,欢迎来到京东!</li>
+						<li><a href="#">[登录]</a></li>
+						<li><a href="#">[免费注册]</a></li>
+						<li class="devider">|</li>
+					</ul>
+				</div>
+				<div id="hl_content">
+					<ul>
+						<li><a href="#">我的订单</a></li>
+						<li class="devider">|</li>
+						<li class="sjjd"><a href="#">会员俱乐部</a></li>
+						<li class="devider">|</li>
+						<li><a href="#">企业频道</a></li>
+						<li class="devider">|</li>
+						<li class="sjjd">
+							<a href="#">手机京东</a>
+						</li>
+						<li class="devider">|</li>
+						<li>
+							<div id="service">
+								<a id="kh" href="#">客户服务<i></i></a>
+								<div id="service_pop">
+									<ul>
+										<li><a href="#">帮助中心</a></li>
+										<li><a href="#">售后服务</a></li>
+										<li><a href="#">在线客服</a></li>
+										<li><a href="#">投诉中心</a></li>
+										<li><a href="#">客服邮箱</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+						<li class="devider">|</li>
+						<li><a href="#">网站导航</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--头部,搜索框,loge-->
+	<div id="header">
+		<h1 id="logo">
+			<a href="#"></a>
+		</h1>
+		<div id="search">
+			<div id="search_main">
+				<div id="search_kuang">
+					<input type="text" id="s_text" placeholder="请输入需要搜索的内容" />
+					<input type="button" value="搜索" class="s_btns"/>
+				</div>
+				<div id="search_pop">
+					<ul>
+						<li>
+							<a href="#">卫<strong>33衣</strong></a>
+							<span>约1120个商品</span>
+						</li>
+						<li>
+							<a href="#">卫<strong>衣</strong></a>
+							<span>约1120个商品</span>
+						</li>
+						<ul class="sub_pop">
+							<li>
+								<a href="#">在<b>男装&gt;卫衣</b>分类中搜索</a>
+								<span>约11731个商品</span>
+							</li>
+							<li>
+								<a href="#">在<b>女装&gt;卫衣</b>分类中搜索</a>
+								<span>约10252个商品</span>
+							</li>
+						</ul>
+						<li>
+							<a href="#">卫<strong>新</strong></a>
+							<span>约1120个商品</span>
+						</li>
+						<li>
+							<a href="#">卫<strong>生纸</strong></a>
+							<span>约1120个商品</span>
+						</li>
+						<li>
+							<a href="#">卫<strong>浴</strong></a>
+							<span>约1120个商品</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div id="hot_words">
+				<h4>热门搜索：</h4>
+				<ul>
+					<li>
+						<a href="#">家纺11月大促</a>
+					</li>
+					<li>
+						<a href="#">彩虹电热毯</a>
+					</li>
+					<li>
+						<a href="#">博洋家纺</a>
+					</li>
+					<li>
+						<a href="#">霞针</a>
+					</li>
+					<li>
+						<a href="#">床垫床褥</a>
+					</li>
+					<li>
+						<a href="#">九州鹿被子</a>
+					</li>
+					<li>
+						<a href="#">南极人家纺</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="hd_btns">
+			<div id="myjd">
+				<a href="#" class="my_jd">我的京东</a>
+				<i></i>
+				<div id="jd_pop"></div>
+			</div>
+			<div id="shop">
+				<a href="#" class="shop_cart">去购物车结算</a>
+				<i></i>
+				<div id="shop_pop"></div>
+			</div>
+		</div>
+	</div>
+	<!--导航条-->
+	<div id="navi">
+		<div id="navi_left">
+			<div id="cate">
+				<a id="show_pop" href="#">全部商品分类</a>
+				<i></i>
+			</div>
+			<div id="main">
+				<ul class="cate_line">
+					<li>
+						<ul class="sub_cate">
+							<li><a href="#">图书</a></li>
+							<li>、</li>
+							<li><a href="#">音响</a></li>
+							<li>、</li>
+							<li><a href="#">数字商品</a></li>
+						</ul>
+					</li>
+					<li>
+						<ul class="sub_cate">
+						<li><a href="#">家用电器</a></li>
+						</ul>
+					</li>
+				<ul>
+				<div id="sub-line"><strong>X</strong></div>
+			</div>
+		</div>
+		<div id="navi_right">
+			<ul>
+				<li>
+					<a href="#">首页</a>
+				</li>
+				<li>
+					<a href="#">服装城</a>
+				</li>
+				<li>
+					<a href="#">食品</a>
+				</li>
+				<li>
+					<a href="#">团购</a>
+				</li>
+				<li>
+					<a href="#">夺宝岛</a>
+				</li>
+				<li>
+					<a href="#">闪购</a>
+				</li>
+				<li>
+					<a href="#">金融</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!--主体内容-->
+	<div id="content">
+		<div id="bread_nav">
+			<h3><a href="#">家具家装</a></h3>
+			<ul>
+				<li>
+					<a href="#">清洁用品</a>
+					<span>&gt;</span>
+				</li>
+				<li>
+					<a href="#">衣物清洁</a>
+					<span>&gt;</span>
+				</li>
+				<li>
+					<a href="#">卫新</a>
+					<span>&gt;</span>
+				</li>
+				<li>
+					<a href="#">卫新洗衣液</a>
+				</li>
+			</ul>
+		</div>
+		<div id="product_info">
+			<div id="product_img">
+				<div id="big_img">
+					<img src="images/wx.jpg">
+				</div>
+				<div id="small_img">
+					<span class="small_left"></span>
+					<div id="small_img_mian">
+						<ul class="">
+							<li>
+								<img src="images/small/1.jpg" />
+							</li> 
+							<li>
+								<img src="images/small/2.jpg" />
+							</li>
+							<li>
+								<img src="images/small/3.jpg" />
+							</li>
+							<li>
+								<img src="images/small/4.jpg" />
+							</li>
+							<li>
+								<img src="images/small/5.jpg" />
+							</li>
+							<li>
+								<img src="images/small/6.jpg" />
+							</li>
+							<li>
+								<img src="images/small/7.jpg" />
+							</li>
+							<li>
+								<img src="images/small/8.jpg" />
+							</li>
+							<li>
+								<img src="images/small/9.jpg" />
+							</li>
+							<li>
+								<img src="images/small/10.jpg" />
+							</li>
+						</ul>
+					</div>
+					<span class="small_right"></span>
+				</div>
+			</div>
+			<div class="product_content">
+				<div class="product_content_title">
+					<strong>卫新薰衣草洗衣液&nbsp;4.26kg</strong><br />
+					<span>与威霜士一起巩固健康生活</span>
+				</div>
+				<div class="product_text">
+					<div class="product_line">
+						<span class="product_left">京 东 价：</span>
+						<div class="product_right">
+							<strong id="price">￥39.90</strong>
+							<a href="#">(降价通知)</a>
+						</div>
+					</div>
+					<div class="product_line">
+						<span class="product_left">商品编号：</span>
+						<div class="product_right">960148</div>
+					</div>
+					<div class="product_line">
+						<span class="product_left">商品评分：</span>
+						<div class="product_right">
+							<span id="product_stars"></span>
+							<a class="product_appraise" href="#">(已有47662人评价)</a>
+							<div class="product_leave">
+								<i></i>
+								<a href="#">留言咨询</a>
+							</div>
+						</div>
+					</div>
+					<div class="product_line">
+						<span class="product_left">配送至：</span>
+						<div class="product_right">
+							<div id="site">
+								<div id="size_frame">
+									北京市海淀区大钟寺
+									<i></i>
+								</div>
+								<div id="size_pop">
+									<div id="size_pop_colse"></div>
+									<div id="size_tabs">
+										<ul>
+											<li id="size_province"><a href="#">北京<i></i></a></li>
+											<li id="size_city"><a href="#">海淀区<i></i></a></li>
+											<li id="size_town"><a href="#">三环以内<i></i></a></li>
+										<ul>
+									</div>
+									<!-- 省份 -->
+									<div id="province">
+										<ul>
+											<li><a href="#">北京</a></li>
+											<li><a href="#">上海</a></li>
+											<li><a href="#">天津</a></li>
+											<li><a href="#">重庆</a></li>
+											<li><a href="#">河北</a></li>
+											<li><a href="#">山西</a></li>
+											<li><a href="#">河南</a></li>
+											<li><a href="#">辽宁</a></li>
+											<li><a href="#">吉林</a></li>
+											<li><a href="#">黑龙江</a></li>
+											<li><a href="#">内蒙古</a></li>
+											<li><a href="#">江苏</a></li>
+											<li><a href="#">山东</a></li>
+											<li><a href="#">安徽</a></li>
+											<li><a href="#">浙江</a></li>
+											<li><a href="#">福建</a></li>
+											<li><a href="#">湖北</a></li>
+											<li><a href="#">湖南</a></li>
+											<li><a href="#">广东</a></li>
+											<li><a href="#">广西</a></li>
+											<li><a href="#">江西</a></li>
+											<li><a href="#">四川</a></li>
+											<li><a href="#">海南</a></li>
+											<li><a href="#">贵州</a></li>
+											<li><a href="#">云南</a></li>
+											<li><a href="#">西藏</a></li>
+											<li><a href="#">陕西</a></li>
+											<li><a href="#">甘肃</a></li>
+											<li><a href="#">青海</a></li>
+											<li><a href="#">宁夏</a></li>
+											<li><a href="#">新疆</a></li>
+											<li><a href="#">台湾</a></li>
+											<li><a href="#">港澳</a></li>
+											<li><a href="#">钓鱼岛</a></li>
+											<li><a href="#">海外</a></li>
+										</ul>
+									</div>
+									<!-- 城市 -->
+									<div id="city"></div>
+									<!-- 镇或者乡 -->
+									<div id="town"></div>
+								</div>
+							</div>
+							<div class="size_text">
+								<span id="size_have">有货</span>，<time id="time">23:00</time>前完成下单，预计<span id="delivery">明日(12月06日)</span>送达
+							</div>
+						</div>
+					</div>
+					<div class="product_line">
+						<span class="product_left">服&nbsp;&nbsp;务：</span>
+						<div class="product_right product_color">由&nbsp;<span id="merchant">京东</span>&nbsp;发货并提供售后服务。支持：
+							<a href="#">99元免基础运费(20kg内)</a>
+							<a href="#">货到付款</a>
+							<a href="#">京准达</a>
+							<a href="#" class="ziti">自提</a>
+						</div>
+					</div>
+					<div class="product_line">
+						<span class="product_left">重&nbsp;&nbsp;量：</span>
+						<div class="product_right kg">4.56kg</div>
+					</div>
+				</div>
+				<div class="purchase_content">
+					<div class="purchase_product_line">
+						<span class="product_left">选择产品&nbsp;</span>
+						<div class="purchase_product_right">
+							<a id="product_blue" title="薰衣草">
+								<img src="images/blue.jpg" alt="薰衣草"></img>
+								<strong>薰衣草</strong>
+							</a>
+							<a id="product_pink" title="索菲利亚玫瑰">
+								<img src="images/pink.jpg" alt="索菲利亚玫瑰"></img>
+								<strong>索菲利亚玫瑰</strong>
+							</a>
+						</div>
+					</div>
+					<div class="product_line purchase_money">
+						<span class="product_left">白条分期&nbsp;</span>
+						<div class="product_right">
+							<div>
+								<a href="#">不分期</a>
+							</div>
+							<div>
+								<a href="#">￥9.14起ｘ3期</a>
+							</div>
+							<div>
+								<a href="#">￥4.64起ｘ6期</a>
+							</div>
+							<div>
+								<a href="#">￥2.39起ｘ12期</a>
+							</div>
+							<div>
+								<a href="#">￥1.26起ｘ24期</a>
+							</div>
+							<div class="purchase_money_img">
+								<img src="images/hui.png"></img>
+							</div>
+							<div class="purchase_money_img">
+								<img src="images/question.png"></img>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="shopping_content">
+					<div class="product_line">
+						<span class="product_left">数&nbsp;&nbsp;量&nbsp;</span>
+						<div class="product_right shopping_number_right">
+							<div id="shopping_number">
+								<div id="shopping_number_add">+</div>
+								<div id="shopping_number_number"><input type="text" value="1" /></div>
+								<div id="shopping_number_sub">-</div>
+							</div>
+							<span class="shopping_count">&nbsp;件(库存<span id="number">29867</span>件)</span>
+						</div>
+					</div>
+					<div class="product_line shopping">
+						<div class="product_left shopping_now">立即购买</div>
+						<div class="product_right shopping_cat">加入购物车
+						</div>
+					</div>
+				</div>
+
+				<div class="product_line hint">
+					<span class="product_left">温馨提示&nbsp;</span>
+					<div class="product_right">不支持7天无理由退货</div>
+				</div>
+			</div>
+		</div>
+		<div class="store_info">
+			<div class="store_left">
+				<div class="store_name">
+					<h3>
+						<a href="#">威露士自营旗舰店</a>
+					</h3>
+					<i></i>
+				</div>
+				<div class="open_shop">
+					<a href="#" class="open"><i></i>进店逛逛</a>
+					<a href="#"><i></i>关注店铺</a>
+				</div>
+				<div class="shop_seek">
+					<div class="store_name">
+						<h3>店内搜索</h3>
+					</div>
+					<div class="store_keywords">
+						<p>
+							<span>关键字：</span><input type="text" class="_keywords" />
+						</p>
+						<p>
+							<span>价&nbsp;&nbsp;&nbsp;格：</span><input type="text" class="store_price" /><span> 到 </span></span><input class="store_price"type="text" />
+						</p>
+						<p class="store_btn">
+							<input type="button" value="搜索">
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="store_right">
+				<div class="store_navi">
+					<ul>
+						<li class="referral"><a href="#">商品介绍</a></li>
+						<li><a href="#">规格与包装</a></li>
+						<li><a href="#">搜后保障</a></li>
+						<li><a href="#">商品评价<span>(76万+)</span></a></li>
+						<li><a href="#">商品介绍</a></li>
+					</ul>
+				</div>
+				<div id="referral_info">
+					<div class="brand">
+						<ul>
+							<li>品牌</li>
+							<li><a href="#">卫新</a></li>
+						</ul>
+					</div>
+					<div class="commodity_infor">
+						<ul>
+							<li>商品名称：卫新洗衣液</li>
+							<li>商品编号：1039778</li>
+							<li>商品毛重：4.56kg</li>
+							<li>商品产地：广东省从化市</li>
+							<li>衣物材质：棉质，麻质，纤维，羽绒</li>
+							<li>功效：去污/去渍</li>
+							<li>类型：机洗，手洗，其它</li>
+							<li>净含量：2L及以上</li>
+							<li>分类：洗衣液</li>
+							<li>适用衣物：普通衣物</li>
+							<li>包装单位：瓶装</li>
+						</ul>
+					</div>
+				</div>
+				<div id="pack_info"></div>
+				<div id="safe_info"></div>
+				<div id="good_info"></div>
+			</div>
+		</div>
+	</div>
+	<!--最近浏览-->
+	<div id="recent">
+		<div class="recent_title">
+			<h2>最近浏览</h2>
+			<a href="#">更多浏览记录</a>
+		</div>
+		<div class="recent_img">
+			<ul>
+				<li>
+					<dl>
+						<dt>
+							<img src="images/products/1.jpg">
+							<dd>￥58.00</dd>
+						</dt>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>
+							<img src="images/products/2.jpg">
+							<dd>￥49.00</dd>
+						</dt>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>
+							<img src="images/products/3.jpg">
+							<dd>￥128.000</dd>
+						</dt>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>
+							<img src="images/products/4.jpg">
+							<dd>￥12.50</dd>
+						</dt>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>
+							<img src="images/products/5.jpg">
+							<dd>￥89.00</dd>
+						</dt>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>
+							<img src="images/products/6.jpg">
+							<dd>￥388.00</dd>
+						</dt>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>
+							<img src="images/products/7.jpg">
+							<dd>￥78.00</dd>
+						</dt>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>
+							<img src="images/products/8.jpg">
+							<dd>￥30.00</dd>
+						</dt>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>
+							<img src="images/products/9.jpg">
+							<dd>￥99.00</dd>
+						</dt>
+					</dl>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!--页脚-->
+	<div id="footer">
+		<p class="fotter_link">
+				<a href="#">关于我们</a>
+				<span>|</span>
+				<a href="#">联系我们</a>
+				<span>|</span>
+				<a href="#">人才招聘</a>
+				<span>|</span>
+				<a href="#">商家入驻</a>
+				<span>|</span>
+				<a href="#">广告服务</a>
+				<span>|</span>
+				<a href="#">手机京东</a>
+				<span>|</span>
+				<a href="#">友情链接</a>
+				<span>|</span>
+				<a href="#">销售联盟</a>
+				<span>|</span>
+				<a href="#">京东社区</a>
+				<span>|</span>
+				<a href="#">京东公寓</a>
+		</p>
+		<div class="mode_copy">
+			<p>
+				<a href="#">京公网安备11000002000088号</a>
+				<span class="mode_copy_jg">|</span>
+				<span>京ICP证070359号</span>
+				<span class="mode_copy_jg">|</span>
+				<a href="#">互联网药品信息服务资格证编号(京)-经营性-2014-0008</a>
+				<span class="mode_copy_jg">|</span>
+				<span>新出发京零&nbsp;字第大120007号</span>
+			</p>
+			<p>
+				<span>互联网出版许可证编号新出网证(京)字150号</span>
+				<span class="mode_copy_jg">|</span>
+				<span>出版物经营许可证</span>
+				<span class="mode_copy_jg">|</span>
+				<a href="#">网络文化经营许可证京网文[2014]2148-348号</a>
+				<span class="mode_copy_jg">|</span>
+				<span>违法和不良信息举报电话：4006561155</span>
+			</p>
+			<p>
+				<span>Copyright&copy;&nbsp;2014&nbsp;-&nbsp;2018&nbsp;&nbsp;京东JD.com&nbsp;版权所有</span>
+				<span class="mode_copy_jg">|</span>
+				<span>消费者维权热线：4006067733</span>&nbsp;
+				<a href="#">经营许可证</a>
+			</p>
+			<p>
+				<span>京东旗下网站：</span>
+				<a href="#">京东钱包</a>
+				<span class="mode_copy_jg">|</span>
+				<a href="#">京东云</a>
+			</p>
+		</div>
+		<div class="log_copy">
+			<a class="log_copy_1" href="#">经营性网站备案中心</a>
+			<a class="log_copy_2" href="#">可信网站信用评价</a>
+			<a class="log_copy_3" href="#">网络警察提醒您</a>
+			<a class="log_copy_4" href="#">诚信网站</a>
+			<a class="log_copy_5" href="#">中国互联网举报中心</a>
+			<a class="log_copy_6" href="#">网络举报APP下载</a>
+		</div>
+	</div>
+ </body>
+</html>

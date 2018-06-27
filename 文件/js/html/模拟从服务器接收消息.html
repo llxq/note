@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script>
+	var json='['+'{"ename":"Tom","salary":5000,"age":22},'
+			  +'{"ename":"John","salary":8000,"age":25},'
+			  +'{"ename":"Mary","salary":10000,"age":28}'+']';
+	//使用eval函数,将json字符串,转换为对象
+	var obj=eval('('+json+')');
+	window.$=function(selector){
+		return document.querySelector(selector);
+	}
+	onload=function(){
+		var table=document.createElement("table");
+		//表头
+		for(var i=0;i<obj.length;i++){
+			var tr=document.createElement("tr");
+			for(var j=0;j<obj.length;j++){
+				if(i==0){
+					var th=document.createElement("th");
+					th.innerHTML=obj[j].ename;
+					tr.appendChild(th);
+				}else{
+				var td=document.createElement("td");
+				td.innerHTML=obj[i].salary;
+				tr.appendChild(td);
+				}
+			}
+			table.appendChild(tr);
+		}
+		$("#data").appendChild(table);
+	}
+  </script>
+  <style type="text/css">
+  	table {
+		border:1px solid #ccc;
+		width:600px;
+		border-collapse:collapse;
+		text-align:center;
+	}
+	td,th {
+		border:1px solid #ccc;
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<div id="data"></div>
+ </body>
+</html>

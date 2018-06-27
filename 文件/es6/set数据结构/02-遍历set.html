@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+    </head>
+    <body>
+        <script>
+            let setArr = new Set(['a', 'b', 'c', 'a']);
+            for (let val of setArr) { // 默认是 values
+               console.log(val); 
+            }
+            for (let val of setArr.keys()) {
+               console.log(val); 
+            }
+            setArr.forEach((val, index) => {
+                console.log(val, index);
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script>
+	function nums(str){
+		for(var i=0,arr=[];i<str.length;i++){
+			/*if(arr[str[i]]==undefined){
+				arr[str[i]]=1;
+			}else {
+				arr[str[i]]=arr[str[i]]+1;
+			}*/
+			arr[str[i]]=arr[str[i]]==undefined?1:arr[str[i]]+1;
+		}
+		for(var key in arr){
+			alert(key+"出现了:"+arr[key]+"次");
+		}
+	}	
+	nums(prompt("请输入一句话"));
+  </script>
+  <style type="text/css">
+	
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	
+ </body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+	<script>
+		let map = new Map();
+		map.set('a', 'aaaa');
+		let json = {
+			a: 1,
+			b: 3
+		}
+		// 设置值
+		map.set(json, 'aaaaa');
+		console.log(map);
+
+		// 获取值
+		console.log(map.get(json));
+
+		// 删除值
+		map.delete('a');
+		console.log(map);
+
+		// 判断是否存在
+		console.log(map.has('a'));
+
+		// 清空所有数据
+		map.clear();
+		console.log(map);
+	</script>
+ </body>
+</html>

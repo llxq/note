@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+ </head>
+ <body>
+	<canvas id="canvas" width="680px" height="685px"></canvas>
+	<script>
+		var canvas=document.getElementById("canvas");
+		canvas.style.background="url(1.jpg)";
+		var context=canvas.getContext("2d");
+		//定义构造器 初始化圆形数据
+		function Circle(){
+			this.x=Math.random()*canvas.width;
+			this.y=0;
+			this.pr=Math.random()*15;
+			this.r=parseInt(Math.random()*256);
+			this.g=parseInt(Math.random()*256);
+			this.b=parseInt(Math.random()*256);
+			this.paint=function(){
+				//196, 59, 34
+				context.fillStyle="rgba("+this.r+","+this.g+","+this.b+",0.5)";
+				//context.fillStyle="rgb(304, 47, 27)";
+				context.beginPath();
+				context.arc(this.x,this.y,this.pr,0,Math.PI*2);
+				context.fill();
+			};
+			this.move=function(){
+				if(this.y<canvas.height+this.pr){
+					this.y++;
+				}
+			}
+		}
+		//清除方法
+		function clearImg(){
+			context.clearRect(0,0,canvas.width,canvas.height);
+		}
+		//定义数组,存放多个对象
+		var circles=[];
+		function createCircle(){
+			var circle=new Circle();
+			circles[circles.length]=circle;
+		}
+		//绘制图形方法
+		function paitCircle(){
+			for(var i=0;i<circles.length;i++){
+				circles[i].paint();
+			}
+		}
+		//下落方法
+		function drop(){
+			for(var i=0;i<circles.length;i++){
+				circles[i].move();
+			}
+		}
+		var time=0;
+		setInterval(function(){
+			time++;
+			clearImg();
+			if(time%5==0){
+				createCircle();
+				
+			}
+			paitCircle();
+			drop();
+		},15);
+	</script>
+ </body>
+</html>

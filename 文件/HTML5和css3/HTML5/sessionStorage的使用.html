@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <script></script>
+  <style type="text/css">
+	table {
+		border-collapse:collapse;
+		text-align:center;
+	}
+	#result {
+		width:80px;
+		height:20px;
+		border:1px solid black;
+		border-radius:5px;
+		color:green;
+		text-align:center;
+		position:absolute;
+		top:40%;
+		left:500px;
+		opacity:0;
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<textarea id="txt" rows="10" cols=50></textarea><br>
+	<input type="button" value="新增" id="add">
+	<input type="button" value="读取" id="read">
+	<input type="button" value="保存" id="save">
+	<input type="button" value="修改" id="update">
+	<input type="button" value="删除" id="remove">
+	<input type="button" value="清空" id="clear">
+	<div id="show"></div>
+	<div id="result">操作成功</div>
+	<script>
+		var txt=document.getElementById("txt");
+		var result=document.getElementById("result");
+		function showAndHide(){
+			result.style.opacity=1;
+			setTimeout(function(){
+				result.style.opacity=0;
+				result.style.transition="1s";
+			},1000);
+		}
+		//定义一个全局key 用来保存是否是修改还是保存
+		var key=null;
+		//点击保存 保存到sessionStorage中
+		document.getElementById("save").onclick=function(){
+			//获取用户输入的内容
+			if(key!=null){
+				sessionStorage.setItem(key,txt.value);
+			}else{
+				sessionStorage.setItem(new Date().getTime(),txt.value);			
+			}
+			showAndHide();
+			read();
+		};
+		document.getElementById("add").onclick=function(){
+			key=null;
+			txt.value="";
+		};
+		document.getElementById("read").onclick=function(){read();showAndHide();};
+		function read(){
+			//将读取的数据变为表格
+			//读取数据根据索引得到key  根据key得到value
+			//先生成表头
+			var table="<table border='1' cellspacing='0' cellpadding='0'><thead><tr><th></th><th>Key</th><th>Value</th></tr></thead><tbody>";
+			if(sessionStorage.length==0){alert("sessionStorage没有数据"); return;}
+			for(var i=0;i<sessionStorage.length;i++){
+				var key=sessionStorage.key(i);
+				var value=sessionStorage.getItem(key);
+				//给radio添加一个value属性 保存当前数据的索引
+				table+="<tr><td><input type='radio' name='option' value='"+i+"'></td><td>"+key+"</td><td>"+value+"</td></tr>";
+			}
+			document.getElementById("show").innerHTML=table+"</tbody></table>";
+			showAndHide();
+		};
+		document.getElementById("update").onclick=function(){
+			var radious=document.getElementsByName("option");
+			for(var i=0;i<radious.length;i++){
+				if(radious[i].checked){
+					key=sessionStorage.key(radious[i].value);
+					txt.value=sessionStorage.getItem(sessionStorage.key(radious[i].value));
+				}
+			}
+			read();
+		};
+		document.getElementById("remove").onclick=function(){
+			var radious=document.getElementsByName("option");
+			for(var i=0;i<radious.length;i++){
+				if(radious[i].checked){
+					key=sessionStorage.key(radious[i].value);
+					sessionStorage.removeItem(sessionStorage.key(radious[i].value));
+				}
+			}
+			read();
+		};
+		document.getElementById("clear").onclick=function(){
+			sessionStorage.clear();
+			document.getElementById("show").innerHTML="<table border='1' cellspacing='0' cellpadding='0'><thead><tr><th width='60px'></th><th width='60px'>Key</th><th width='60px'>Value</th></tr></thead></table>";
+		}
+	</script>
+ </body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script>
+	
+  </script>
+  <style type="text/css">
+	
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<form>
+		用户名：<input type="text" required id="user">
+		<input type="submit">
+	</form>
+	<script>
+		/*
+			-> setCustomValidity()方法
+				-> 作用：修改验证错误后的默认提示信息
+				-> 问题：
+					-> 一旦使用该方法修改默认错误提示信息后,即使输入正确,错误提示依旧
+					   存在(造成逻辑错误)
+				-> 解决办法：
+					-> 判断如果用户输入正确后,将该方法设置提示内容修改为空
+					-> 问题：
+						-> 使用valid状态判断输入是否正确
+							-> 一旦使用该方法,validityState对象所有状态都返回false
+		*/
+		var user=document.getElementById("user");
+		user.onblur=function(){
+			if(user.value!=""&&user.value!=null){
+				user.setCustomValidity("");
+			}else if(user.validity.valueMissing){
+				user.setCustomValidity("用户名不能为空");
+			}
+		}
+	</script>
+ </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../lib/vue-2.4.0.js"></script>
+    <title></title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 使用 v-cloak 能够解决 差值表达式闪烁问题 -->
+        <!-- 插件表达式可以在前后放置任意元素和字符，只会替换当前占位符，不会把整个元素替换 -->
+        <!-- 不能将HTML字符串解析为HTML -->
+        <p v-cloak>{{ msg }}</p>
+
+        <!-- 效果与 差值表达式 一样，也能将数据渲染给指定元素 -->
+        <!-- 默认 V-text 是没有闪烁问题的 -->
+        <!-- 插值表达式会把指令引用的数据完全的替换 标签原有的数据 -->
+        <!-- 不能将 HTML字符串 解析为 HTML -->
+        <h4 v-text="msg"></h4>
+
+        <div>{{ msg2 }}</div>
+        <div v-text="msg2"></div>
+
+        <!-- 可以将 HTML字符串 解析为 HTML -->
+        <!-- 也会覆盖当前元素中的内容 -->
+        <div v-html="msg2"></div>
+
+        <!-- v-bind:属性 -->
+        <!-- v-bind: 是Vue中提供的用于绑定属性的指令 -->
+        <!-- 在 v-bind 中可以把 "" 里面的内容当做为一个变量，可以使用 + 为变量添加字符 -->
+        <input type="button" value="按钮：v-bind" v-bind:title="mytitle +' 这是添加的'">
+
+        <!-- 注意：v-bind: 可以简写为 :要绑定的属性  -->
+        <!-- v-bind：中，可以写一些合法的js表达式 -->
+        <input type="button" value="按钮：v-bind简写" :title="mytitle + '这个是添加的'">
+
+        <!-- vue 中提供了 v-on事件绑定机制 -->
+        <!-- v-on也有缩写：@ -->
+        <input type="button" value="按钮：v-on" :title="mytitle" v-on:click="show">
+
+
+    </div>
+
+    <script>
+        var v = new Vue({
+            el: '#app',
+            data: {
+                msg: '123',
+                msg2: '<h1>this is msg2,is a h1</h1>',
+                mytitle: '这是一个自己定义的 title'
+            },
+            // 这个 methods 属性定义了当前 Vue实例 中所有可用的方法
+            methods: {
+                show: function () {
+                    alert('this is a function');
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

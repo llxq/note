@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <script></script>
+  <style type="text/css">
+	.split {
+		width:100px;
+		height:1000px;
+	}
+	/*添加目标伪类*/
+	:target {
+		border:1px solid red;
+	}
+	//不加父元素 默认匹配所有符合元素
+	a:first-child {
+		background:#ccc;
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+ 	<a href="#chapter1">跳转到1</a><br>
+	<a href="#chapter2">跳转到2</a><br>
+	<a href="#chapter3">跳转到3</a><br>
+ 	<div class="split"></div>
+	<a name="chapter1">复杂选择器</a><br>
+	<a name="chapter2">伪类选择器</a><br>
+	<div id="chapter3">元素伪类选择器</div>
+	<div class="split"><a>里面的</a></div>
+ </body>
+</html>

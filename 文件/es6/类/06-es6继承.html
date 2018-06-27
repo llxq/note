@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+    </head>
+    <body>
+        <script>
+            // 父类
+            class Preson {
+                constructor(name) {                    
+                    this.name = name;
+                }
+                showName() {
+                    return `名字为：${this.name}`;
+                }
+            }
+
+            // 子类，继承父类
+            class Student extends Preson {
+                constructor(name, skill) {
+                    // 继承父类的构造函数，不继承就会覆盖
+                    super(name);
+                    this.skill = skill;
+                }
+                showSkil() {
+                    return `我的技能是${this.skill}`;
+                }
+                showName() {
+                    console.log('这个是父类中的方法：', super.showName());
+                    console.log('这个是子类中的方法');
+                }
+            }
+            let sul = new Student('zs', '逃学');
+            console.log('skill：', sul.skill, 'zs：', sul.name);
+            console.log(sul.showSkil());
+            sul.showName();
+        </script>
+    </body>
+</html>

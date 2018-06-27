@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script>
+	var categories=[
+		{"id":10,"name":'男装',"children":[
+			{"id":101,"name":'正装'},
+			{"id":102,"name":'T桖'},
+			{"id":103,"name":'裤衩'}
+		]},
+		{"id":20,"name":'女装',"children":[
+			{"id":201,"name":'短裙'},
+			{"id":202,"name":'连衣裙'},
+			{"id":203,"name":'裤子',"children":[
+				{"id":2031,"name":'长裤'},
+				{"id":2032,"name":'九分裤'},
+				{"id":2033,"name":'七分裤'}
+			]}
+		]},
+		{"id":30,"name":'童装',"children":[
+			{"id":301,"name":'帽子'},
+			{"id":302,"name":'套装',"children":[
+				{"id":3021,"name":'0-3岁'},
+				{"id":3022,"name":'3-6岁'},
+				{"id":3023,"name":'6-9岁'},
+				{"id":3024,"name":'9-12岁'}
+			]},
+			{"id":303,"name":'手套'}
+		]}
+	];
+	//遍历一级对象
+	function loadData(data){
+		var fragment=document.createDocumentFragment();
+		var select=document.createElement("select");
+		select.add(new Option("-请选择-",0));
+		for(var i=0;i<data.length;i++){
+			select.add(new Option(data[i].name,data[i].id));
+		}
+		fragment.appendChild(select);
+		document.querySelector("#category").appendChild(fragment);
+		select.onchange=function(){
+			var parent=this.parentNode;
+			while(parent.lastChild!=this){
+				parent.removeChild(parent.lastChild);
+			}
+			var cateChild=data[this.selectedIndex-1];
+			if(this.selectedIndex!=0){
+				if(cateChild.children){
+					loadData(cateChild.children);
+				}
+			}
+		}
+	}
+	onload=function(){
+		loadData(categories);
+	}
+  </script>
+  <style type="text/css">
+	
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<div id="category"></div>
+ </body>
+</html>

@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <script></script>
+  <style type="text/css">
+	.d1 {
+		width:200px;
+		height:200px;
+		background:#98fb;
+		border:1px solid transparent; /*解决方案,为父元素设置边框*/
+	}
+	.d2 {
+		width:100px;
+		height:100px;
+		background:#98fb98;
+		margin-top:50px;/*为子元素设置设置上外边距会被认为是父元素的*/
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<div class="d1">
+		<div class="d2"></div>
+	</div>
+ </body>
+</html>

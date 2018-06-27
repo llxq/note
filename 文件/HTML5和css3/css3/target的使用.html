@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <script></script>
+  <style type="text/css">
+	.slider_bar a {
+		display:inline-block;
+		width:100px;
+		border:1px solid black;
+		background:#98fb98;
+		text-align:center;
+	}
+	.show_img {
+		width:67px;
+		height:60px;
+		margin:40px 0 0 100px;
+		box-shadow:0px 0px 5px #ddd;
+		border-radius:5px;
+	}
+	.show_img img {
+		position:absolute;
+		visibility:hidden;
+	}
+	.show_img img:target {
+		visibility:visible;
+	}
+	#aaa {
+		width:0;
+		height:0;
+		border:10px solid transparent;
+		border-top:10px solid red;
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<div class="slider_bar">
+		<a href="#img1">img1</a>
+		<a href="#img2">img2</a>
+		<a href="#img3">img3</a>
+		<a href="#img4">img4</a>
+	</div>
+	<div class="show_img">
+		<img id="img1" src="image/bird1.png" />
+		<img id="img2" src="image/bird2.png" />
+		<img id="img3" src="image/bird3.png" />
+		<img id="img4" src="image/bird4.png" />
+	</div>
+	<div id="aaa"></div>
+ </body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script>
+	
+  </script>
+  <style type="text/css">
+	div {
+		width:100px;
+		height:100px;
+		border:1px solid red;
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+ 	<div id="dv"></div><br />
+	红：<input type="range" id="r" min="0" max="255" value="255" onchange="mychange()" /><br />
+	绿：<input type="range" id="g" min="0" max="255" value="255" onchange="mychange()" /><br />	
+	蓝：<input type="range" id="b" min="0" max="255" value="255" onchange="mychange()" /><br />
+ </body>
+ <script>
+	window.$=HTMLElement.prototype.$=function(selector){
+		return (this!=window?this:document).querySelectorAll(selector);
+	}	//没啥用
+	//在div中显示当前所选中的颜色 
+	function mychange(){
+		var r=$("#r")[0].value;
+		var b=$("#b")[0].value;
+		var g=$("#g")[0].value;
+		var div=$("#dv")[0].style.backgroundColor="rgb("+r+","+g+","+b+")";
+	}
+ </script>
+</html>

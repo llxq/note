@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script>
+	var timer=null;
+	function calc(){
+		var h=document.querySelector("h1");
+		var num=parseInt(h.innerHTML.slice(0,1))-1;
+		h.innerHTML=num+h.innerHTML.slice(1);
+		if(num=0){
+			/*clearTimeout(timer);
+			timer=null;*/
+			close();   //关闭当前窗口
+		}
+		timer=setTimeout(calc,1000);
+	}
+	function stop(){
+		clearTimeout(timer);
+		timer=null;
+	}
+	onload=function(){
+		timer=setTimeout(calc,1000);
+	}
+  </script>
+  <style type="text/css">
+	
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<h1>5秒之后自动关闭</h1>	
+	<a href="JavaScript:stop()" target="_blank">留在本页</a>
+ </body>
+</html>

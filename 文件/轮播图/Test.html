@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+	<script>
+		onload=function(){
+			var li=document.querySelectorAll("#img_box ul li");
+			var btnR=document.querySelector("#right_btn");
+			var btnL=document.querySelector("#left_btn");
+			var index=0;
+			var timer=null;
+			var oldLi=li[0];
+			var newLi;
+			function imgOnmite(a){
+				oldLi.style.opacity=0;
+				index=index+parseInt(a);
+				if(index==li.length){
+					index=0;
+				}
+				if(index<0){
+					index=parseInt(li.length-1);
+				}
+				newLi=li[index];
+				newLi.style.opacity=1;
+				oldLi=li[index];
+			}
+			timer=setInterval(function(){
+				imgOnmite(1);
+			},2000);
+			btnL.onclick=function(){
+				imgOnmite(1);
+				clearInterval(timer);
+				timer=null;
+			};
+			btnR.onclick=function(){
+				imgOnmite(-1);
+				clearInterval(timer);
+				timer=null;
+			};
+			btnL.onmouseout=function(){
+				timer=setInterval(function(){
+				imgOnmite(1);
+				},2000);
+			};
+			btnR.onmouseout=function(){
+				timer=setInterval(function(){
+				imgOnmite(1);
+				},2000);
+			};
+			document.querySelector("#img_box").onmouseover=function(){
+				clearInterval(timer);
+				timer=null;
+			};
+			document.querySelector("#img_box").onmouseout=function(){
+				timer=setInterval(function(){
+					imgOnmite(1);
+				},2000);
+			};
+		};
+	</script>
+  <style type="text/css">
+	* {
+		margin:0;
+		padding:0;
+		font-size:0;
+	}
+	button {
+		font-size:20px;
+		width:30px;
+		height:40px;
+		color:#aaa;
+		background:rgba(0,0,0,.5);
+		outline:none;
+		border:none;
+		position:absolute;
+		z-index:100;
+		top:215px;
+		cursor:pointer;
+	}
+	button:hover {
+		background:rgba(0,0,0,.7);
+	}
+	#img_box {
+		width:590px;
+		height:470px;
+		overflow:hidden;
+	}
+	#img_box ul li {
+		position:absolute;
+		opacity:0;
+		transition:1s;
+	}
+	#img_box ul li:first-child{
+		opacity:1;
+	}
+	#container {
+		width:590px;
+		height:470px;
+		position:relative;
+		top:100px;
+		left:300px;
+		overflow:hidden;
+	}
+	#right_btn {
+		right:0px;
+	}
+  </style>
+  <title>轮播图</title>
+ </head>
+ <body>
+	<div id="container">
+		<button id="left_btn">&gt;</button>
+		<button id="right_btn">&lt;</button>
+		<div id="img_box">
+			<ul>
+				<li>
+					<a>
+						<img src="img/1.jpg" />
+					</a>
+				</li>
+				<li>
+					<a>
+						<img src="img/2.jpg" />
+					</a>
+				</li>
+				<li>
+					<a>
+						<img src="img/3.jpg" />
+					</a>
+				</li>
+				<li>
+					<a>
+						<img src="img/4.jpg" />
+					</a>
+				</li>
+				<li>
+					<a>
+						<img src="img/5.jpg" />
+					</a>
+				</li>
+			</ul>
+		</div>	
+	</div>
+ </body>
+</html>

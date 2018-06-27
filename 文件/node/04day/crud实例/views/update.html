@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .inp {
+            width: 500px;
+            height: 30px;
+        }
+
+        div {
+            margin: 50px auto;
+            width: 50%;
+            height: 50%;
+            color: #aaa;
+        }
+        .msg {
+            font-size: 25px;
+            font-weight: normal;
+            
+        }
+        input {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <label class="msg">填写需要增加的信息</label>
+        <br><br>
+        <form action="/update" method="POST">
+            <input type="hidden" name="id" value="{{ students.id }}">
+            name:
+            <br>
+            <input type="text" class="inp" name="name" value="{{ students.name }}">
+            <br> age:
+            <br>
+            <input type="text" class="inp" name="age" value="{{ students.age }}">
+            <br> gender:
+            <br>
+            <input type="radio" id="man" name="gender" value="0" checked><label for="">男</label> 
+            <input type="radio" id="woman" name="gender" value="1"><label for="">女</label> 
+            <br> hobbies:
+            <br>
+            <input type="text" class="inp" name="hobbies" value="{{ students.hobbies }}">
+            <br>
+            <br>
+            <input type="submit" value="提交">
+        </form>
+    </div>
+</body>
+
+</html>

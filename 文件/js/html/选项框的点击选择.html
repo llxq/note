@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script>
+  	window.$=function(selector){
+		return document.querySelectorAll(selector);
+	}
+  	//定义两个数组
+	var usel=null;
+	var sel=null;
+	//usel：存左边的
+	//sel：存右边的
+	onload=function(){
+		//将左边的select元素中所有option元素中的文本提取出来并保存在usel中
+		usel=$("#unsel")[0].innerHTML.trim().slice(8,-9).split(/<\/option>\s*<option>/);
+		//初始化sel数组
+		sel=[];
+	}
+	function move(btn){
+		//如果是>>,则把usel中的数据放到sel中
+		if(btn.value==">>"){
+			if(usel.length>0){
+				sel=usel.sort();
+				usel=[];
+			}
+		}else if(btn.value=="<<"){
+			if(sel.length>0){
+				usel=sel.sort();
+				sel=[];
+			}
+		}else if(btn.value==">"){
+			if(usel.length>0){
+				var useloption=$("#unsel option");
+				for(var i=useloption.length-1;i>0;i--){
+					if(useloption[i].selected){
+						sel.push(usel.splice(i,1)[0]);
+					}
+				}
+				sel.sort();
+			}
+		}else if(btn.value=="<"){
+			if(sel.length>0){
+				var seloption=$("#sel option");
+				for(var i=seloption.length-1;i>0;i--){
+					if(seloption[i].selected){
+						usel.push(sel.splice(i,1)[0]);
+					}
+				}
+				usel.sort();
+			}
+		}
+		updateSel();
+	}
+	function updateSel(){
+		//将usel中所有元素拼接为select元素的innerHTML元素
+		$("#unsel")[0].innerHTML="<option>"+usel.join("</option><option>")+"</option>";
+		$("#sel")[0].innerHTML="<option>"+sel.join("</option><option>")+"</option>";
+	}
+  </script>
+  <style type="text/css">
+	 select {
+		width:150px;
+		font-size:20px;
+		height:125px;
+		float:left;
+	 }
+	 #dv {
+	 	width:50px;
+		height:125px;
+		float:left;
+		margin:0 20px;
+	 }
+	 #dv 
+	 input {
+	 	width:50px;
+		height:31px;
+	 }
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<select multiple="multiple" id="unsel">
+		<option>Argentina</option>
+		<option>Brazil</option>
+		<option>Canada</option>
+		<option>Chile</option>
+		<option>China</option>
+		<option>Denmark</option>
+		<option>Egypt</option>
+		<option>France</option>
+		<option>Greece</option>
+		<option>Spain</option>
+	</select>
+	<div id="dv">
+		<input type="button" value=">>" onclick="move(this)" />
+		<input type="button" value=">" onclick="move(this)" />
+		<input type="button" value="<" onclick="move(this)" />
+		<input type="button" value="<<" onclick="move(this)" />
+	</div>
+	<select multiple="multiple" id="sel"></select>
+ </body>
+</html>

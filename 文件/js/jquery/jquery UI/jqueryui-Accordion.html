@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script src="../jquery-1.8.3.js"></script>
+  <!-- 引入jQuery UI的js文件 -->
+  <script src="jqueryui/jquery-ui.js"></script>
+  <!-- 引入jQuery UI的css文件 -->
+  <link rel="stylesheet" href="jqueryui/jquery-ui.css" />
+  <title>Document</title>
+ </head>
+ <body>
+	<!-- 定义accordion的容器(元素)
+			使用div
+	-->
+	<div id="accordion">
+		<!-- 页签的标题 -->
+		<h3>这个是页签</h3>
+		<!-- 页签内容 -->
+		<div>这个是页签的内容</div>
+
+		<h3>这个是页签</h3>
+		<div>这个是页签的内容</div>
+		<h3>这个是页签</h3>
+		<div>这个是页签的内容</div>
+		<h3>这个是页签</h3>
+		<div>这个是页签的内容</div>
+	</div>
+	<script>
+		//如需跟换主题,下载主题包即可
+		//跟换css文件就可以更改了
+		$("#accordion").accordion();
+	</script>
+ </body>
+</html>

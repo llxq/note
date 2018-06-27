@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+    </head>
+    <body>
+        <script>
+            function * show() {
+                yield '这个是异步第一步';
+                yield '这个是异步第二步';
+                yield () => {
+                    return 100;
+                }
+                return '这个是 return 的结果';
+            }
+            let gen = show();
+            console.log(gen);
+
+            // 如果想执行则直接调用 next方法 即可
+            // 返回一个对象
+            console.log(gen.next());
+            console.log(gen.next());
+
+            for (let val of gen) {
+                console.log(val);
+            }
+
+            // 使用结构赋值，可以直接执行 yield 中的方法
+            // let [a, b, c] = show();
+            // console.log(a, b, c());
+
+            let [c, ...d] = show();
+            console.log(c);
+            console.log(d);
+            
+            console.log(...show());
+        </script>
+    </body>
+</html>

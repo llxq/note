@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <style type="text/css">
+	div{
+		width:100px;
+		height:100px;
+		margin-bottom:10px;
+		border:2px solid black;
+	}
+	/*线性渐变*/
+	#d1{
+		/*从黄到红上到下的渐变*/
+		background-image:linear-gradient(to bottom,yellow,red);
+		/*可以设置颜色渐变的节点位置 想要看到渐变,第一个颜色要比第二个大*/
+		/*background-image:linear-gradient(to bottom,yellow 20%,red 60%,green 20%);*/
+	}
+	/*径向渐变*/
+	#d2{
+		/*100px代表半径 center也可以填写为像素单位(left/top/等...) size也可以隐藏*/
+		background-image:radial-gradient(100px at center,yellow,red);
+	}
+	#d3{
+		border-radius:50px;
+		background-image:radial-gradient(80px at right top,white,#369);
+		border:none;
+	}
+	#d4{
+		background-image:repeating-linear-gradient(to top,red 0%,yellow 20%);
+		border:none;
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<div id="d1"></div>
+	<div id="d2"></div>
+	<div id="d3"></div>
+	<div id="d4"></div>
+ </body>
+</html>

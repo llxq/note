@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script src="chartjs/Chart.js"></script>
+  <style type="text/css">
+	
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<canvas id="canvas"></canvas>
+	<script>
+		var context=document.getElementById("canvas").getContext("2d");
+		//使用Chart.js提供的方法绘制图表
+		
+		/*-> pie(data)方法		表示绘制饼状图
+			-> data：设置饼状图的相关数据内容
+			
+		*/
+		var data=[
+			{
+				value:300,
+				color:"#f7464a",
+				highlight:"#ff5a5e",
+				label:"Red"
+			},
+			{
+				value:50,
+				color:"#46bfbd",
+				highlight:"#5ad3d1",
+				label:"Green"
+			},
+			{
+				value:100,
+				color:"#fdb45c",
+				highlight:"#ffcb70",
+				label:"Yellow"
+			},
+			{
+				value:40,
+				color:"#949fb1",
+				highlight:"#a8b3c5",
+				label:"Grey"
+			},
+			{
+				value:120,
+				color:"#4d5360",
+				highlight:"#616774",
+				label:"Dark Grey"
+			}
+		];
+		new Chart(context).Pie(data);
+	</script>
+ </body>
+</html>

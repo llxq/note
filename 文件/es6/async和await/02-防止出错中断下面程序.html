@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+    </head>
+    <body>
+        <script>
+            // 使用 try catch
+            // async function show() {
+            //     try{
+            //         await Promise.reject('出错了');
+            //     } catch (e) {
+            //         console.log(e);
+            //     }
+            //     let a = await Promise.resolve('成功了');
+            //     console.log(a);
+            // }
+            // show().then(res => {
+            //     console.log(res);
+            // }).catch(err => {
+            //     console.log(err);
+            // })
+
+            // 使用 Promise 中的 catch
+            async function fun() {
+                await Promise.reject('出错了').catch(err => {
+                    console.log(err);
+                })
+                let a = await Promise.resolve('成功了');
+                console.log(a);
+            }
+            fun().then(res => {
+                console.log(res);
+            }).catch(err => {
+                console.log(err);
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <!-- <script>
+            function preson() {
+                this.showName = () => {
+                    console.log(">>>>");
+                }
+            }
+            let p1 = new preson();
+            p1.showName(); -->
+        </script>
+        <script type="module">
+            import mod, {show, sun, a, b} from './modes/3.js';
+            let p1 = new mod.preson();
+            console.log(p1.showName());
+            show();
+            sun();
+            console.log(a, b);
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>

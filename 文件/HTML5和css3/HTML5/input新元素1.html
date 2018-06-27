@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script>
+	
+  </script>
+  <style type="text/css">
+	
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<form>
+		<!-- -> email：在表单提交的时候,会自动验证是否包含"@"和@后面是否包含数据
+			-> 问题：验证逻辑并不完整
+		-->
+		email类型：<input type="email" /><br />
+		搜索类型：<input type="search" /><br />
+		
+		<!-- 验证是否包含"http://"	验证逻辑并不完整 -->
+		URL类型：<input type="url" /><br />
+		
+		<!-- 注意：效果只能在手机端使用,光标移动到上面会出现数字键盘 -->
+		电话号码类型：<input type="tel" /><br />
+		
+		<!-- 三个属性
+				min：设置最小值
+				max：设置最大值
+				step：设置步长,默认值为1
+		-->
+		数字类型：<input type="number" min="0" max="9" step="3" /><br />
+		
+		<!-- min：设置最小值
+			 max：设置最大值
+			 step：设置步长
+			 value：设置当前值
+		-->
+		范围类型：<input type="range" max="10" min="0" value="10" step="3" /><br />
+
+		<!-- 颜色类型：color
+			-> 弹出调色板
+		-->
+		颜色类型：<input type="color" /><br />
+		
+		<!-- 日期类型 -->
+		日期类型：<input type="date" /><br />
+
+		<!-- 周类型 -->
+		周类型：<input type="week" /><br />
+
+		<!-- 月类型 -->
+		月类型：<input type="month" /><br />
+		<input type="submit" />
+	</form>
+ </body>
+</html>

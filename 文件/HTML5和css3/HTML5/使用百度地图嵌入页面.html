@@ -1,0 +1,36 @@
+<!doctype html>
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+	<!-- 
+		-> 引入百度地图的js
+			-> 链接：http://api.map.baidum.com/api?v=2.0&ak=秘钥     //ASCAROeMG8tUTtahNuuvo4Qx6VmAuLp8
+	-->
+  <script src="http://api.map.baidu.com/api?v=2.0&ak=ASCAROeMG8tUTtahNuuvo4Qx6VmAuLp8"></script>
+ </head>
+ <body>
+	<!-- 
+		-> 在html页面中定义用于显示百度地图的容器(元素)   //div
+	-->
+	<div id="allmap" style="width:500px;height:500px"></div>
+ </body>
+ <script>
+	/*
+		-> 创建百度地图的对象 (Map)
+		    -> 构造器：BMap.Map(容器id)
+			-> 通过centerAndZoom() 进行地图的初始化,该方法是必要的
+	*/
+	var map=new BMap.Map("allmap");
+	/*
+		-> 初始化百度地图
+		  方法：centerAndZoom(center,zoom)
+		  	  -> center参数：设置当前中心点
+			  	 -> 类型为Point,zoom参数必须设置
+				 -> 类型为String,例如"北京",zoom参数可以省略
+			  -> zoom参数：设置地图显示级别
+			     -> pc端：3-19
+				 -> 移动端：3-18
+	*/
+	map.centerAndZoom("北京",12);
+ </script>
+</html>

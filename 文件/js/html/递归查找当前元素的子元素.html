@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script>
+  	function getChildNodes(parent){
+		//判断当前元素是否是节点元素,是则返回元素名称,不是则返回元素的值
+		//console.log(parent.nodeType==1?parent.nodeName:parent.nodeValue);
+		//除了文本其他都打nodeName
+		console.log(parent.nodeType!==3?parent.nodeName:parent.nodeValue);
+		//如果parent有子节点,则遍历当前所有的子节点元素
+		if(parent.childNodes.length>0){
+			for(var i=0,len=parent.childNodes.length;i<len;i++){
+				//递归打印当前元素的所有子节点元素
+				getChildNodes(parent.childNodes[i]);
+			}
+		}
+	}
+  </script>
+  <style type="text/css">
+	
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<span>这是一个span</span>
+	<ul>
+		<li>这是第一个li</li>
+		<li>这是第二个li</li>
+		<li>这是第三个li
+			<ul>
+				<li>这个是里面的li</li>
+				<li>这个是里面的li</li>
+				<li>这个是里面的li</li>
+			</ul>
+		</li>
+		<li>这是第四个li</li>
+		<input type="button" value="点击开始" onclick="getChildNodes(document.body)" />
+	</ul>
+ </body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="GB2312">
+  <script src="../jquery-1.8.3.js"></script>
+  <!-- 引入jQuery UI的js文件 -->
+  <script src="jqueryui/jquery-ui.js"></script>
+  <!-- 引入jQuery UI的css文件 -->
+  <link rel="stylesheet" href="jqueryui/jquery-ui.css" />
+  <style type="text/css">
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<!-- jquery ui使用a元素来定义button样式 -->
+	<p><a href="#" id="dialog-link" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-newwin"></span>打开对话框</a></p>
+	
+	<!-- 正常的按钮 jquery ui使用的还是button按钮 -->
+	<button id="btn">关闭对话框</button>
+	
+	<!-- jquery ui dialog
+		title属性设置对话框的标题
+	-->
+	<div id="dialog" title="设置对话框标题">
+		<p>这是一个对话框</p>
+	</div>
+	<script>
+		$("#btn").button().css("outline","none");
+		
+		/*打开对话框
+			通过dialog方法传递参数"open"  打开对话框
+		*/
+		$("#dialog-link").click(function(event){
+			$("#dialog").dialog("open");
+			event.preventDefault;
+		});
+		//设置对话框样式：
+		/*
+			-> dialog(options)方法
+				-> autoOpen：设置对话框是否自动打开,Boolean值,默认为true
+				-> buttons：设置对话框的按钮
+					-> 格式为数组	允许设置多个按钮
+					-> 每个按钮格式为对象模式{
+						text：按钮的名称
+						click：绑定click事件(click事件的处理函数)
+						}
+				-> modal：设置对话框是否为模式对话框,默认值为false,表示非模式对话框
+					-> 设置为true就是加了一层遮罩处理
+		*/
+		$("#dialog").dialog({
+			autoOpen:false,
+			modal:true,
+			buttons:[
+				{
+					text:"确认",
+					click:function(){
+						//关闭当前对话框
+						$(this).dialog("close");
+					}
+				},
+				{
+					text:"取消",
+					click:function(){
+						$(this).dialog("close");
+					}
+				}
+			]
+		});
+	</script>
+ </body>
+</html>
