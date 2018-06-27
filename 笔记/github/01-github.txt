@@ -13,3 +13,23 @@
     -> 在然后将自己的文件 push到github上
         -> git pull ssh地址:目录 分支名
             -> git pull git@github.com:llxq/lxq.git master
+
+-> 生成多个 ssh-keygen
+    -> ssh-keygen -t rsa -C '邮箱名' -f ~/.ssh/名称
+        -> ssh-keygen -t rsa -C '1725760203@qq.com' -f ~/.ssh/newKey
+            -> 这个时候会生成两个新的文件 newkey 和 newkey.pub
+
+-> 使用同秘钥远程连接 gitHub   
+    -> 首先需要建立一个新的公钥
+    -> 然后在 .ssh文件夹 中创建一个 config 文件
+       -> touch config
+    -> 然后打开 config 给config中配置信息
+        -> Host note       // 这个代表的是你远程连接的时候使用的别名
+           User git        // 代表的是用户 即 git@
+           HostName github.com // 提交到的地址  即@github.com
+           PreferredAuthentications publickey
+           IdentityFile ~/.ssh/id_rsa  // 最后面那个就是需要绑定这个别名的公钥
+        -> 如果有多个公钥，则在按照上面的步骤在下面继续写一份
+
+    -> 访问
+        -> git push note:llxq/note master
