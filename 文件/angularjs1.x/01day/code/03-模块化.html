@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <div class="box" ng-app="app">
+        <div ng-controller="demoController">
+            <h2>{{ name }}在{{ site }}学习使用 AngularJS</h2>
+            <h2>{{ courses.title }}在{{ courses.sites }}学习使用 AngularJS</h2>
+            <ul>
+                <li ng-repeat="coure in arr1">{{ coure }}</li>
+            </ul>
+            <ul>
+                <li ng-repeat="(index, coure) in arr1">{{ index }}：{{ coure }}</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <script src="../../node_modules/angular/angular.js"></script>
+    <script>
+        // 当我们使用了 AngularJs的时候，他为我们提供了一个全局对象 angular
+        // 在这个对象下有 很多个 方法
+        // 其中 module方法 可以帮我们创建一个模块化
+
+        var app = angular.module('app', []);
+
+        app.controller('demoController', ['$scope', ($scope) => {
+            // $scope 是一个空对象，此对象就是我们的 module (M层)
+            // 我们可以在该对象下挂载属性
+            $scope.name = '张三';
+            $scope.site = '家里';
+
+            $scope.courses = {
+                title: '名字',
+                sites: '地址'
+            }
+
+            $scope.arr1 = [
+                '第一项',
+                '第二项',
+                '第三项'
+            ]
+        }])
+    </script>
+</body>
+
+</html>
