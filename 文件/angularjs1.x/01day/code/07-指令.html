@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <script src="../../node_modules/angular/angular.js"></script>
+        <!-- <link rel="stylesheet" ng-href="{{ href }}"> -->
+        <style>
+            .className {
+                background-color: red;
+            }
+            .className2 {
+                color: green;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box" ng-app="App">
+            <ul ng-controller="DemoController">
+                <li ng-bind="name"></li>
+                <li ng-show="true">ng-show是用来显示和隐藏标签元素的，true 显示</li>
+                <li ng-hide="fasle">ng-show是用来显示和隐藏标签的，true 隐藏</li>
+                <li ng-if="true">ng-if是用来表示元素是否存在，true 存在</li>
+                <li>
+                    <img ng-src="{{ src }}" alt="">
+                </li>
+                <li ng-class="{className: true, className2: true}">ng-class指令，该指令的值的类型为一个对象，{key：value, key: value......}，key代表的是 class的名字，后面给定一个 bool值，true 代表的是该 class应用到该元素 </li>
+                <li></li>
+            </ul>
+        </div>
+        <script>
+            var app = angular.module('App', []);
+            app.controller('DemoController', ['$scope', ($scope) => {
+                $scope.name = 'hello';
+                $scope.src = '../../images/3356-XU0uI5.jpg';
+                // $scope.href = './main.css';
+            }])
+        </script>
+    </body>
+</html>

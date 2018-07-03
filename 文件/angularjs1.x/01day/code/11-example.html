@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../node_modules/angular/angular.js"></script>
+    <style>
+        li {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body ng-app="App">
+    <div ng-controller="DeomController">
+        <form ng-submit="add()">
+            <span>添加数据</span>
+            <input type="text" ng-model="addData" autofocus required>
+        </form>
+        <section>
+            <ul>
+                <li>
+                    <h2>未完成</h2>
+                </li>
+                <li ng-repeat="(key, val) in undone">
+                    <input type="checkbox" ng-checked="val.flag" ng-click="done(key)">
+                    <label for="">{{ val.text }}</label>
+                    <button ng-click="delete(undone, key)">X</button>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <ul>
+                <li>
+                    <h2>已完成</h2>
+                </li>
+                <li ng-repeat="(key, val) in success">
+                    <input type="checkbox" ng-checked="val.flag">
+                    <label for="">{{ val.text }}</label>
+                    <button ng-click="delete(success, key)">X</button>
+                </li>
+            </ul>
+        </section>
+    </div>
+    <script>
+        let app = angular.module('App', []);
+        app.controller('DeomController', ['$scope', ($scope) => {
+            // 未完成
+            $scope.undone = [];
+
+            // 完成了
+            $scope.success = [];
+
+            // 添加
+            $scope.add = () => {
+                $scope.undone.push({
+                    text: $scope.addData,
+                    flag: false
+                })
+                $scope.addData = '';
+            };
+            // 删除
+            $scope.delete = (data ,index) => { 
+                data.splice(index, 1)
+            }
+            // 选中时触发
+            $scope.done = (index) => {
+                let data = $scope.undone.splice(index, 1)[0];
+                data.flag = true;
+                $scope.success.push(data);
+            }
+        }])
+    </script>
+</body>
+
+</html>

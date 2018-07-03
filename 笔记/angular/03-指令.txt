@@ -1,0 +1,72 @@
+-> 模块化
+    -> 使用 AngularJs 构建应用 (App) 时是以模块化 (Module) 的方式组织的，即将整个引用划分成若干模块，每个模块都有自己的职责，最终组合成一个整体
+    -> 采用模块化的组织方式，可以最大程度的实现代码的复用，可以像搭积木一样进行开发
+
+-> 指令
+    -> HTML 在构建应用(APP)时存在诸多不足之处，AngularJS通过扩展一系列的 HTML 属性或标签来弥补这些缺陷，所谓指令就是 angularJS 自定义的HTML属性或者标签，这些指令都是以 ng- 作为前缀的 
+
+-> 内置指令
+    -> ng-app：指定应用根元素，至少有一个元素指定了此属性
+    -> ng-controller：指定控制器
+    -> ng-show：控制元素是否显示，true 显示，false 不显示
+       -> 0 表示隐藏  1 表示显示
+    -> ng-hide：控制元素是否隐藏，true 隐藏，false 不隐藏
+    -> ng-if：控制元素是否 '存在'，true 存在，false 不存在
+        -> ng-show 和 ng-hide 隐藏的时候，元素时存在的，而 ng-if 为 false 的时候，元素时不存在的，在 DOM 树上是找不到的
+    -> ng-src：增强图片路径
+    -> ng-href：增强地址
+    -> ng-class：控制类名
+        -> 该指令的值的类型为一个对象，{key：value, key: value......}，key代表的是 class的名字，后面给定一个 bool值，true 代表的是该 class应用到该元素   
+    -> ng-include：引入模板
+        -> ng-include="'模板路径'"
+        -> 使用该指令，必须在服务器环境运行
+    -> ng-disabled：表单禁用
+    -> ng-readonly：表单只读
+    -> ng-checked：单/复选框表单选中
+    -> ng-selected：下拉框表单选中
+    -> ng-bind：显示数据的模型，就是将数据显示在当前元素上，类似于  {{ name }}
+    -> ng-bind-template：显示数据的模型
+        -> ng-bind-template="{{ 需要显示的模型 }}后面也可以跟字符串"
+    -> ng-cloak：解决 闪烁 问题
+    -> ng-mode：当我们使用了该指令的时候，会把数据通过该指令传递给 $scope，也可以使用 $scope 给当前属性绑定值
+        -> 只能使用 表单元素
+    -> ng-init：可以初始化 模型(Model)，也就是 $scope
+        -> ng-init="key = 'value'; key = 'value'"
+        -> 多个值使用 ; 隔开
+    -> ng-事件名称：通过这个属性可以为 HTML 元素绑定事件
+        -> 通过该指令执行某个方法的时候，是需要在 $scope 上挂载该方法的，如果没有挂载的方法是 不能执行的
+    -> ng-repeat:
+        -> ng-repeat = key in 需要遍历的对象 // 遍历指令
+        -> 或者这样写 ng-repeat = (key, value) in 需要遍历的对象
+        -> 这种遍历操作都会 自动创建 相同数量的 dom元素
+        -> 可以通过 ng-switch on、ng-switch-when 对数据进行筛选
+            -> ng-switch on="需要判断的数据"
+                -> 在显示数据的地方 ng-switch-when='值'
+                    -> 只有在满足 ng-switch on 的值 等于 ng-switch-when 的值的时候才会显示该数据
+            -> ng-switch-default：当 when 的条件不满足的时候显示该指令的值
+            -> <h1 ng-switch-defalut>默认显示的值</h1>
+                -> 只有当 when 不满足条件的时候才会执行该指令
+
+ 
+
+-> 自定义指令
+    -> 通过模块实例对象的 directive方法，可以自定义指令
+    -> directive('指令名称', () => {
+        // 定义该指令所执行的操作
+        return {
+            // 返回一个对象，该对象就是该自定义指令相关的内容
+            restrict：'ECMA',  
+                // E (Element) 表示该指令可以当做元素来使用，也就是说可以该指令可以当做一个 html元素 来使用
+                // A (Attribute) 表示该指令可以当做 属性 来使用              // C (Class) 表示该指令可以当做 class的值 来使用
+                // M (Mark) 表示该指令可以当做 注释 来使用
+                    // 使用方法：<!-- directive: 指令名称 -->
+                    // 使用该指令的话，replace的值 必须为 true
+
+            template: '将来显示到指定地方的东西', // 如："<h1>显示的内容</h1>"
+
+            templateUrl: '填写模板路径'  // 作用与上面一致
+
+            replace：bool值     // 是否替换执行该指令的元素，true 替换，替换之后的执行该指令的元素上的 属性 会被继承到模板中的元素的根元素上
+        }
+    })
+    -> 调用的话只需要在需要该指令的元素上直接加上  指令名称 即可

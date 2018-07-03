@@ -43,3 +43,5 @@
 -> ng-repeat = key in 需要遍历的对象 // 遍历指令
     -> 或者这样写 ng-repeat = (key, value) in 需要遍历的对象
     -> 这种遍历操作都会 自动创建 相同数量的 dom元素
+
+

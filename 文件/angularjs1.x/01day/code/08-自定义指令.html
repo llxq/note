@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <script src="../../node_modules/angular/angular.js"></script>
+    </head>
+    <body ng-app="App">
+        <div class="box" custom></div>
+        <custom></custom>
+        <div class="custom"></div>
+        <!-- directive: custom -->
+        <script>
+            let app = angular.module('App', []);
+            // 通过angular的实例对象的 directive方法，可以自定义指令
+            app.directive('custom', () => {
+                // 里面执行你需要的操作
+
+                // 返回一个对象
+                return {
+                    // E (Element) 表示该指令可当做 HTML元素 来使用
+                    // A (Attribute) 表示该指令可以当做 属性 来使用
+                    // C (class) 表示该指令可以当做 class属性的值 来使用
+                    // M (Mark) 表示该指令可以当做 注释 来使用
+                       // <!-- dirctive: 指令名称 --!>
+                    restrict: 'ECMA',
+                    // 将该对象的值，显示到指定元素上
+                    // template: '<h1>这个是用来显示在该元素上的内容的</h1>',
+                    templateUrl: './list.html',     // 可以引入外部的文件，和上面作用一样
+                    replace: true  // 该值为 true 的时候，替换执行该指令的元素
+                }
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <script src="../../node_modules/angular/angular.js"></script>
+    </head>
+    <body ng-app="App">
+        <div class="box" ng-include="'./04-header.html'"></div>
+        <div class="middle">这个是中间的内容</div>
+        <div class="bottom" ng-include="'./05-footer.html'"></div>
+        <script>
+            let app = angular.module('App', []);    
+            // app.controller('DemoController', ['$scope', ($scope) => {
+
+            // }])
+        </script>
+    </body>
+</html>

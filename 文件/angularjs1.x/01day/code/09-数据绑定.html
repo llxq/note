@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../node_modules/angular/angular.js"></script>
+</head>
+
+<body>
+    <div ng-app="App">
+        <ul ng-controller="DemoController">
+            <li ng-cloak>{{ name }}</li>
+            <li ng-bind="name"></li>
+            <li ng-bind-template="{{ name }}{{ age }}岁"></li>
+        </ul>
+
+        <div ng-controller="DemoController">
+            <h1>{{ msg }}</h1>
+            <input type="text" ng-model="msg">
+            <button ng-click="show()">显示</button><br>
+            <button ng-dblclick="db()">测试</button>
+        </div>
+
+        <ul ng-controller="DemoController">
+                <li ng-repeat="val in arr" ng-switch on="val">
+                    <span ng-switch-when="李四">{{ val }}</span>
+                    <h1 ng-switch-defalut>默认显示的值？</h1>
+                </li>
+            </ul>
+    </div>
+    <script>
+        let app = angular.module('App', []);
+        app.controller('DemoController', ['$scope', ($scope) => {
+            $scope.name = 'lxq';
+            $scope.age = 18;
+            $scope.msg = 100;
+            $scope.show = () => {
+                alert($scope.msg);
+            };
+            $scope.db = () => {
+                alert('双击了');
+            }
+            $scope.arr = ['战三', '李四', '王五', '100']
+        }])
+    </script>
+</body>
+
+</html>
