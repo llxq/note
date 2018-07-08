@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../node_modules/angular/angular.js"></script>
+</head>
+
+<body ng-app="App">
+    <script>
+        let app = angular.module('App', []);
+        // $scope 就是依赖项-
+        // 行内式注入
+        app.controller('DemoController', ['$scope', '$http', ($scope, $http) => {
+
+        }])
+    </script>
+    <script>
+        let app = angular.module('App', []);
+        // 将回调的参数当做依赖项来实行注入
+        // 推断式注入
+        app.controller('DemoController', ($scope, $http) => {
+
+        })
+    </script>
+</body>
+
+</html>

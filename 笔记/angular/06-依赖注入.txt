@@ -1,0 +1,17 @@
+-> 依赖注入
+    -> 推断式注入
+    -> app.controller('DemoController', ($scope, $http) => {})
+        -> angularjs 会猜测当前回调的 参数 是否是依赖，然后去寻找，找到之后将当前依赖注入到程序中
+    -> 推断式一般不使用，因为压缩代码的时候，可能会把参数压缩为其他字母，这个时候 angularjs 就找不到当前依赖项了，也就无法注入了
+
+    
+    -> $ 符号是不能省略的，代表的是 angularjs内置好的对象
+
+    -> 行内式注入
+        -> 以数组形式明确声明依赖，数组元素都是包含依赖名称的字符串，数组最后一个元素时依赖注入的目标函数
+            -> app.controller('DemoController', [])
+                -> [] 是用来 依赖注入 的
+            -> app.controller('DemoController', ['$scope', ($scope) => {}])
+                -> $scope 就是依赖项，通过这个依赖项，告诉 angularjs 我们需要该依赖项，然后 angularjs 就会去寻找，找到之后将当前依赖注入给我们程序中，供我们使用
+            -> 可以依赖多项
+                -> app.controller('DemoController', ['$scope', '$http', ($scope, $http) => {}])

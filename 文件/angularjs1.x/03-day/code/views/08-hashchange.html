@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <style>
+            a {
+                text-decoration: none;
+            }
+            #u1 {
+                list-style: none;
+            }
+            #u1 li {
+                float: left;
+                margin-right: 20px;
+                width: 100px;
+                height: 30px;
+                border: 1px solid black;
+                text-align: center;
+                line-height: 30px;
+            }
+            #u1::after {
+                content: '';
+                display: block;
+                width: 0;
+                height: 0;
+                clear: both;
+            }
+        </style>
+    </head>
+    <body>
+        <ul id="u1">
+            <li>
+                <a href="#/index">index</a>
+            </li>
+            <li>
+                <a href="#/introduce">introduce</a>
+            </li>
+            <li>
+                <a href="#/contactUs">contactUs</a>
+            </li>
+        </ul>
+        <div class="content">
+
+        </div>
+        <script src="./node_modules/angular/angular.min.js"></script>
+        <script>
+            window.addEventListener('hashchange', () => {
+                console.log(location.hash.slice(1));
+                let xhr = new XMLHttpRequest();
+                xhr.open('get', location.hash.slice(1));
+                xhr.send(null);
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState ===4 && xhr.status === 200) {
+                        document.querySelector('.content').innerHTML = xhr.responseText;
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <script src="../../node_modules/angular/angular.js"></script>
+    </head>
+    <body ng-app="App">
+        <ul ng-controller="DemoController">
+            <li>
+                <h1>{{ name }}</h1>
+                <h1>{{ version }}</h1>
+            </li>
+        </ul>
+        <script>
+            const App = angular.module('App', []);
+            App.controller('DemoController', ['$scope', 'version', 'name', '$http', ($scope, version, name, $http) => {
+                $scope.name = name;
+                $scope.version = version;
+            }])
+
+            App.value('version', '1.0');
+            App.value('name', 'lxq');
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+    </head>
+    <body>
+        <div ng-app="App">
+            <ul ng-controller="demoController">
+                <li></li>
+            </ul>
+        </div>
+        <script src="../../node_modules/angular/angular.js"></script>
+        <script>
+            const App = angular.module('App', []);
+
+            // 表示 运行块
+            App.run(['$http', '$rootScope', ($http, $rootScope) => {
+                $http({
+                    url: '1.php',
+                    method: 'get',
+                    pramas: {
+                        key: value
+                    }
+                }).then((data) => {
+                    console.log(data);
+                }).catch((err) => {
+                    console.log(err);
+                });
+            }]);
+            APP.controller('demoController', ['$scope', ($scope) => {
+            }])
+
+        </script>
+    </body>
+</html>

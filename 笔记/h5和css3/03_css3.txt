@@ -22,12 +22,10 @@
 -> css3中的盒子模型
 	-> border-sizing：content-box/border-box
 		-> content-box：默认值,和普通盒子模型一样
-		-> border-box：设置padding和border,只能撑大或缩小context-box的大小,总体大小
-						不变
+		-> border-box：设置padding和border,只能撑大或缩小context-box的大小,总体大小不变
 					
 -> 私有化前缀
-	-> 就是在属性或者属性值前面添加：-webkit-(chrome,苹果)  -moz-(firefox)  
-									 -ms-(ie)  -o-(opera)
+	-> 就是在属性或者属性值前面添加：-webkit-(chrome,苹果)  -moz-(firefox) -ms-(ie)  -o-(opera)
 									 
 -> 圆角：
 	-> border-radius:上下/左右
@@ -47,7 +45,7 @@
 			-> elipse：椭圆  (默认值)
 			
 -> 过渡：
-	-> transiation：过渡属性名称  过渡需要的时间;
+	-> transition：过渡属性名称  过渡需要的时间;
 	-> 多个过渡用逗号分隔
 		-> transition:width 2s,background-color 2s;
 	-> 如果多个过渡的 特性是一样的 可以简写为 all
@@ -214,8 +212,7 @@
 	-> 尽量减少HTTP请求个数
 		-> css sprites：合并多个背景图像到一个单独图像,然后通过background-image和
 		   background-position进行调整
-		-> Image maps：结合多个图像到一个单独图像。其总体规模大致是相当的,但是减少
-						HTTP从而加快页面的显示速度
+		-> Image maps：结合多个图像到一个单独图像。其总体规模大致是相当的,但是减少HTTP从而加快页面的显示速度
 	-> 页面顶部引入CSS
 		-> 可以提高页面加载速度
 		-> 样式放在头部,允许页面逐步呈现

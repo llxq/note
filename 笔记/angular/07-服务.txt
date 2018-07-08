@@ -1,0 +1,66 @@
+-> 服务
+    -> 服务是一个对象或函数，对外提供特定的功能
+
+
+-> 内置服务
+    -> $location：$location就是angularJS提前封装好的，提供获取地址相关信息的服务，封装了原生 JavaScript 的 location 对象
+        -> $location.absUrl();      // 获取完整地址
+        -> $location.url();         // 获取锚点后面的地址
+        -> $location.host();        // 获取主机名
+        -> $location.port();        // 获取端口号
+        -> $location.hash();        // 获取第二个 锚点(#) 之后的值
+        -> $location.protocol();    // 获取协议
+        -> $location.search();      // 获取查询参数
+
+    -> $filter：$filter过滤服务，使用的就是 九个内置的过滤器
+        -> $scope.变量名 = $filter('过滤器名称')($scope.变量名 = 值)
+        -> $scope.price = $filter('currency)($scope.price = 11.1);
+
+    -> $log：日志服务
+        -> $log.info('普通信息');
+        -> $log.warn('警告信息');
+        -> $log.error('错误信息');
+        -> $log.log('就是 console.log信息，打印信息');
+        -> $log.debug('调试信息');
+
+    -> $http：用于想服务器发送异步请求，本质是对 XMLHTTPRequest对象的封装
+        -> $http({
+            url:        // 请求地址,
+            method:     // 请求方式,
+            haders:     // 请求头,
+            params: {   // get 请求方式的参数
+                key: value
+            }
+
+            data:       // post 请求方式参数
+            // 当我们设置的 Content-Type 类型为：application/x-www-form-urlencoded 的时候，data的值传一个json字符串：key=value&key=value
+            // 当不是的时候，data的值为一个对象 {}
+
+        }).then((data) => {
+            // data 就是返回的数据
+        });
+        // 新版本的 angularjs使用了 promise，取代了success方法
+
+        // 传递的数据可以是对象 key=value&key=value 形式，这种形式叫 formData
+        // Content-Type 设置为：application/x-www-form-urlencoded
+
+        // application/json;charset=UTF-8 就是 json 对象形式传，这种形式叫 Request Payload
+
+        // 当请求类型不一个样，后端在接收的时候采取的方式也不一样
+
+        // 接口方式：一个告诉你该怎么请求数据的文档
+
+    
+    -> $hhtp 跨域
+        -> 普通跨域：通过 script标签 跨域，可以在路径的后面加上 ? key=vlaue 来传参
+            -> <script src="a.php?callback=fun"></script>
+        -> $http跨域：
+            -> $http({
+                url: 'a.php?callback=JSON_CALLBACK',
+                method: 'jsonp'     // 表示采用 jsonp 跨域 
+            })
+
+        -> jsonp不能实现 post 跨域
+
+
+        -> 车联网了解一下

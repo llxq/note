@@ -10,6 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "angular": "^1.7.2"
+    "angular": "^1.7.2",
+    "angular-route": "^1.7.2",
+    "angular-ui-router": "^1.0.18",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
   }
 }

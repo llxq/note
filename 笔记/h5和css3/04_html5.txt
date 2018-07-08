@@ -23,6 +23,7 @@
 		-> 在html页面中定义用于显示百度地图的容器(元素)   //div
 		-> 创建百度地图的对象 (Map)
 		    -> 构造器：BMap.Map(容器id)
+				-> var map = new BMap.map('id')
 			-> 通过centerAndZoom() 进行地图的初始化,该方法是必要的
 		-> 初始化百度地图
 		  方法：centerAndZoom(center,zoom)
@@ -104,11 +105,14 @@
 		   -> 方法：
 			  -> setData()：设置(源元素)数据
 				-> 在源元素事件中使用	
+				-> e.dataTransfer.setData('标识'， 内容)
 			  -> getData()：获取设置的数据
 				-> 在目标元素事件中使用
+				-> e.dataTransfer.getData('标识')
 			  -> clearData()：清除设置数据
 				-> 所有的数据内容都存储在浏览器内存中
 				-> 使用完毕应该释放
+				-> e.dataTransfer.getData('标识')
 		-> setDragImage()方法
 			-> 作用：修改鼠标拖放过程中跟随的图片
 		-> 实现拖放效果：

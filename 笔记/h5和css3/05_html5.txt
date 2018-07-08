@@ -24,7 +24,7 @@
 						-> 通过event事件对象的data属性
 							-> 可以获取postMessage()方法传递的数据
 			-> postMessage()方法
-				 将计算结果,传递给HTML页面中的worker对象
+				-> 将计算结果,传递给HTML页面中的worker对象
 				-> 在worker文件,全局对象就是worker对象
 				-> 在worker文件中,使用worker对象的方法(直接使用)
 				-> 当执行postMessage()方法时,会触发onmessage事件
@@ -35,6 +35,10 @@
 	-> 基本内容
 		-> HTML5存储系统
 		   -> localStorage(本地存储)	//替代Cookie
+		   		-> 设置 locationStorage的方法
+				   	-> window.locationStorage['key'] = value;
+					-> window.locationStorage.key = value;
+					-> window.locationStorage.setItem(key, value)
 		   -> sessionStorage(会话存储)	//替代Session(类似于内存)
 			  -> setItem(key,value)方法
 				 -> 作用：设置数据(新增数据)

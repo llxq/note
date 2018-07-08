@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        #u1 {
+            list-style: none;
+        }
+
+        #u1 li {
+            float: left;
+            margin-right: 20px;
+            width: 100px;
+            height: 30px;
+            border: 1px solid black;
+            text-align: center;
+            line-height: 30px;
+        }
+
+        #u1::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            clear: both;
+        }
+    </style>
+    <script src="./node_modules/angular/angular.min.js"></script>
+    <script src="./node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+</head>
+
+<body>
+    <div ng-app="myApp">
+        <div ui-view></div>
+        <!-- 视图 -->
+    </div>
+    <!-- <ul id="u1">
+        <li>
+            <a href="#/index">index</a>
+        </li>
+        <li>
+            <a href="#/introduce">introduce</a>
+        </li>
+        <li>
+            <a href="#/contactUs">contactUs</a>
+        </li>
+    </ul>
+    <div class="content">
+        <div ui-view></div>
+    </div> -->
+    <!-- <script>
+        const App = angular.module('App', ['ui.router']);
+        // App.config(['$routeProvider', ($routeProvider) => {
+        //     $routeProvider.when('/index', {
+        //         templateUrl: './index.html',
+        //         controller: 'demoController'
+        //     }).otherwise({
+        //         redirect: '<h1>草你妈</h1>'
+        //     })
+        //     console.log(location.hash);
+        // }])
+
+        App.config(($stateProvider, $urlRouterProvider) => {
+            // $stateProvider提供的 state 方法包含两个参数
+            //  路由名称：String，路由规则：Object
+            // 此方法来定义路由名称和规则
+            $stateProvider.state('/index' ,{
+                url: './index.html',
+                controller: 'demoController'
+            })
+        })
+        App.controller('demoController', ['$scope', ($scope) => {
+
+        }])
+    </script> -->
+    <script type="text/javascript">
+        //定义模板，并注入ui-router
+        var app = angular.module('myApp', ['ui.router']);
+        //对服务进行参数初始化，这里配stateProvider服务的视图控制
+        app.config(["$stateProvider", function ($stateProvider) {
+            $stateProvider
+                .state("home", {
+                    url: '/',
+                    template: '<div>模板内容......</div>'
+                })
+        }]);
+    </script>
+</body>
+
+</html>

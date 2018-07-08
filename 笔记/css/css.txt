@@ -145,8 +145,7 @@
 				-> 也可以分别设置：
 					-> border-image-source:图片的路径
 					-> border-image-width：图片边框的宽度
-					-> border-image-repeat：图像边框是应平铺(repeat)、铺满(round)
-					   或拉伸(stretch)
+					-> border-image-repeat：图像边框是应平铺(repeat)、铺满(round)或拉伸(stretch)
 				-> 浏览器在识别图片的时候,会把图片分为九宫格,然后四个角就是边框的四个角,
 				   其他内容平铺,四个角是不会平铺的
 				-> 每个格子切的大小和设置的width一致

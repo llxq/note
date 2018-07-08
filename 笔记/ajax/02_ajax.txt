@@ -98,8 +98,7 @@
 			-> 服务器端向服务器端发送json格式的数据
 				-> 使用XMLHTTPRequest对象的 responseText属性接收
 				-> 使用 eval()函数 进行转换
-					-> 使用eval()函数的时候 使用"()" 将其包裹,eval()函数将强制转换为
-						json格式
+					-> 使用eval()函数的时候 使用"()" 将其包裹,eval()函数将强制转换为json格式
 					-> 不使用 "()"将其包裹,eval()函数将其识别为一个空的代码块
 			-> 客户端接收json格式的数据
 				-> 先将数据使用json_decode(字符,true) 转换为array数组对象

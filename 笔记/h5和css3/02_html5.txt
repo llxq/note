@@ -20,6 +20,7 @@
 						-> 只定义属性名,没有 属性值
 					-> loop：表示循环播放
 					-> poster：可以表示播放之前显示的图片
+						-> poster='./image.jpg'
 					-> width和height：设置显示视屏的宽度和高度
 					-> preload：预加载
 						-> auto：自动加载	(默认值)
@@ -31,6 +32,10 @@
 						-> pause()：暂停播放
 						-> load()：加载视屏
 						-> canPlayType()：判断当前浏览器是否支持指定视屏格式
+							-> canPlayType(video/ogg; codecs="theora, vorbis")	
+							-> canPlayType('视频格式；codecs='视频解码器')
+								-> 返回：probaby。最有可能支持
+								-> 返回：maybe：也许支持
 					-> 事件：
 						-> play：当视屏被播放的时候被触发
 						-> pause：当视屏暂停的时候被触发
@@ -59,6 +64,10 @@
 				
 			-> 使用<source />元素
 				-> 一个video可以包含多个source,每一个source包含一种视屏格式
+					-> <vedio>
+						<source src='路径' type='视频格式'>
+						...  // 可以写多个
+					   </vedio>
 				-> <video>支持的视屏格式：
 					-> MP4格式：目前比较主流
 					-> OGG格式：多用于移动端
@@ -115,7 +124,7 @@
 			-> height：设置矩形的高度
 		-> stroKeRect(x,y,width,height)：空心矩形
 		-> clearRect(x,y,width,height)
-			-> 清除指定区域的矩形
+			-> 清除指定矩形区域的图形
 		-> 设置颜色：
 			-> fillStyle：设置填充颜色
 			-> strokeStyle：设置描边颜色

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../node_modules/angular/angular.js"></script>
+</head>
+
+<body ng-app="App">
+    <ul ng-controller="DemoController">
+        <!-- <li></li> -->
+    </ul>
+    <script>
+        const App = angular.module('App', []);
+        App.controller('DemoController', ['$scope', 'format', '$http', ($scope, format, $http) => {
+            // 使用自定义服务 format
+            let data = {
+                name: 'lxq',
+                age: 18
+            }
+            console.log(format.format(data));
+            format.say();
+
+            // $http({
+            //     url: '',
+            //     method: 'post',
+            //     headers: {
+            //         'Content-Type': 'application/x-www-form-urlencoded'
+            //     },
+            //     data: format(data)
+            // })
+        }])
+
+        // angularjs 提供了三种自定义服务的方法：factory、service、value
+        // factory
+        App.factory('format', ['$filter', ($filter) => {
+            // 自定义服务名称：format，依赖项：$filter
+
+            // return 一个函数
+            return {
+                format(data) {
+                    if (data.constructor === Object) {
+                        let str = '';
+                        for (let key in data) {
+                            str += key + '=' + data[key] + '&';
+                        }
+                        // 去掉最后一个 &
+                        return str.slice(0, -1);
+                    } else {
+                        throw new TypeError(`${data} is not a Object`);
+                    }
+                },
+                say () {
+                    console.log('hello');
+                }
+            }
+        }])
+    </script>
+</body>
+
+</html>

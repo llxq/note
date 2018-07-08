@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../node_modules/angular/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="App">
+        <ul ng-controller="DemoController">
+            <li></li>
+        </ul>
+    </div>
+    <script>
+        var App = angular.module('App', []);
+        App.controller('DemoController', ['$scope', '$http', '$log', ($scope, $http, $log) => {
+            $http.get({
+                url: 'http://api.map.baidu.com/telematics/v3/weather',
+                method: 'jsonp',
+                params: {
+                    callback: 'JSON_CALLBACK',
+                    location: '北京',
+                    output: 'json',
+                    ak: 'ASCAROeMG8tUTtahNuuvo4Qx6VmAuLp8'
+                }
+            }).then((data) => {
+                console.log(data);
+            })
+
+        }]);
+    </script>
+</body>
+
+</html>

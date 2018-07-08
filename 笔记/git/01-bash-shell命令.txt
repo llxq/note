@@ -57,7 +57,7 @@
     
     -> cp (copy)：复制文件：用法与mv类似，复制操作也是可以重命名的
 
-    -> head：查看文件前几行，如：head -5 index.html
+    -> head：查看文件前几行，如：head 5 index.html
 
     -> tail：查看文件后几行 -n，如：tail -5 index.html
 

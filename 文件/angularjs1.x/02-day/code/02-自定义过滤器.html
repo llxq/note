@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <script src="../../node_modules/angular/angular.js"></script>
+    </head>
+    <body ng-app="App">
+        <div ng-controller="DemoController">
+            <h1>{{ name|demoFilter }}</h1>
+        </div>
+        <script>
+            let app = angular.module('App', []);
+            
+            // 自定义 指令
+            // app.directive('指令名称', () => {
+            //     return {
+                    
+            //     }
+            // })
+
+            // 自定义 过滤器
+            app.filter('demoFilter', () => {
+                return (text) => {
+                    return 'hello' + text;
+                }
+            })
+
+            // 控制器
+            app.controller('DemoController', ['$scope', ($scope) => {
+                $scope.name = 'zs';
+            }])
+        </script>
+    </body>
+</html>

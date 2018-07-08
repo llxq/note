@@ -74,7 +74,7 @@
 -> 表单的Ajax异步请求	
 	-> 表单的序列化
 		-> 表单元素必须要有 name属性,并且服务器端获取 $_POST[name属性的值]
-			-> serialize()		返回 JSON字符串
+			-> serialize()			返回 JSON字符串
 			-> serializeArray()		返回JSON对象(对象数组)
 			
 -> JQuery.form插件
@@ -137,15 +137,13 @@
 	-> 万维网协议
 		-> 默认是不允许跨域请求的
 	-> 域名
-		-> 是由一串用点分隔的名字组成的Internet上某一台计算机或计算机组的名字,用于在
-			数据传输时标识计算机的电子方位
+		-> 是由一串用点分隔的名字组成的Internet上某一台计算机或计算机组的名字,用于在数据传输时标识计算机的电子方位
 		-> 域名的目的是便于记忆和沟通的一组服务器的地址
 		
 -> 使用 $.ajax()实现跨域
 	-> 将 dataType 的值设置为 jsonp 即可
 		-> jsonp：在一个JSONP请求中重写回调函数的名字,这个值将用于代替 "callback=?"
-	-> jsonpCallback：为jsonp请求指定一个回调函数,这个值将用于替代JQuery自动生成的随
-		机函数名
+	-> jsonpCallback：为jsonp请求指定一个回调函数,这个值将用于替代JQuery自动生成的随机函数名
 		
 -> cookie
 	-> 基本内容

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>$Location 内置服务</title>
+        <script src="../../node_modules/angular/angular.min.js"></script>
+    </head>
+    <body ng-app="App">
+        <div ng-controller="DemoController">
+                <h3>{{ title }}</h3>
+                <h3>absUrl：{{ absUrl }}</h3>
+                <h3>url：{{ url }}</h3>
+                <h3>host：{{ host }}</h3>
+                <h3>search：{{ search }}</h3>
+                <h3>hash：{{ hash }}</h3>
+                <h3>protocol：{{ protocol }}</h3>
+                <h3>port：{{ port }}</h3>
+        </div>
+        <script>
+            const App = angular.module('App', []);
+            App.controller('DemoController', ['$scope', '$location', ($scope, $location) => {
+                $scope.title = '学习 angularJS 服务';
+                
+                // 完整地址
+                $scope.absUrl = $location.absUrl();
+                // 锚点 后面的地址
+                $scope.url = $location.url();
+                // 获取主机名
+                $scope.host = $location.host(); 
+                // 获取查询参数
+                $scope.search = $location.search();
+                // 获取 第二个锚点后面的值  (第二个 # 后面的值)
+                $scope.hash = $location.hash();
+                // 获取协议
+                $scope.protocol = $location.protocol();
+                // 获取端口
+                $scope.port = $location.port();
+            }])
+        </script>
+    </body>
+</html>

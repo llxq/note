@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../node_modules/angular/angular.min.js"></script>
+</head>
+
+<body ng-app="App">
+    <!-- <ul ng-controller="DemoController">
+        
+    </ul> -->
+    <script>
+            /* function getXhr() {
+                let xhr = null;
+                if (window.XMLHttpRequest) {
+                    xhr = new XMLHttpRequest();
+                } else {
+                    xhr = new ActiveXObject('Microsoft.XMLHTTP');
+                }
+                return xhr;
+            }
+            const xhr = getXhr();
+            xhr.open('post', '../../server.js');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send('name=10');
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log(xhr.responseText);
+                }
+            } */
+
+        // const App = angular.module('App', []);
+        // App.controller('DemoController', ['$scope', '$http', ($scope, $http) => {
+        //    $http({
+
+        //    });
+        // }])
+    </script>
+    <script>
+        const app = angular.module('App', []);
+        app.controller('DemoController', ['$scope', '$http', ($scope, $http) => {
+            $http({
+                url: '请求地址',
+                method: '请求类型',
+                headers: '请求头',
+                params:{key: value},     // get请求方式的参数
+                data: {key: value}      // 或者是 "key=value"   post请求参数
+            }).success((data) => {
+                // data 就是请求到的数据
+            })
+        }]);
+    </script>
+</body>
+
+</html>

@@ -2,7 +2,7 @@
 	-> 在块级作用域中，在let、const之前的区域成为暂时性死区
 		-> function fn() {
 			//这就是暂时性死区
-			// 在这声明变量会报错
+			// 在这访问变量会报错
 			let a = 10
 		}
 	-> let 
@@ -165,7 +165,7 @@
 				-> <script src="module">
 						// 引入 js 文件
 						import '需要的js文件路径'
-					 </script>
+				   </script>
 		-> import模块 只会导入一次，无论你导入几次
 		-> import '需要的js文件路径'：如果这么用，只是相当于是 引入了一个文件而已
 		-> import {值} form 'js文件路径';
@@ -197,8 +197,8 @@
 		-> reset运算符
 		-> ... ：可以将数组展开
 		-> 
-						let arr = ['apple', 'banana', 'orange'];
-						// 输出结果为 apple banana orange
+			let arr = ['apple', 'banana', 'orange'];
+			// 输出结果为 apple banana orange
             console.log(...arr);
 		-> 在函数参数中使用
 			function show(...a) {

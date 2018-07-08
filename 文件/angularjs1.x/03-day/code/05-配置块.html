@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <div ng-app="App">
+        <ul ng-controller="DemoController">
+            <li>
+                <h1>
+                    {{ str|demoFilter }}
+                    <!-- 结果为：hello新增的 -->
+                </h1>
+            </li>
+        </ul>
+    </div>
+    <script src="../../node_modules/angular/angular.js"></script>
+    <script>
+        const App = angular.module('App', []);
+
+        App.controller('DemoController', ['$log', '$scope', '$filter', ($log, $scope, $filter) => {
+            $log.warn('警告信息');
+            $log.debug('调试信息');
+            $scope.str = 'hello';
+        }])
+        // 配置模块
+        // config 方法
+        App.config(['$logProvider', '$httpProvider', ($logProvider, $httpProvider) => {
+            // $log有一个方法：$log.debug()。默认是开启的
+
+            // 关闭了 $log 的 debug方法
+            $logProvider.debugEnabled(false);
+        }]);
+
+        App.config(['$filterProvider', ($filterProvider) => {
+            // $filter默认有 9 个控制器，
+            // 通过配置新增控制器  register(注册的意思)
+            $filterProvider.register('demoFilter', () => {
+                return (data) => {
+                    return data + '新增的';
+                }
+            })
+        }])
+
+        // 将两个合并
+        App.config(['$filterProvider', '$logProvider', ($filterProvider, $logProvider) => {
+            $logProvider.debugEnabled(false);
+            $filterProvider.register('demoFilter', () => {
+                return (data) => {
+                    return data + '新增的';
+                }
+            })
+        }])
+    </script>
+</body>
+
+</html>

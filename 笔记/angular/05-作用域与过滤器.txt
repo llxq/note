@@ -1,0 +1,54 @@
+-> 作用域
+    -> 通常 AngularJS 中 应用(APP) 是由若干个视图 (View) 组合而成的，而 视图 又都是 HTML 元素，并且 HTML 元素时可以互相嵌套的，另一方面视图都隶属于某个 控制器(Controller)，进而控制器之间也必然会产生嵌套关系
+    -> 每个 控制器(Controller) 又都对应一个 模型(Model) 也就是  $scope 对象，不同层级 控制器(Controller) 下的 $scope 便产生了作用域
+    -> AngularJS 作用域与 js 一致
+
+    -> 根作用域
+        -> 一个 AngularJS 的应用在启动时会自动创建一个根作用域 $rootScope，这个根作用域在整个应用范围 (ng-app所在标签以内) 都是可以被访问到的
+
+    -> 子作用域
+        -> 通过 ng-controller 指令可以创建一个子作用域，新建的作用域可以访问其父作用域的数据
+
+
+-> 过滤器
+    -> 在 AngularJS 中使用过滤器格式化展示数据，在 {{}} 中使用 | 来调用过滤器，使用 ：传递参数。
+    
+    -> 内置过滤器
+        -> currency：将数值格式化为货币格式
+            -> price|currency:'￥'  // 通过 : 传递参数来改变格式
+        -> data：日期格式化，年(y)、月(M)、日(d)、星期(d=EEEE/EEE)、时(H/h)、分(m)、秒(s)、毫秒(sss)，也可以组合到一起使用。
+            -> now|date:'y-M-d'    now|date:'yyyy-MM-dd' 
+            -> now|date:'yyyy-MM-dd hh:mm:ss'
+        -> filter：在给定数组中选择满足条件的一个子集，并返回一个新数组，其条件可以是一个字符串、对象、函数
+            -> arr|filter:'z'  // 过滤出包含 z 的数据
+            -> arr|filter:{age: 16}  // 过滤出 age 等于16的对象
+        -> json将 JavaScript 对象转换为 JSON 字符串
+        -> limitTo：取出字符串或数组的前 (正数) 几位或后 (负数) 几位
+            -> arr|limitTo:2    // 截取 arr 的前两项，可以为负数
+        -> lowercase：将文本转换为小写格式
+        -> uppercase：将文本装换为大写格式
+        -> orderBy：对数组进行排序，第2个参数可以控制方向
+            -> 默认从小到大排序
+            -> 可以传递两个参数  number|orderBy:'' :true
+                -> 从大到小排序，默认第二个参数是 false
+            -> 当需要排序的是一个数组对象的话，可以给第一个参数传需要比较的属性
+                -> number|orderBy:'age' :true
+                    -> 按照 age 来排序
+        -> number：将数据转换为数字
+            -> 默认保留三位小数，多余四舍五入
+            -> number:n   // 保留 n 位小数，多余也是四舍五入
+
+        -> 多个过滤器可组合使用
+            -> lowercase|number|limitTo: 2
+
+    -> 自定义过滤器
+        -> 除了使用 AngularJS 内置的过滤器外，还可以根据业务需要自定义顾虑器，通过模块对象实例提供的 filter 方法自定义过滤器
+        -> 使用 angular对象实例的 filter方法
+            -> app.filter('顾虑器名称'，() => {
+                // 返回一个函数,这个 text 就是使用该过滤器的元素的值
+                // {{ demo|顾虑器名称 }}    text 就是 demo 的值
+                return (text) => {
+                    // 将处理过后的数据返回
+                    return 修改之后的数据   // return 111 + text
+                }
+            })

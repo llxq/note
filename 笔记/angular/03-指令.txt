@@ -19,6 +19,7 @@
         -> 该指令的值的类型为一个对象，{key：value, key: value......}，key代表的是 class的名字，后面给定一个 bool值，true 代表的是该 class应用到该元素   
     -> ng-include：引入模板
         -> ng-include="'模板路径'"
+            -> ng-include="a.html"
         -> 使用该指令，必须在服务器环境运行
     -> ng-disabled：表单禁用
     -> ng-readonly：表单只读

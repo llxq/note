@@ -1,3 +1,6 @@
+-> 给网站添加 ico 图标
+	-> <link rel="shortcut icon" href="icon图标路径">
+
 -> SVG
 	-> 基本内容：
 		-> SVG并不属于HTML5专有内容
