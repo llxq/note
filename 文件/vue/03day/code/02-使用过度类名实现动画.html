@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../lib/vue-2.4.0.js"></script>
+    <style>
+        /* 自定义两组样式，来控制 transition 内部元素的动画 */
+        /* v-enter(这是一个时间点) 是进入之前，元素的起始状态，此时还开始 */
+        /* v-leave-to(也是一个时间点) 是动画离开之后，离开的终止状态，此时，元素动画已经结束了 */
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(150px);
+        }
+
+        /* v-enter-active (入场动画的时间段) */
+        /* v-leave-active (离场动画的时间段) */
+        .v-enter-active,
+        .v-leave-active {
+            transition: all .4s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <input type="button" value="显示和隐藏" @click="falg = !falg">
+
+        <!-- 使用 transition元素，把需要被动画控制的元素 包裹起来 -->
+        <!-- transition元素是 vue 官方提供的 -->
+        <transition>
+            <h2 v-if="falg">这是一个 h2</h2>
+        </transition>
+    </div>
+    <script>
+        const app = new Vue({
+            el: '.app',
+            data: {
+                falg: false
+            },
+            methods: {}
+        })
+    </script>
+</body>
+
+</html>

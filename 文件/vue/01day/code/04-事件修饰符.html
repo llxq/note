@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <script src="../../lib/vue-2.4.0.js"></script>
+        <style>
+            #content > div {
+                height: 150px;
+                background-color: #f41965;
+            }
+        </style>
+    </head>
+    <body>
+       <div id="content">
+           <div @click="divClick">
+               <!-- .stop：阻止事件冒泡 -->
+               <input type="button" value="点击" @click.stop="btnClick">
+           </div><br><br>
+
+           <!-- .prevent：阻止事件默认行为 -->
+           <a href="http://www.baidu.com" @click.prevent="linkClick">百度</a><br><br>
+
+           <!-- .capture：在捕获阶段触发事件 -->
+           <!-- 先触发 divClick事件，再触发 button事件，这个就是在捕获阶段触发事件 -->
+           <div @click.capture="divClick">
+                <input type="button" value="点击" @click="btnClick">
+            </div><br><br>
+
+            <!-- .self：只有通过该元素本身触发的才会执行，如果是通过 捕获阶段或者冒泡执行的不会触发该事件 -->
+            <div @click.self="divClick">
+                <input type="button" value="点击" @click="btnClick">
+            </div><br><br>
+
+            <!-- .once：只触发一次该事件，
+                事件修饰符是可以链式的 -->
+            <a href="http://www.baidu.com" @click.prevent.once="linkClick">百度</a>
+            <div @click="divClick">
+                <!-- 点击这个 button 可以触发 父元素的 click 事件， -->
+                <input type="button" value="点击">
+            </div>
+
+       </div> 
+       <script>
+           const vm = new Vue({
+             el: '#content',
+             data: {
+
+             },
+             methods: {
+                 divClick() {
+                     console.log('这是触发了 div 的点击事件');
+                 },
+                 btnClick() {
+                     console.log('这是触发了 按钮 的点击事件');
+                 },
+                 linkClick() {
+                     console.log('这是触发了 a链接 的点击事件');
+                 }
+             }
+           }) 
+       </script>
+    </body>
+</html>

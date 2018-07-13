@@ -101,13 +101,17 @@
 			-> 查看当前操作的数据库
 		-> 插入数据
 			-> db.students.insertOne({"name":"jack"})
-		-> show	collection	
+		-> show	collections	
 			-> 显示当前数据库中的集合 (也就是 表 )
 		-> db.表名.find()
 			-> 显示当前表中的数据
 		-> 删除所有数据
 			db.表名.remove({})
-			
+		-> 删库
+			-> 先切换到需要删除的库，再删除
+				-> use 库名
+				   db.dropDatabase()	
+		
 -> 使用官方的 MongoDB包 来操作
 	-> 官方网址：https://github.com/mongodb/node-mongodb-native
 

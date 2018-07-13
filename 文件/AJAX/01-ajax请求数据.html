@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+
+<body>
+    <input type="button" value="请求" id='btn'>
+    <script>
+        $('#btn').click(function () {
+            $.ajax({
+                url: 'http://api.map.baidu.com/telematics/v3/weather?location=北京&output=json&ak=f7e36nFGXTImp4fSwcXixA37v1bLCPs1',
+                dataType: 'jsonp',
+                success(data) {
+                    console.log(data);
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

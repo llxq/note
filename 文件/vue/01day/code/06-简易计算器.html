@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div class="calculator">
+        <input type="text" v-model="num1">
+        <select v-model="obt">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="text" v-model="num2">
+        <input type="button" value="=" @click="result">
+        <input type="text" v-model="resultNum">
+    </div>
+
+    <script>
+        const app = new Vue({
+            el: '.calculator',
+            data: {
+                num1: 0,
+                num2: 0,
+                resultNum: 0,
+                obt: '+'
+            },
+            methods: {
+                result() {
+                    switch (this.obt) {
+                        case '+':
+                            this.resultNum = parseInt(this.num1) + parseInt(this.num2);
+                            break;
+                        case '-':
+                            this.resultNum = parseInt(this.num1) - parseInt(this.num2);
+                            break;
+                        case '*':
+                            this.resultNum = parseInt(this.num1) * parseInt(this.num2);
+                            break;
+                        case '/':
+                            this.resultNum = parseInt(this.num1) / parseInt(this.num2);
+                            break;
+                    }
+
+                    // 便捷方式
+                    this.resultNum =  eval('parseInt(this.num1)'+ this.obt +'parseInt(this.num2);')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

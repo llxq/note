@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <style>
+            [v-cloak] {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content">
+            <!-- 当网速慢的时候，用户会看到 插值表达式 -->
+            <!-- 这个时候，我们就因该使用 v-cloak -->
+            <p v-cloak>{{ msg }}</p>
+
+            <!-- v-text默认是没有闪烁问题的 -->
+            <h2 v-text="msg"></h2>
+
+            <!-- 输出：<h2>这个是动态添加的 h2</h2> -->
+            <p>{{ msg2 }}</p>
+            <!-- 输出：<h2>这个是动态添加的 h2</h2> -->
+            <p v-text="msg2"></p>
+
+            <!-- 可以将字符串解析为 HTML -->
+            <p v-html="msg2"></p>
+
+            <!-- v-bind会把等号后面的值看作是一个合法的表达式，可以填写一个js逻辑 -->
+            <!-- 简写形式：   :属性='值' -->
+            <input type="button" value="按钮"  v-bind:title="title">
+            <input type="button" value="按钮" :title="title"><br>
+
+            <!-- 绑定事件：v-on:事件名="fun()" -->
+            <!-- fun()：是在vue实例中的 methods中定义了的方法 -->
+            <input type="button" value="按钮" v-on:click="fun()">
+            <input type="button" value="按钮" @click="fun()">
+        </div>
+        <script src="../../lib/vue-2.4.0.js"></script>
+        <script>
+             const vue = new Vue({
+                 el: '.content',
+                 data: {
+                     msg: 'hello v-clock',
+                     msg2: '<h2>这个是动态添加的 h2</h2>',
+                     title: '这个是自己定义的title'
+                 }, 
+                 methods: {
+                     fun() {
+                         alert('hello v-on');
+                     }
+                 }
+             })
+        </script>
+    </body>
+</html>

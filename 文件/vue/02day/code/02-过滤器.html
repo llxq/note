@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div class="app">
+        <p>{{ msg | dateFormat('哈哈哈') }}</p>
+        <input type="text" @keyup.f2="ale" v-focus>
+    </div>
+    <div class="app2">
+        <p>{{ msg | dateFormat('哈哈哈') }}</p>
+        <input type="text">
+    </div>
+    <script>
+        Vue.filter('dateFormat', (data, pattern = '') => {
+            let dt = new Date(data);
+            let y = dt.getFullYear();
+            let m = null;
+            m = m >= 10 ? dt.getMonth() + 1 : '0' + (dt.getMonth() + 1);
+            let d = null;
+            d = d >= 10 ? dt.getDate() : '0' + (dt.getDate());
+            // return pattern.toLowerCase();
+
+            if (pattern.toUpperCase() === 'yyyy-mm-dd') {
+                return `${y}-${m}-${d}`;
+            } else {
+                return dt.toLocaleString() + '公共的';
+            }
+        })
+        
+        // 自定义键盘修饰符
+        // Vue.config.keyCodes.别名 = 键值码
+        // 通过 按下 f2 键来触发
+        Vue.config.keyCodes.f2 = 113;
+
+        // 自定义一个指令
+        Vue.directive('focus', {
+            bind(el) { 
+                // 每当指令绑定到元素上的时候，会立即执行该函数，只执行一次
+               
+            },
+            inserted(el) {
+                // 表示元素插入到 dom 中的时候，会执行该函数，只会触发一次
+                el.focus();
+            },
+            updated() {
+                // 当 VNode 更新的时候，会执行该函数，可能会触发多次    
+            },
+        })
+
+
+        // Vue.filter('msgFormat', (data, msg2) => {
+        //     return data.replace('我', msg2);
+        // })
+        const app = new Vue({
+            el: '.app',
+            data: {
+                msg: new Date()
+            },
+            methods: {
+                ale() {
+                    alert('哈哈哈')
+                }
+            }
+        })
+
+        // 定义一个私有的过滤器
+        const app2 = new Vue({
+            el: '.app2',
+            data: {
+                msg: new Date()
+            },
+            methods: {},
+            filters: { // 定义私有的过滤器
+                dateFormat(data, pattern = '') {
+                    let dt = new Date(data);
+                    let y = dt.getFullYear();
+                    let m = null;
+                    m = m >= 10 ? dt.getMonth() + 1 : '0' + (dt.getMonth() + 1);
+                    let d = null;
+                    d = d >= 10 ? dt.getDate() : '0' + (dt.getDate());
+                    // return pattern.toLowerCase();
+
+                    if (pattern.toUpperCase() === 'yyyy-mm-dd') {
+                        return `${y}-${m}-${d}`;
+                    } else {
+                        return dt.toLocaleString() + '私有的';
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

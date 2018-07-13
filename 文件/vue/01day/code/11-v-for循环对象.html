@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <script src="../../lib/vue-2.4.0.js"></script>
+    </head>
+    <body>
+        <div class="app">
+            <!-- 在遍历对象身上的键值对的时候，除了有 value key 之外，在第三个位置还有一个索引 -->
+            <p v-for="(value, key, index) in user">Key：{{ key }}----value：{{ value }}----索引：{{ index }}</p>
+        </div>
+        <script>
+            const app = new Vue({
+                el: '.app',
+                data: {
+                    user: {
+                        id: 1,
+                        name: 'lxq',
+                        age: 18,
+                        msg: 'I Love You'
+                    }
+                },
+                methods: {}
+            })
+        </script>
+    </body>
+</html>

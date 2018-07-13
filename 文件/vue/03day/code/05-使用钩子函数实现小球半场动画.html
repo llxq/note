@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <script src="../../lib/vue-2.4.0.js"></script>
+        <style>
+            .box {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <input type="button" value="加入购物车" @click="flag = !flag">
+            <transition
+            @before-enter="beforeEnter"
+            @enter="enter"
+            @after-enter="afterEnter">
+            <div class="box" v-if="flag"></div>
+            </transition>   
+        </div>
+        <script>
+            const app = new Vue({
+                el: '.app',
+                data: {
+                    flag: false
+                },
+                methods: {
+                    beforeEnter(el) {   // 设置动画起始的状态，此时动画还未开始
+                    // 设置小球的起始位置
+                    el.style.transform = 'translate(0, 0)';
+                    },
+                    enter(el, done) {     // 动画开始的状态，此时动画开始执行，动画的结束状态可以写在这
+                    // 这句话就是用来执行动画的，不加 浏览器就不会执行动画
+                    el.offsetWidth;
+                    el.style.transform = 'translate(50px, -30px)';
+                    el.style.transform = 'translate(150px, 400px)';
+                    el.style.transition = 'all 1s ease';
+
+                    // 当只用 JavaScript 过渡的时候，在 enter 和 leave 中必须使用 done 进行回调。否则，它们将被同步调用，过渡会立即完成。
+                    // 这个 done 其实就是 afterEnter 函数的引用
+                    done();
+                    },
+                    afterEnter(el) {    // 动画完成之后会执行该函数
+                    this.flag = !this.flag;
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

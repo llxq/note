@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <script src="../../lib/vue-2.4.0.js"></script>
+        <script src="../../lib/vue-resource-1.3.4.js"></script>
+    </head>
+    <body>
+        <div class="app">
+            <input type="button" value="get请求" @click="getInfo">
+        </div>
+        <script>
+            const app = new Vue({
+                el: '.app',
+                data: {},
+                methods: {
+                    getInfo() {
+                        this.$http.jsonp('http://127.0.0.1:3000/index?age=18',{
+                            emulateJSON: true
+                        }).then(result => {
+                            console.log(result);
+                        }).catch(err => {
+                            
+                        });
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

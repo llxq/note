@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../lib/vue-2.4.0.js"></script>
+    <style>
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(150px);
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 2s ease;
+        }
+
+        /* 自定义的话，把前缀 v- 替换为 自定义前缀-，比如 myDemo- */
+        .myDemo-enter,
+        .myDemo-leave-to {
+            opacity: 0;
+            transform: translateY(150px);
+        }
+        .myDemo-enter-active,
+        .myDemo-leave-active {
+            transition: all 2s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <!-- 这个是 vue内置的过渡动画，前缀都是 v- -->
+        <input type="button" value="toggle" @click="flag = !flag">
+        <transition>
+            <h3 v-if="flag">这个是使用内置的动画，前缀是 v-</h3>
+        </transition>
+
+        <!-- 自定义前缀动画 -->
+        <input type="button" value="toggle" @click="flag2 = !flag2">
+        <transition name="myDemo">
+            <h1 v-if="flag2">这个是自定义的动画，前缀自定义</h1>
+        </transition>
+    </div>
+    <script>
+        const app = new Vue({
+            el: '.app',
+            data: {
+                flag: false,
+                flag2: false
+            },
+            methods: {}
+        })
+    </script>
+</body>
+
+</html>

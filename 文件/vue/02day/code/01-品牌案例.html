@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style>
+        * {
+            outline: none !important;
+        }
+    </style>
+    <script src="../../lib/vue-2.4.0.js"></script>
+    <link rel="stylesheet" href="../../lib/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="app">
+
+        <div class="panel panel-primary form-inline">
+            <div class="panel-heading">
+                <h3 class="panel-title">添加品牌</h3>
+            </div>
+            <div class="panel-body container row text-center">
+                <label class="col-md-3">
+                    Id：
+                    <input type="text" class="form-control" v-model="id">
+                </label>
+                <label class="col-md-4 text-left">
+                    Name：
+                    <input type="text" class="form-control" v-model="name"
+                    @keyup.enter="add">
+                    <button type="button" class="btn btn-primary text-right pull-right" @click="add">添加</button>
+
+                </label>
+
+                <label class="col-md-4">
+                    搜索关键字：
+                    <input type="text" class="form-control" v-model="keyWords" autofocus>
+                </label>
+
+            </div>
+        </div>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Ctime</th>
+                    <th>Opela</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(val, index) in search(keyWords)" :key="val.id">
+                    <td>{{ val.id }}</td>
+                    <td>{{ val.name }}</td>
+                    <td>{{ val.ctime | dateFormat('') }}</td>
+                    <td>
+                        <a href="" @click.prevent="del(val.id)">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        Vue.filter('dateFormat', (data, pattern = '') => {
+            // 根据给定的时间字符串，得到特定的时间
+            let dt = new Date(data);
+            // yyy-mm-dd
+            let y = dt.getFullYear();
+            // 月是从0开始的，需要 +1
+            let m = (dt.getMonth() + 1).toString().padStart(2, '0');
+            let d = dt.getDate().toString().padStart(2, '0');
+            // return pattern.toLowerCase();
+
+            if (pattern.toLowerCase() === 'yyyy-mm-dd') {
+                return `${y}-${m}-${d}`;
+            } else {
+                return dt.toLocaleString();
+            }
+        })
+        const app = new Vue({
+            el: '.app',
+            data: {
+                id: '',
+                name: '',
+                keyWords: '',
+                list: [{
+                        id: 1,
+                        name: '奔驰',
+                        ctime: new Date()
+                    },
+                    {
+                        id: 2,
+                        name: '奥迪',
+                        ctime: new Date()
+                    },
+                    {
+                        id: 3,
+                        name: '宝马',
+                        ctime: new Date()
+                    }
+                ]
+            },
+            methods: {
+                add() {
+                    this.list.push({
+                        id: this.id,
+                        name: this.name,
+                        ctime: new Date()
+                    })
+                    this.id = this.name = '';
+                },
+                del(id) {
+                    this.list.splice(this.list.findIndex((val, index) => {
+                        return val.id === id;
+                    }), 1);
+                },
+                search(keyWords) {
+                    /* let arr = [];
+                    this.list.forEach(item => {
+                        if (item.name.indexOf(keyWords) != -1) {
+                            arr.push(item);
+                        }
+                    });
+                    return arr; */
+
+                    return this.list.filter(item => {
+                        return item.name.includes(keyWords);
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

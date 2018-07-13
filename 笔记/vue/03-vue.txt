@@ -1,0 +1,151 @@
+-> Vue中的动画
+    -> 过渡类名
+        -> 在进入/离开的过程中，会有 6 个 class 切换
+            -> v-enter：定义进入过渡的开始状态，在元素被插入之前生效，在元素被插入之后的下一帧移除
+            -> v-enter-active：定义进入过渡生效时的状态，在整个进入过渡的阶段中应用，在元素被插入之前生效，在过渡/动画完成之后移除，这个类被用来定义进入过渡的过程时间，延迟和曲线函数
+            -> v-enter-to：2.1.8版本及以上 定义进入过渡的结束状态。在元素被插入之后下一帧生效 (于此同时 v-enter被移除)，在过渡/动画完成之后移除
+            -> v-leave：定义离开过渡的开始状态。在离开过渡被触发时立刻生效，下一帧被移除
+            -> v-leave-active：定义离开过渡生效时的状态。在整个离开过渡的阶段中应用，在离开过渡被触发时立刻生效，在过渡/动画完成之后移除，这个类可以被用来定义离开过渡的过程事件，延迟和曲线函数
+            -> v-leave-to：2.1.8版本及以上 定义离开过渡的结束状态。在离开过渡被触发之后下一帧生效 (v-leave 被删除)，在过渡/动画完成之后移除
+
+
+    -> 实现过渡
+        -> 使用 transition元素，把需要被动画控制的元素 包裹起来 -->
+        ->  transition元素是 vue 官方提供的 
+            -> <transition>
+                 <h2 v-if="falg">这是一个 h2</h2>
+               </transition>
+        -> 自定义两组样式，来控制 transition 内部元素的动画 
+            -> v-enter(这是一个时间点) 是进入之前，元素的起始状态，此时还开始 */
+            -> v-leave-to(也是一个时间点) 是动画离开之后，离开的终止状态，此时，元素动画已经结束了
+                -> .v-enter,
+                   .v-leave-to {
+                        opacity: 0;
+                        transform: translateX(150px);
+                   }
+
+            -> v-enter-active (入场动画的时间段) 
+            -> v-leave-active (离场动画的时间段) 
+                -> .v-enter-active,
+                     .v-leave-active {
+                     transition: all .4s ease;
+                   }
+
+    -> 自定义动画，
+        -> 先在 transition元素上 添加一个 name 属性，值为自己定义的值
+            -> <transition name="myDeom"></transition>
+        -> 然后在定义动画的时候，只需要把之前的 v- 替换成为 自定义的 name 的值
+            -> .myDeom-enter,.myDeom-leave-to{}....
+
+    -> 使用第三方类库 animate.css
+        -> 首先引入 animate.css文件
+        -> 然后在 transition 元素中定义样式
+
+    -> 可以给动画设置进入和移出的持续时间
+        -> 在 transition元素上 添加属性  :duration{enter：进入的持续时间, leave：移出的持续时间}
+            -> duration="{ enter: 500, leave: 800 }"
+        -> 同时设置 进入 和 移出 的持续时间  
+            -> :duration{时间}
+
+    -> 动画的钩子函数
+        -> 都是挂载在 transition 元素上的 使用  v-on 绑定，这些钩子函数的处理函数中，第一个参数都是 表示要执行动画的那个元素，是个原生的 dom 元素
+            -> before-enter：表示动画入场之前，此时动画尚未开始，可以在 当前函数中，设置元素开始动画之前的起始样式
+
+            -> enter(el, done)：表示动画开始之后的样式，这里可以设置元素完成动画的 结束状态，过渡也可以写在这，如果需要元素有过渡效果的话，需要给元素添加   el.offsetWidth，没有这句话的话，动画效果就不会出现
+                -> 调用 done 可以让动画完成之后，el 立即消失，这个 done 其实就是 after-enter函数，也就是 falter-enter的引用
+                -> 当只用 JavaScript 过渡的时候，在 enter 和 leave 中必须使用 done 进行回调。否则，它们将被同步调用，过渡会立即完成。
+
+            -> after-enter：动画执行完毕之后调用该函数
+
+            -> enter-cancelled
+
+            -> before-leave
+
+            -> leave
+
+            -> after-leave
+
+            -> leave-cancelled
+
+
+    -> 在实现列表过渡的时候，如果需要过渡的元素，是通过 v-for 循环渲染出来的，不能使用 transition 包裹，需要使用 transitionGroup
+        -> 必须为每一个元素设置  :key  属性
+    
+    -> 给 transitionGroup 添加一个属性 appeat，可以让 列表加载的时候就执行进场动画
+    -> 再给 transitionGroup 添加一个属性 tag，因为当我们添加了 appeat 元素的时候，在渲染的时候，就会把 transitionGroup 元素 替换为一个 span标签，如果我们在该标签内有 块元素，这样就不符合 w3c 规范了，所以我们可以 使用  tag 属性指定一个值，当渲染页面的时候，浏览器会自动把 transitionGroup 替换为 tag的值   
+        -> tag="ul"
+
+    -> v-move：可以设置离开时候的动画
+       -> 固定写法：可以让后续的列表元素，渐渐地飘上来的效果
+        ->   .v-move{设置动画效果} 
+             .v-leave-active{postiton: absolute}
+
+
+-> 组件：
+    -> 什么是组件：
+        -> 组件的出现就是为了拆分Vue实例的代码量的，能够让我们以不用的组件，来划分不同的功能模块，将来我们需要什么功能，就可以调用相应的组件即可
+    -> 组件化和模块化的不同：
+        -> 模块化：是从 代码逻辑 角度进行划分的，方便代码分层开发，保证每个模块的职能单一
+        -> 组件化：是从 ui 界面角度进行划分的，(前端的组件化)，方便 ui 组件的
+        重用
+
+    -> 全局组件的三种定义方式 (注意：无论是那种方式创建出来的组件，组件的 template 属性指向的模板内容，必须有且只有一个根元素，就是最外层只能有一个元素，不能有元素与他平级)
+        -> 第一种
+           -> 在全局中定义 const com = Vue.extend({ template：'HTML模板' }) 
+           -> 然后在全局中定义 Vue.component('组件的名称'，'上面 extend 的返回值')
+           -> 简写：Vue.component('组件的名称', Vue.extend({ remplate: }))
+           -> 然后就可以在 html 页面中引用了。
+            -> 使用组件，直接把组件的名称以 HTML标签 的形式引入到页面中，如果定义的组件名称是 驼峰命名法的，那么以 HTML标签形式引入的时候，就需要在中间加上 - 并且 后面的字符变为小写，比如说：myDemo 变为 my-demo，如果没有用 驼峰命名法，全是小写字母，则直接引用即可
+
+        -> 第二种方式
+            -> Vue.component('组件名称', {
+                template：'HTML模板'
+            })
+            -> 使用方式与 第一种方式一致
+
+        -> 第三种方式
+            -> Vue.component('组件名称', {
+                template: 'template元素的 id 值，带 # 的'
+            })
+            -> 然后在 Vue控制的元素外面定义一个 template元素，id 为 template属性的值
+                -> 在里面定义需要添加的内容，注意，里面添加的内容也只能有一个根元素
+            -> 最后在 被 Vue 控制的元素中定义 组件元素即可，与上面用法一致
+
+    -> 全局定义的组件，所有Vue实例都能用
+
+    -> 定义私有的组件
+        -> 在Vue实例中有一个属性：components：{里面定义组件的}
+            -> components: {
+                组件名称：{
+                    template：'HTML模板'/或者是 template元素的 id 值
+                }
+            }
+        -> 用法与上面两个一致
+
+
+    -> 组件中的参数：
+        -> Vue.compon('组件名称', {
+            template: 'HTML模板',
+            data() {    // 该参数，必须返回一个 对象
+                return {
+                    // 里面可以自定义数据，在组件的 template属性中可以引用 data返回的数据，用法与 Vue实例的使用一致
+                    // 注意：必须有根元素！！！
+                }
+            },
+            methods:{}
+        })
+
+    -> 组件切换
+        -> 第一种方式
+            -> v-if 与 v-else 指令
+                -> 当 v-if的值为 true 的时候，元素显示。否则显示 v-else
+
+        -> 第二种方式
+            -> 使用 Vue提供的 component元素，可以用来展示对应名称的组件
+                -> <component :is="组件的名称"><component>
+                    -> is属性可以用来指定要展示的组件名称，值 需要使用 '' 包裹组件名称的字符串
+
+        -> 组件切换实现动画，
+            -> 使用 transition 属性将 需要实现动画的元素包裹起来即可，给 transition元素 加上 一个 mode 属性，设置组件切换的模式
+                -> out-in，就是上一个动画结束之后再开始下一个动画
+

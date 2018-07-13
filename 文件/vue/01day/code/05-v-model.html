@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <script src="../../lib/vue-2.4.0.js"></script>
+    </head>
+    <body>
+        <div class="content">
+            <h3>{{ msg }}</h3>
+
+            <!-- v-bind只能实现单向绑定，只能从 m 到 v，无法实现双向绑定 -->
+            <input type="text" :value="msg" style="width: 100%"><br><br>
+
+            <input type="text" style="width: 100%" v-model="msg">
+        </div>
+        <script>
+            const app = new Vue({
+                el: '.content',
+                data: {
+                    msg: 'hello Vuejs'
+                },
+                methods: {
+                }
+            })
+        </script>
+    </body>
+</html>

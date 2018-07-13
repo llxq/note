@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <script src="../../lib/vue-2.4.0.js"></script>
+    </head>
+    <body>
+        <div class="app">
+            <p v-for="(value, index) in list">id：{{ value.id }}---name：{{ value.name }}--- 索引：{{ index }}</p>
+        </div>
+        <script>
+            const app = new Vue({
+                el: '.app',
+                data: {
+                    list: [
+                        {id: 1, name: '张三'},
+                        {id: 2, name: '李四'},
+                        {id: 3, name: '王五'},
+                        {id: 4, name: '赵六'},
+                    ]
+                },
+                methods: {}
+            })
+        </script>
+    </body>
+</html>
