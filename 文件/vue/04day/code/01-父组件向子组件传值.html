@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div class="app">
+        <mycom :parent-tmsg="msg"></mycom>
+    </div>
+    <script>
+        const app = new Vue({
+            el: '.app',
+            data: {
+                msg: '这个值是父组件中的值'
+            },
+            methods: {},
+            components: {
+                data() {
+                    return {
+                        title: '这个是 私有的data'
+                    }
+                },
+                mycom: {
+                    template: '<h1>子组件 向 父组件 传值 ------- {{ parentTmsg }} </h1>',
+                    props: ['parentTmsg']
+                },
+                methods: {
+                    
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

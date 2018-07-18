@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../lib/vue-2.4.0.js"></script>
+    <link rel="stylesheet" href="../../lib/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="app">
+        <cmt @func="load"></cmt>
+
+        <ul class="list-group">
+            <li class="list-group-item" v-for="(item,index) in list" :key="index">
+                <span class="badge">{{ item.user }}评论</span>
+                {{ item.text }}
+            </li>
+        </ul>
+
+    </div>
+    <template id="com">
+        <div>
+            <div class="form-group">
+                <label>
+                    评论人：
+                </label>
+                <input type="text" class="form-control" v-model="user">
+            </div>
+            <div class="form-group">
+                <label>
+                    评论内容：
+                </label>
+                <textarea class="form-control" v-model="text"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="button" value="发表评论" class="btn btn-primary" @click="add">
+            </div>
+
+        </div>
+    </template>
+    <script>
+        let cmt = {
+            template: '#com',
+            data() {
+                return {
+                    user: '',
+                    text: ''
+                }
+            },
+            methods: {
+                add() {
+                    let commit = {
+                        id: Date.now(),
+                        user: this.user,
+                        text: this.text
+                    }
+                    let list = JSON.parse((localStorage.getItem('cmts') || '[]'))
+                    list.unshift(commit);
+
+                    localStorage.setItem('cmts', JSON.stringify(list));
+
+                    this.user = this.text = '';
+                    this.$emit('func')
+                }
+            }
+        }
+        const app = new Vue({
+            el: '.app',
+            data: {
+                list: []
+            },
+
+            created() {
+                this.load()
+            },  
+            methods: {
+                load() {
+                    this.list = JSON.parse((localStorage.getItem('cmts') || '[]'));
+                }
+            },
+            components: {
+                cmt
+            }
+        })
+    </script>
+</body>
+
+</html>

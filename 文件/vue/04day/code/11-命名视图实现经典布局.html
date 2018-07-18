@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../lib/vue-2.4.0.js"></script>
+    <script src="../../lib/vue-router-3.0.1.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .top {
+            width: 100%;
+            height: 100px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            height: 500px;
+        }
+        .left {
+            flex: 2;
+            border: 1px solid #ccc;
+        }
+        .main {
+            flex: 8;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <router-view></router-view>
+        <div class="container">
+            <router-view name="left"></router-view>
+            <router-view name="main"></router-view>
+        </div>
+    </div>
+    <template id="top">
+        <div class="top">
+            <h1>这个是顶部</h1>
+        </div>
+    </template>
+    <template id="left">
+        <div class="left">
+            <h1>这个是侧边</h1>
+        </div>
+    </template>
+    <template id="main">
+        <div class="main">
+            <h1>这个是中间</h1>
+        </div>
+    </template>
+    <script>
+        const app = new Vue({
+            el: '.app',
+            data: {},
+            methods: {},
+            router: new VueRouter({
+                routes: [{
+                    path: '/',
+                    components: {
+                        default: {
+                            template: '#top'
+                        },
+                        left: {
+                            template: '#left'
+                        },
+                        main: {
+                            template: '#main'
+                        }
+                    }
+                }]
+            })
+        })
+    </script>
+</body>
+
+</html>

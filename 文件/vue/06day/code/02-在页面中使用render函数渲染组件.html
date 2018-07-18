@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <script src="../../lib/vue-2.4.0.js"></script>
+    </head>
+    <body>
+        <div class="app">
+        </div>
+
+        <template id="login">
+            <h1>这个是登录组件</h1>
+        </template>
+        <script>
+            const app = new Vue({
+                el: '.app',
+                data: {},
+                methods: {},
+                render: function (createElement) {
+                    // createElement 是一个方法，调用他，能够把指定的组件模板，渲染为 HTML结构
+                    return createElement({
+                        template: '#login'
+                    })
+                }
+            })
+        </script>
+    </body>
+</html>

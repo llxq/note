@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../lib/vue-2.4.0.js"></script>
+    <script src="../../lib/vue-router-3.0.1.js"></script>
+    <style>
+        /* 设置当前 选中的路由的样式 */
+
+        .router-link-active,
+        .myactive {
+            width: 100px;
+            height: 30px;
+            background-color: #98fb98;
+            border: 1px dashed #ccc;
+        }
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(150px);
+        }
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 1s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <!-- <a href="#/login">登录</a> -->
+        <!-- <a href="#/register">注册</a> -->
+
+        <!-- vue-router提供的元素 -->
+        <router-link to="/login">登录</router-link>
+        <router-link to="/register">注册</router-link>
+        <transition mode="out-in">
+            <router-view></router-view>
+        </transition>
+    </div>
+    <script>
+        // 当导入 Vue-router 包之后，在window全局对象中，就有了一个 路由的构造函数，叫做：VueRouter
+        // 在 new 路由对象的时候，可以为 构造函数，传递一个配置对象
+
+        const app = new Vue({
+            el: '.app',
+            data: {},
+            methods: {},
+            router: new VueRouter({
+                routes: [{
+                        path: '/',
+                        redirect: '/login'
+                    },
+                    {
+                        path: '/login',
+                        component: {
+                            template: '<h1>这个是登录组件</h1>'
+                        }
+                    },
+                    {
+                        path: '/register',
+                        component: {
+                            template: '<h1>这个是注册组件</h1>'
+                        }
+                    }
+                ],
+
+                // 可以重新设置当前路由选中的样式
+                // router-link-active 是默认值
+                linkActiveClass: 'myactive'
+
+            })
+        })
+    </script>
+</body>
+
+</html>

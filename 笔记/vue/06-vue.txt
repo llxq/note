@@ -1,0 +1,206 @@
+-> webpack 中的 ulr-loader 的使用
+    -> 安装的包 
+        -> cnpm i url-loader file-loader -D
+            -> 因为 url-loader 内部依赖于 file-loader，所以在配置文件中不需要配置 file-loader
+    -> 在 webpack.config.js 中定义 配置规则
+        -> {
+            test: /\.(jpg|png|gif|jpeg|bmp)$/,
+            use: 'url-loader'
+        }
+    -> 就上面这样的配置 加载出来的图片是以 base64 来加载图片的，一般小图片就转换为 base64
+    -> 所以这个时候我们在 use的值 后面加参数，使用方式 与 get请求 查询参数一样
+        -> 所有的 use 中的 loader 都可以加参数，不过 参数的名称是 固定的
+            -> limit=字节大小 (单位是 byte，改值代表的是图片的大小)
+                -> use: 'url-loader?limit=1234'
+                -> 如果引用的图片，大于或等于给定的limit值，则不会被转换为 base64格式的字符串，如果 图片小于或等于给定的 limit值，则会被转换为 base64
+                -> 当图片大于 limit的值的时候，图片的名字就会变成 hash值，目的是为了区分重名的问题
+            -> name=[name].[exit]   让图片的名字和后缀名 自定义，不是 hash值
+                -> [name]：代表的是：图片的名字，使用本身的名字
+                    -> 中括号里面的值可以自定义
+                -> [exit]：代表的是：图片的后缀名，使用本身的后缀名
+                    -> 中括号里面的值可以自定义
+                -> 有的时候不使用hash值的时候，图片容易重复，这个时候可以
+                    -> name=[hash: 8]-[name].[exit]
+                        -> [hash: 8]：代表在名称前面添加 8位 的hash值
+                        -> [hash: n]：代表 n位hash值，n最大为 32位
+
+
+-> webpack 加载 字体图标
+    -> 拿 bootstrap 举例
+        -> npm i bootstrap@3.3.7 --save
+        -> import 'bootstrap/dist/css/bootstrap.css'
+            -> 如果要通过 路径的形式，去引入 node_modules 中相关的文件，可以直接省略 路径前面的 node_modules 这一层目录，直接写 包的名称加文件路径
+        -> 在 module中匹配 字体规则 使用的 loader 还是 url-loader
+
+
+-> json文件里面 不能写注释！！！！！
+
+
+
+-> webpack 中 babel 的配置
+    -> 在 webpack 中默认只能处理 一部分 es6 的新语法，一些高级的 es6语法，webpack 是处理不了的，这个时候，就需要借助于第三方的 loader 处理这个写 高级语法，使用第三方 loader 将这些高级语法 转换为 低级语法 之后，会把结果交到 webpack 去打包到 bundle.js中
+
+    -> 通过 Babel，可以帮我们将 高级语法转换为 低级语法
+        -> 在webpack中，可以运行如下两套命令，安装两套包，去安装 Basel 相关的loader，两套都需要安装
+            -> 第一套包：cnpm i babel-loader babel-core babel-plugin-transform-runtime -D
+            -> 第二套包：cnpm i babel-preset-env babel-preset-stage-0 -D
+                -> 这些都是语法插件 (babel-preset)
+    -> 打开webpack的配置文件，在 module 节点下的 rules 数组中，添加一个新的匹配规则 
+        -> { 
+            test: /\.js$/,
+            use: 'babel-loader',
+            // 排除，就是说能匹配该正则的，都不转换
+            // node_modules 必须排除，因为转换了 项目不能运行
+            exclude: /node_modules/
+        }
+    -> 在项目的根目录中，新建一个 .babelrc 结尾的文件，这个配置文件属于 json 格式，所以在写 .babelrc 配置的时候，必须符合 json 规则：不能写 注释，字符串必须使用 双引号
+        -> 在 .babelrc 写如下的配置
+            -> {
+                // presets：预设，可以理解为 语法 的意思
+                "presets":["env", "stage-0"],
+                // plugins 配置的是 插件
+                "plugins":["transform-runtime"]
+            }
+    
+
+
+-> Vue实例中的 render方法
+    -> 在普通页面中使用 render函数 渲染组件
+    -> 在 Vue实例中还有一个属性 render
+       -> new Vue({
+           render: function(createElement) {
+               // createElement 是一个方法，调用他，可以把指定的组件模板，渲染为 html 页面
+
+               // 注意：这里 return 的结果，会替换页面中的 el指定的容器，完全替换，里面的所有内容都替换，如果使用 component 注册的组件则不会
+               return createElement({
+                   template: 'html模板'
+               })
+           }
+       }) 
+
+
+
+-> 在webpack中，使用 vue
+    -> 在 main.js在导入 vue文件
+        -> import Vue form 'vue'
+            -> 在webpack中，这样导入的 Vue构造函数，功能不完整，只提供了 runtime-only 的方式，并没有提供，像网页中那样的使用方式
+            -> import 的查找规则 和 require 一样
+                -> 找到 node_modules 文件夹
+                -> 在node_modules找到对应的 包名的文件夹
+                -> 在对应包名文件夹中找到 package.json 的配置文件
+                -> 在 package.json 文件夹中，查找一个 main属性 [main属性指定了这个包在被加载的时候的 入口文件]
+        -> webpack导入的 vue 包功能不完整解决办法
+            -> 修改main属性的值 
+            -> import Vue form 'vue.js包的路径'
+            -> 在 webpac.config.js 中添加一个节点 resolve (决定)，在 main.js中导入包的时候还是 import Vue form 'vue'
+                -> resolve: {
+                    alias: {
+                        // 意思是：如果你导入的包 是以 vue 结尾的，就给你导入后面路径的包
+                        // 就是设置vue被导入之后包的路径
+                        "vue$": "vue/dist/vue.js"
+                    }
+                }
+
+
+    -> 使用 import导入 vue模块定义 模板
+        -> 新建一个 .vue 结尾的文件
+            -> 该文件由三部分组成
+                -> <template></template>
+                -> <style></style>
+                -> <script></script>
+        -> 在 main.js中导入 该组件
+            -> import login from './login.vue'
+        -> 默认 webpack 无法打包 .vue 文件，需要安装相关的 loader
+            -> 安装loader将 .vue结尾的文件 打包
+                -> cnpm i vue-loader vue-template-compiler -D
+                    -> vue-loader 内部依赖于 vue-template-compiler
+        -> 在配置文件中新增 loader 配置项
+            -> {
+                test: /\.vue$/,
+                use: 'vue-loader'
+            }
+
+        -> 当使用 .vue 文件的时候，只能通过 render 渲染组件
+
+    -> webpack中 如何使用vue
+        -> 安装 vue 的包：cnpm i vue@2.5.13 -S
+        -> 由于在 webpack中，推荐使用 .vue 这个组件模板文件定义组件，所以，需要安装 能够解析这种文件的 loader 
+            -> cnpm i vue-loader@13.3.0 vue-template-compiler@2.5.13 -D
+        -> 在 main.js中 导入 vue 包
+            -> import Vue form 'vue'
+        -> 定义一个 .vue 结尾的组件，组件由三部分组成 template、script、style
+        -> 导入该 .vue结尾的文件
+        -> 创建 vue 实例对象
+            -> new Vue({
+                el: '#app',
+                render: c => c(login)
+            })
+        -> 在页面中创建一个 id 为 app的元素作为我们的 vue实例控制的区域
+        -> 注意需要在 webpack.config.js中新增 loader规则和 resolve
+            -> resolve: {
+                alias: {
+                    'vue$': "vue/dist/vue.js"
+                }
+            }
+
+
+-> webpack 与 vue 和 vue-loader、vue-template-compiler 对应的版本
+   -> webpack：3.10.0
+   -> vue-loader: 13.3.0
+   -> vue-template-compiler: 2.5.13 
+   -> vue：2.5.13
+
+
+
+-> 在.vue文件中，导出 对象，在 script 标签中导出
+    -> export default {
+        data(){return {}},
+        methods:{}
+    }
+
+
+-> es6的 导入 导出
+    -> 导入 
+        -> import 别名 from '路径'  // 导入 default成员
+        -> import from '路径'   // 导入文件
+        -> import {变量名1，变量名2....} from '路径'
+            -> 只能使用 {} 导入，按需导入
+            -> 接收的变量名必须与导出的一致
+            -> 也可以启用别名 使用 as
+        -> import 别名 , {变量名} from '路径'
+    -> 导出
+        -> export default
+            -> 只能导出一次，并且导出一个对象
+        -> export 
+            -> export const a = 3.14
+    
+
+
+-> 在 vue 中使用 vue-router
+    -> 安装 vue-router
+    -> 导入：import VueRouter from 'vue-router'
+    -> 手动安装 vue-router
+        -> Vue.use(VueRouter)
+    -> 在 vue实例中 创建 vue-router对象
+        -> router：new VueRouter({
+            routes: [
+                {
+                    path: '',
+                    component: 导出的模板
+                }
+            ]
+        })
+
+    -> 路由嵌套 router-link的位置要写对
+
+-> style标签的 lang属性和 scoped属性
+    -> 默认的style 里面写的样式是 全局的，就是所有组件中符合条件的都会修改
+    -> 如果想要变成私有的，也就是只有当前模块生效的话，需要给 style 添加一个属性
+        -> <style scoped></style>
+            -> 这样的话 style的样式就只会生效与 当前组件
+            -> 一般 style 标签都会添加 scoped属性
+    -> 默认的 style标签 写的样式只能写 css样式，如果想要写 less 或者 sass，需要给style标签添加一个属性 lang
+        -> <style scoped lang="scss"></style>
+           -> 这样里面就可以写 sass代码了 
+        -> <style scoped lang="less"></style>
+            -> 这样里面就可以写 less代码了

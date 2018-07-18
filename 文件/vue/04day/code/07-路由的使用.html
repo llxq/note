@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../lib/vue-2.4.0.js"></script>
+    <script src="../../lib/vue-router-3.0.1.js"></script>
+</head>
+
+<body>
+    <div class="app">
+        <a href="#/login">登录</a>
+        <a href="#/register">注册</a>
+        <router-view></router-view>
+    </div>
+    <script>
+        // 当导入 Vue-router 包之后，在window全局对象中，就有了一个 路由的构造函数，叫做：VueRouter
+        // 在 new 路由对象的时候，可以为 构造函数，传递一个配置对象
+
+
+        let login = {
+            template: '<h1>这个是登录组件</h1>'
+        }
+        let register = {
+            template: '<h1>这个是注册组件</h1>'
+        }
+
+
+        const routerObj = new VueRouter({
+            routes: [{
+                    path: '/login',
+                    component: login
+                },
+                {
+                    path: '/register',
+                    component: register
+                }
+            ]
+        })
+
+
+        const app = new Vue({
+            el: '.app',
+            data: {},
+            methods: {},
+            router: routerObj
+        })
+    </script>
+</body>
+
+</html>

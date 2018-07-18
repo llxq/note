@@ -1,0 +1,160 @@
+-> 在一个对象中，如果使用外部的变量为属性赋值的话，当属性的名称与对象的名称一致的时候，可以简写   
+    -> {
+        login       // 这样就是  login：login   的简写
+    }
+
+
+-> 父组件 向 子组件 传值
+    -> 在 子组件中(components) 默认是 无法访问到 data 上的数据和 methods 上的方法
+    -> 传递方式：
+        -> 父组件，可以在引用子组件的时候，通过 属性绑定 (v-bind:) 的形式，把 需要传递给子组件的数据，以属性绑定的形式，传递到子组件内部，供子组件使用
+            -> <mycom :自定义名称="需要传递的值"></mycom>
+                -> 这个自定义名称 就是 传递过来的值 的引用
+            -> 然后在子组件中还有个一个属性  props 值是一个数组
+                -> props: ['将上面自定义的名称传递过来即可']
+                    -> 只有在这个数组中定义了才能子组件中，才能使用父组件中的值
+            -> 在 子组件的 template中可以使用 {{ 将上面自定义的名称传递过来即可 }} 来获取
+        -> 注意：如果自定义的名称中 是驼峰命名法，中间需要加上  -
+            -> <mycom :parent-data="msg"></mycom>   // 在 props 中是 parentData
+
+    -> 子组件的data的数据，并不是通过 父组件 传递过来的，而是子组件自身私有的
+    -> props中的数据是 只读的 无法重新赋值，而 data 中的数据是 可读可写的
+
+
+-> 父组件 向 子组件 传递 方法
+   -> 也是通过 属性绑定 的方式传递
+      -> <mycom  @自定义名称="需要传递的方法"></mycom>     
+        -> 这个自定义名称 就是 传递过来的方法的 引用    
+      -> 然后通过 子组件模板中的事件触发
+        -> <a @click.prevent="myclick"></a>
+      -> 在子组件中的 methods 中有一个方法
+        -> methods：{
+            myclick() {
+                // 可以通过 $emit 触发该事件
+                this.$emit('自定义方法名'，后面的参数就是需要触发的方法的参数)
+            }
+        }
+
+
+-> Vue中获取Dom元素和组件
+    -> Vue实例对象中，有一个对象  $refs
+        -> 给元素设置 ref属性，值 可以自定义
+          -> <h1 ref="myref"></h1>
+        -> 然后在 Vue实例中，通过 this.$refs.自定义的名称 来获取该元素
+            -> this.$refs.myref     // 获取的就是上面那个 h1 元素
+        -> 组件也可以使用 ref
+            -> 可以通过 this.$refs.组件中的ref名称.data中的数据/methods中的方法 ，来获取子组件中的数据
+
+
+
+-> 路由
+    -> 什么是路由：
+        -> 前端路由：对于普通的网站，所有的超链接都是URL地址，所有的URL地址都对应服务器上对应的资源
+        -> 后端路由：对于单页面应用程序来说，主要通过URL中的 hash 来实现不同页面之间的切换，同时，hash有一个特点：HTTP请求不会包含hash相关的内容，所以，单页面程序中的页面跳转主要用hash实现
+        -> 在单页面应用程序中，这种通过hash改变来切换页面的方式，称作前端路由
+
+    -> 路由的使用： 
+        -> 首先导入路由的包 vue-router 包
+        -> 导入了包之后，在全局 window 对象中，就有了一个 路由的构造函数，叫做：VueRouter
+        -> 在 new 路由对象的时候，可以为 构造函数 传递一个配置对象
+            -> const routerObj = new VueRouter({
+                routes: [   // 这个配置对象中的 route 表示 路由的匹配规则
+                    // 每个路由规则，都是一个对象，这个规则对象身上，有两个必须的属性
+                    // path：表示 监听那个路由链接地址
+                    // component：表示，如过当前路由 是前面匹配到的 path，则展示 component 属性对应的组件
+                    { path：'请求的地址'，component：组件模板对象 }
+                ] 
+            })
+        -> 将 VueRouter对象的实例绑定到 Vue实例中的一个属性上：router
+            -> new Vue({
+                router: routerObj   // 将路由规则对象，注册到 Vue实例对象上，用来监听 URL地址 的变化，然后展示对应的组件
+            })
+        -> 如果想要在页面上 显示组件中的内容，需要使用一个标签 
+            -> <router-view></router-view>
+                -> 这是 Vue-router 提供的元素，专门用来当做占位符的，将来，路由规则，匹配到的组件，将会展示到这个 元素上
+        -> Vue-router官方还提供了一个元素：router-link，用来变换 锚点
+            -> <router-link to="/路径">登录</router-link>
+            -> router-link默认渲染为 a 标签
+                -> 如果想要他渲染为其他标签：使用 tag 绑定值即可
+                -> 无论渲染为什么标签，都可以点击
+        -> 重定向：如果想要默认显示某个组件，可以使用 重定向 (redirect)
+            -> { path：'/' , redirect: '重定向的地址' }
+                -> { path：'/', redirect: '/login' }
+        -> 当点击切换路由的时候，会在 router-link渲染的 标签上添加 calss属性，值为：router-link-exact-active     router-link-active
+            -> 这个时候，我们就可以利用这些 类名 来给当前的元素添加样式
+        -> 在 VueRouter 实例中，有一个属性 linkActiveClass，可以通过 该属性 来设置 当前激活的路由的 router-link的样式
+            -> new VueRouter({
+                router: [],
+                linkActiveClass: '自定义的class的名称'
+            })
+ 
+    -> 路由的参数
+        -> 使用 query 方式传递参数，在 route-link 的地址后面加上需要传递的参数
+            -> <route-link to="/login?name='这就是传递的参数'&id=10"></rote-link>
+                -> 可以传递多个值
+            -> 在 component对象 中，有一个值   this.$route
+                -> {
+                    template: '<a>asdfsdf</a>',
+                    created() {
+                        // 里面有一个 对象
+                        console.log(this.$route)
+                        // 该对象中有很多属性
+                        this.$route.fullPath：拿到全路径  /login?name='...'
+                        this.$rote.path：拿到路由的路径  /login
+                        this.$rote.query：拿到查询参数
+                    }
+                }
+        -> 使用 params 传参
+            -> 就是在 路由对象的 route属性上的 path 路径 修改为  /login/:参数
+            -> 然后在 router-link中的地址填写的时候  /login/值  即可
+                -> {path：'/login/:id'}
+                -> <router-link to="/login/12"></router-link>
+                    -> 就像打与是 ：/login?id=12
+            -> 获取值：通过 VueRouter中的 params 获取的对象
+                -> this.$route.params  // 这个就是 id=12
+            -> 可以传递多个值
+            -> 这个时候重定向的话，redirect 的值应该与route-link的值对应
+               -> <route-link to='/login/12'></route-link> 
+               -> redirect: '/login/值' // 后面的 值就是 前面的 path 定义的占位符的值
+               -> {path：'/login/:id'}  // 当重定向的时候 id 的值就是 redirect的值
+        
+        -> 使用 children属性 实现路由嵌套
+            -> 在路由(routes) 中，每一块路由，还有一个属性，children
+                -> routes: [
+                    {
+                        path: '',
+                        component: '',
+                        children: [
+                            {   // 这个就是当前路由下的子路由，用法一样
+                                path: '',   // 路由路径 不带 斜线(/)
+                                component: ''
+                            }
+                        ]
+                    }
+                ]
+                -> path 的地址 如果加上了  /  则在 子路由中访问的地址 
+                    -> 父路由地址：/account
+                    -> 子路由地址：/login 
+                -> path 的地址 如果没加上  /  则在 子路由中访问的地址
+                    -> 父路由地址：/account
+                    -> 子路由地址：/account/login 
+                -> / 其实就是代表的 根路径
+                -> 尽量不加上  /
+            -> 在 路由显示的组件模块中，再次定义一个 router-view 用来显示 子路由
+            
+
+        -> 命名视图
+            -> 在路由配置中 除去path 和 component 之外，还有一个 components
+                -> {
+                    path: '',                 
+                    components: {
+                        default: {如果是匹配到当前的 path，则默认显示该组件}
+                        router-view name的值：{显示的组件}
+                            // 也就是说如果匹配到了当前 path，则吧该组件显示到 router-view name为对应值的地方
+                        "login": {
+                            template: ''
+                        }
+                    }
+                }
+        -> router-view 是可以起名字的，给 name 属性添加值即可
+           -> 通过 components 可以设置不同 name显示不同的组件 

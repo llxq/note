@@ -178,7 +178,7 @@
 						c as ccc
 					}
 		-> 导出的时候可以全部导出
-			-> export * as 别名 from 'js文件路径'
+			-> import * as 别名 from 'js文件路径'
 				-> 访问的时候使用：别名访问.变量名
 		-> 只有在模块中加了 default 的，在导入的时候才不需要加 花括号
 			-> export default 值
